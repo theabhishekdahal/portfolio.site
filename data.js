@@ -17,6 +17,7 @@ const portfolioData = {
         { name: "about", href: "#about", type: "internal" },
         { name: "experience", href: "#experience", type: "internal" },
         { name: "education", href: "#education", type: "internal" },
+        { name: "notes", href: "/notes/", type: "external" },
         { name: "blogs", href: "https://medium.com/@theabhishekdahal", type: "external" },
         { name: "resume", href: "https://abhishekdahal.me/Static/Resume%202025.pdf", type: "external" }
     ],
