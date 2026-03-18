@@ -6,71 +6,54 @@
 <title>Chapter 1 — Mutual Funds Q&A</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink-h:#1a2f5e; --ink-b:#1e2d3d; --ink-arrow:#3b3fa8; --ink-ref:#2a7a6e;
-  --lh:36px; --header-h:calc(var(--lh)*3);
-}
+:root{--ink-h:#1a2f5e;--ink-b:#1e2d3d;--ink-arrow:#3b3fa8;--ink-ref:#2a7a6e;--lh:36px;--header-h:calc(var(--lh)*3);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#f5ede0;background-image:radial-gradient(ellipse at 25% 25%,rgba(255,240,215,.9) 0%,transparent 55%),radial-gradient(ellipse at 75% 75%,rgba(250,230,205,.7) 0%,transparent 50%);font-family:'Nunito',sans-serif;padding:40px 0 80px;}
-.page{width:210mm;min-height:297mm;background:#fff;margin:36px auto;position:relative;overflow:hidden;border-radius:10px;box-shadow:0 0 0 .5px rgba(180,190,210,.35),0 2px 8px rgba(120,140,170,.10),0 10px 32px rgba(100,120,155,.13),0 28px 80px rgba(80,100,140,.09);padding:var(--header-h) 16mm 16mm 38mm;}
-.page::before{display:none;}
+body{background:#0a192f;font-family:'Nunito',sans-serif;padding:40px 0 80px;}
+.page{width:210mm;min-height:297mm;background:#fff;margin:36px auto !important;position:relative;overflow:visible;border-radius:10px;box-shadow:0 0 0 .5px rgba(180,190,210,.35),0 2px 8px rgba(120,140,170,.10),0 10px 32px rgba(100,120,155,.13),0 28px 80px rgba(80,100,140,.09);padding:var(--header-h) 16mm 16mm 34mm;}
 .page::after{content:'';position:absolute;top:0;left:33mm;bottom:0;width:1px;background:linear-gradient(to bottom,transparent 0%,rgba(210,90,90,.32) 5%,rgba(210,90,90,.32) 95%,transparent 100%);pointer-events:none;z-index:3;}
 .sep-line{position:absolute;top:var(--header-h);left:0;right:0;height:1px;background:linear-gradient(to right,rgba(210,90,90,.30),rgba(155,175,210,.20) 25%,rgba(155,175,210,.20) 75%,rgba(210,90,90,.30));z-index:4;}
 .page-header{position:absolute;top:0;left:0;right:0;height:var(--header-h);z-index:5;display:flex;align-items:center;padding:0 16mm 0 38mm;justify-content:space-between;}
-.page-title{font-family:'Playfair Display', Georgia, serif;font-size:28px;font-weight:700;font-style:italic;color:var(--ink-h);line-height:1;letter-spacing:-.3px;}
-.pg-tag{font-family:'Caveat', cursive;font-size:14px;font-weight:400;color:rgba(26,47,94,.30);align-self:flex-end;padding-bottom:6px;}
-.chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat', cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
+.page-title{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;font-style:italic;color:var(--ink-h);line-height:1;}
+.pg-tag{font-family:'Caveat',cursive;font-size:14px;font-weight:400;color:rgba(26,47,94,.30);align-self:flex-end;padding-bottom:6px;}
+.chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat',cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
 .page-content{position:relative;z-index:2;}
-
-/* QUESTION CARD */
-.qcard{position:relative;z-index:10;border-radius:10px;padding:12px 16px 12px;margin-bottom:0;margin-top:0;}
+.qcard{position:relative;z-index:10;border-radius:10px;padding:12px 16px;margin-bottom:0;}
 .qcard::before{content:'';position:absolute;inset:0;background:#f3f5fc;border-radius:10px;z-index:-1;}
 .qcard-label{font-size:9px;font-weight:800;color:rgba(26,47,94,.35);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;}
 .qcard-body{font-size:13.5px;font-weight:400;color:#1a2140;line-height:1.78;}
 .qcard-body strong{font-weight:700;}
 .qcard-body em{font-style:italic;color:rgba(26,33,64,.6);font-size:12.5px;}
-
-/* table inside question */
 .qdata{width:100%;border-collapse:collapse;font-size:12.5px;color:#1a2140;margin-top:10px;}
 .qdata td{padding:3.5px 6px 3.5px 0;line-height:1.55;border:none;vertical-align:middle;}
 .qdata td.r{text-align:right;min-width:90px;padding-right:0;}
 .qdata .qh td{font-size:9.5px;font-weight:800;color:rgba(26,47,94,.38);letter-spacing:.7px;text-transform:uppercase;border-bottom:1.5px solid rgba(26,47,94,.15);padding-bottom:5px;}
-
-/* ul inside question */
 .qcard ul{margin:8px 0 0;padding:0;list-style:none;}
 .qcard ul li{font-size:12.5px;color:#1a2140;line-height:1.72;padding-left:16px;position:relative;}
 .qcard ul li::before{content:'–';position:absolute;left:2px;color:rgba(26,47,94,.3);}
-
-/* required parts */
 .qparts{margin-top:8px;}
 .qparts span{display:flex;align-items:baseline;gap:4px;font-size:12.5px;color:#1a2140;line-height:1.75;}
 .qparts span span{display:inline;line-height:inherit;}
 .qparts .pl{font-weight:700;color:rgba(26,47,94,.5);white-space:nowrap;flex-shrink:0;}
-.qparts .pl-head{font-weight:700;color:rgba(26,47,94,.6);display:block;margin-bottom:2px;}
-
-/* answer line */
 .qans{display:block;font-size:11px;font-weight:700;color:rgba(26,92,85,.55);letter-spacing:.8px;margin-top:8px;padding:4px 0 0;}
-
-/* TOGGLE BUTTONS */
-.toggle-row{display:flex;gap:8px;margin-top:10px;margin-bottom:0;position:relative;z-index:10;flex-wrap:wrap;}
+.toggle-row{display:flex;gap:8px;margin-top:10px;position:relative;z-index:10;flex-wrap:wrap;}
 .tbtn{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 13px;border-radius:20px;border:none;cursor:pointer;transition:all .18s;}
 .tbtn-ans{background:rgba(26,92,85,.13);color:#1a5c55;}
 .tbtn-tip{background:rgba(140,85,10,.12);color:#6b4000;}
 .tbtn-prac{background:rgba(26,47,94,.10);color:#1a2f5e;}
 .tbtn-on{opacity:.45;}
-
-/* ANSWER BLOCK */
 .ans-block{position:relative;z-index:2;}
 .ans-sep{display:none;}
-
-/* answer text rows — snap to ruled grid */
-
-.ans-row{display:block;height:var(--lh);font-size:15px;font-family:'Lora', Georgia, serif;color:var(--ink-b);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
-.ans-row-fr{display:flex;align-items:center;min-height:calc(var(--lh)*2);font-size:15px;font-family:'Lora', Georgia, serif;color:var(--ink-b);position:relative;z-index:2;flex-wrap:wrap;gap:6px;padding:calc((var(--lh) - 22px)/2) 0;}
-.arrow-note{display:block;height:var(--lh);font-size:15px;font-family:'Lora', Georgia, serif;font-weight:600;color:var(--ink-arrow);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
-.bullet-arrow{display:block;height:var(--lh);font-size:15px;font-family:'Lora', Georgia, serif;color:var(--ink-ref);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
-table.ntable{width:100%;border-collapse:collapse;font-family:'Lora', Georgia, serif;font-size:14.5px;color:var(--ink-b);position:relative;z-index:2;;margin-top:0;margin-bottom:0;}
-table.ntable th{font-family:'Lora', Georgia, serif;font-size:13.5px;font-weight:700;color:var(--ink-h);height:var(--lh);line-height:var(--lh);padding:0 8px;text-align:left;border-top:1.5px solid rgba(26,47,94,.28);border-bottom:1.5px solid rgba(26,47,94,.28);background:rgba(26,47,94,.06);white-space:nowrap;box-sizing:border-box;vertical-align:middle;}
+.ans-row{display:block;height:var(--lh);font-size:15px;font-family:'Lora',Georgia,serif;color:var(--ink-b);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
+.ans-row-fr{display:flex;align-items:center;min-height:calc(var(--lh)*2);font-size:15px;font-family:'Lora',Georgia,serif;color:var(--ink-b);position:relative;z-index:2;flex-wrap:wrap;gap:6px;padding:calc((var(--lh) - 22px)/2) 0;}
+.arrow-note{display:block;height:var(--lh);font-size:15px;font-family:'Lora',Georgia,serif;font-weight:600;color:var(--ink-arrow);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
+.bullet-arrow{display:block;height:var(--lh);font-size:15px;font-family:'Lora',Georgia,serif;color:var(--ink-ref);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
+.note-row{display:block;font-size:14px;font-family:'Lora',Georgia,serif;font-style:italic;color:#1e2d3d;line-height:1.65;padding:3px 0 2px;position:relative;z-index:2;}
+.note-row.tutorial{color:#1a6b7a;}
+.hl{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:rgba(195,145,15,.65);text-underline-offset:3px;}
+.hl-g{color:#1a5c30;text-decoration:underline;text-decoration-color:rgba(20,125,65,.55);text-underline-offset:2px;}
+.hl-r{color:#8b1a1a;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:rgba(175,30,30,.52);text-underline-offset:3px;}
+table.ntable{width:100%;border-collapse:collapse;font-family:'Lora',Georgia,serif;font-size:14.5px;color:var(--ink-b);position:relative;z-index:2;margin-top:0;margin-bottom:0;}
+table.ntable th{font-family:'Lora',Georgia,serif;font-size:13.5px;font-weight:700;color:var(--ink-h);height:var(--lh);line-height:var(--lh);padding:0 8px;text-align:left;border-top:1.5px solid rgba(26,47,94,.28);border-bottom:1.5px solid rgba(26,47,94,.28);background:rgba(26,47,94,.06);white-space:nowrap;box-sizing:border-box;vertical-align:middle;}
 table.ntable th.r{text-align:right;}
 table.ntable td{height:var(--lh);line-height:var(--lh);padding:0 8px;border:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box;vertical-align:middle;}
 table.ntable td.r{text-align:right;}
@@ -79,42 +62,133 @@ table.ntable tbody tr:nth-child(even) td{background:rgba(26,47,94,.028);}
 table.ntable tr.tot td{background:rgba(26,47,94,.06)!important;font-weight:700;border-top:1.5px solid rgba(26,47,94,.28)!important;}
 table.ntable tr.dtot td{background:rgba(26,92,85,.07)!important;font-weight:700;border-top:2.5px double rgba(26,47,94,.45)!important;}
 table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
-.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;font-size:13px;font-family:'Lora', Georgia, serif;line-height:1.2;color:inherit;position:relative;top:1px;}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;font-size:13px;font-family:'Lora',Georgia,serif;line-height:1.2;color:inherit;position:relative;top:1px;}
 .fr .num{border-bottom:1.5px solid currentColor;padding:0 3px 1px;white-space:nowrap;}
 .fr .den{padding:1px 3px 0;white-space:nowrap;}
-
-/* SPECIAL TIP */
+.sqrt{display:inline-flex;align-items:center;vertical-align:middle;margin:0 3px;}
+.sqrt-sign{font-size:1.4em;line-height:1;margin-right:1px;font-family:serif;}
+.sqrt-body{border-top:1.5px solid currentColor;padding:1px 3px 0;display:inline-block;}
 .tip-block{position:relative;z-index:10;border-radius:8px;padding:11px 14px;margin-top:0;}
 .tip-block::before{content:'';position:absolute;inset:0;background:#fffbf0;border-radius:8px;border:1px dashed rgba(180,120,20,.28);z-index:-1;}
 .tip-label{font-size:8.5px;font-weight:800;letter-spacing:2.8px;text-transform:uppercase;color:rgba(140,85,10,.55);display:block;margin-bottom:6px;}
 .tip-body{font-size:12.5px;color:#3a2800;line-height:1.75;}
 .tip-body p{margin-bottom:5px;}
 .tip-body p:last-child{margin-bottom:0;}
-
-/* PRACTICE BOX */
 .prac-block{position:relative;z-index:10;border-radius:8px;margin-top:0;}
 .prac-block::before{content:'';position:absolute;inset:0;background:#f8fff8;border-radius:8px;border:1px dashed rgba(26,92,85,.25);z-index:-1;}
 .prac-label{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(26,92,85,.5);display:block;padding:10px 14px 6px;}
 .prac-lines{padding:0 14px 10px;}
 .prac-line{display:block;height:var(--lh);border-bottom:1px solid rgba(26,92,85,.15);}
-
-/* spacer between two questions on same page */
-.qgap{display:block;height:var(--lh);}
 .breath{display:block;height:calc(var(--lh)*0.5);}
-.grid-snap{display:block;height:var(--lh);}
-
-/* MOBILE */
+.qgap{display:block;height:var(--lh);}
 @media(max-width:800px){
-  :root{--lh:34px;}
-  body{padding:0 0 40px;}
-  .page{width:100%!important;min-height:unset!important;margin:0 0 3px!important;border-radius:0!important;box-shadow:none!important;border-bottom:2px solid rgba(210,185,150,.5);padding:var(--header-h) 16px 16px 18px!important;}
-  .page::after{left:12px!important;}
-  .page-title{font-family:'Playfair Display', Georgia, serif;font-size:28px;font-weight:700;font-style:italic;color:var(--ink-h);line-height:1;letter-spacing:-.3px;}
-  .chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat', cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
-  .page-header{padding:0 16px 0 18px!important;}
-  table.ntable td,table.ntable th{white-space:normal!important;font-size:14px!important;height:auto!important;line-height:1.6!important;padding:6px 8px!important;vertical-align:middle!important;}
-  .ans-row-fr{min-height:calc(var(--lh)*2)!important;flex-wrap:wrap!important;height:auto!important;}
-  .ans-row{height:auto!important;min-height:var(--lh);white-space:normal!important;line-height:1.6;overflow:visible!important;}
+  :root{ --lh:30px; }
+
+  /* ── BODY & PAGE ── */
+  body{ padding:0 0 80px; background:#0a192f; }
+  .page{
+    width:100%!important; min-height:100vh!important;
+    margin:0 0 6px!important; border-radius:0!important;
+    box-shadow:none!important;
+    border-bottom:3px solid rgba(100,120,160,.18);
+    padding:var(--header-h) 14px 24px 14px!important;
+  }
+  /* No red margin line on mobile — too narrow */
+  .page::after{ display:none!important; }
+  .chapter-tab{ display:none!important; }
+
+  /* ── HEADER ── */
+  :root{ --header-h:calc(var(--lh)*2); }
+  .page-header{ padding:0 14px!important; }
+  .page-title{ font-size:17px!important; letter-spacing:-.3px; }
+  .pg-tag{ font-size:12px!important; }
+
+  /* ── QUESTION CARD ── */
+  .qcard{ padding:10px 12px!important; }
+  .qcard-body{ font-size:13px!important; line-height:1.72!important; }
+  .qcard ul li{ font-size:12.5px!important; }
+  .qparts span{ font-size:12.5px!important; }
+
+  /* ── ANSWER ROWS ──
+     Each row: auto height, wraps naturally.
+     Hanging indent so continuation lines align after the first char.  */
+  .ans-row{
+    height:auto!important; min-height:var(--lh);
+    white-space:normal!important; overflow:visible!important;
+    font-size:14px!important; line-height:1.65;
+    display:block!important;
+    padding-left:1em!important; text-indent:-1em!important;
+    margin-bottom:2px;
+  }
+  /* Fraction rows: flex wrap, baseline aligned */
+  .ans-row-fr{
+    height:auto!important; min-height:auto!important;
+    display:flex!important; flex-wrap:wrap!important;
+    align-items:center!important; gap:4px 6px!important;
+    padding:4px 0!important;
+    font-size:14px!important;
+    overflow:visible!important;
+  }
+  /* W.N. / step labels */
+  .arrow-note,.bullet-arrow{
+    height:auto!important; min-height:var(--lh);
+    white-space:normal!important; overflow:visible!important;
+    font-size:13.5px!important; line-height:1.65;
+    display:block!important;
+    padding-bottom:1px;
+  }
+
+  /* ── FRACTIONS ──
+     On mobile, show fractions larger and stacked with clear bar */
+  .fr{
+    font-size:12.5px!important;
+    margin:0 3px!important;
+    vertical-align:middle!important;
+  }
+  .fr .num{ padding:0 4px 2px!important; }
+  .fr .den{ padding:2px 4px 0!important; }
+
+  /* ── SQRT ── */
+  .sqrt-sign{ font-size:1.3em!important; }
+  .sqrt-body{ font-size:12.5px!important; }
+
+  /* ── TABLES ── already good, minor tweaks */
+  table.ntable{
+    font-size:13.5px!important;
+  }
+  table.ntable td, table.ntable th{
+    white-space:normal!important;
+    font-size:13px!important;
+    height:auto!important;
+    line-height:1.55!important;
+    padding:5px 8px!important;
+    vertical-align:middle!important;
+  }
+
+  /* ── NOTES ── */
+  .note-row{ font-size:12.5px!important; line-height:1.6!important; }
+
+  /* ── TOGGLE BUTTONS ── */
+  .toggle-row{ margin-top:8px!important; gap:6px!important; }
+  .tbtn{ font-size:9.5px!important; padding:3px 11px!important; }
+
+  /* ── SPECIAL / PRACTICE BLOCKS ── */
+  .tip-block, .prac-block{ padding:9px 12px!important; }
+  .tip-body{ font-size:12px!important; }
+
+  /* ── ANS BLOCK snap padding off on mobile ── */
+  .ans-block{ padding-top:0!important; }
+
+  /* ── NAV BAR bigger touch targets ── */
+  #page-nav{
+    padding:10px 18px!important;
+    bottom:16px!important;
+  }
+  #page-nav button{
+    width:36px!important; height:36px!important;
+    font-size:16px!important;
+  }
+  #nav-info{ font-size:14px!important; }
 }
 @page{size:A4;margin:0;}
 @media print{
@@ -122,15 +196,42 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   .toggle-row{display:none!important;}
   .ans-block,.tip-block,.prac-block{display:block!important;}
   .page{width:210mm!important;min-height:0!important;height:auto!important;margin:0!important;padding:102px 16mm 16mm 38mm!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;page-break-after:always!important;break-after:page!important;}
-  .page::before{display:none!important;}
-  .chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat', cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
+  .chapter-tab{display:none!important;}
 }
 
-/* Tutorial note */
+.sqrt{display:inline-flex;align-items:center;vertical-align:middle;margin:0 3px;}
+.sqrt-sign{font-size:1.4em;line-height:1;margin-right:1px;font-family:serif;}
+.sqrt-body{border-top:1.5px solid currentColor;padding:1px 3px 0;display:inline-block;}
 
+/* ── NAV BAR ── */
+#page-nav{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;
+  background:rgba(10,25,47,0.92);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  border-radius:40px;padding:8px 16px;
+  z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.45);
+  font-family:'Nunito',sans-serif;
+}
+#page-nav button{
+  background:rgba(255,255,255,.10);border:none;color:#ccd6f6;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  width:32px;height:32px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+#page-nav button:hover{background:rgba(255,255,255,.22);}
+#page-nav button:disabled{opacity:.3;cursor:default;}
+#nav-info{color:#8892b0;font-size:13px;font-weight:600;min-width:60px;text-align:center;}
+#nav-go{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:#ccd6f6;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  width:42px;height:28px;border-radius:6px;text-align:center;
+  outline:none;padding:0 4px;
+}
+#nav-go::-webkit-inner-spin-button{-webkit-appearance:none;}
 
-.note-row{display:block;font-size:14px;font-family:'Lora',Georgia,serif;font-style:italic;color:#1e2d3d;line-height:1.65;padding:3px 0 2px;position:relative;z-index:2;}
-.note-row.tutorial{color:#1a6b7a;}
 </style>
 </head>
 <body>
@@ -161,9 +262,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: Rs. 18.1 per unit</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a1',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t1',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p1',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a1" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t1" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p1" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
@@ -186,7 +287,10 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="breath"></div>
 <div class="tip-block" id="t1" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>All values are already at market value — just plug in. The one trap: "Size of scheme = Rs. 100 lacs" is a distractor. Always divide by the stated outstanding units, not the scheme size.</p></div>
+  <div class="tip-body">
+    <p>This is your baseline NAV question — all values are already at market value, so there is no revaluation step. Just plug into the formula.</p>
+    <p>The one trap: "Size of the scheme = Rs. 100 lacs" is a distractor. You never use this. You divide by the explicitly stated 10 lacs outstanding shares. Here both numbers happen to be consistent but they will diverge in harder questions.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p1" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -223,9 +327,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: NAV per unit = Rs. 17.12</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a2',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t2',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p2',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a2" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t2" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p2" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
@@ -255,16 +359,15 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
       <tr class="dtot"><td><span class="hl">NAV per unit</span></td><td class="r">—</td><td class="r"><span class="hl">Rs. 17.12</span></td></tr>
     </tbody>
   </table>
-  <div class="note-row">(1) It is assumed that share purchased by mutual fund rise in same proportion as that of rise in index. (i.e "beta = 1" stock)</div>
-  <div class="note-row">(2) Unlisted bonds and debentures are measured at cost.</div>
-  <div class="note-row">(3) It is assumed that cost of Other fixed income securities is fixed value itself i.e 100.</div>
-  <div class="note-row tutorial">Tutorial note: As MV of bonds &amp; debenture separately given, "realizable value of 106.5 for fixed income securities" is interpreted to be for "other fixed income securities" not bonds &amp; debenture.</div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t2" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Nothing is at market value — every asset needs revaluation before building the NAV table. Four different treatments: listed shares use the index ratio, listed bonds use the given MV, unlisted bonds stay at cost, and other fixed income uses the Rs. 106.50 per Rs. 100 FV scaling factor.</p></div>
+  <div class="tip-body">
+    <p>Unlike Q1, nothing here is at market value — every asset needs revaluation first. Four different treatments happen at once.</p>
+    <p>Listed shares move in the same proportion as the index (beta = 1 assumed). Listed bonds have their own MV given directly. Unlisted bonds have no market price so they stay at cost. Other fixed income securities use the realizable value per Rs. 100 FV as a scaling factor.</p>
+    <p>Tutorial note from solutions: the Rs. 106.50 realizable value applies only to the "other fixed income securities" — not to the bonds and debentures which have their own separate MV stated.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p2" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -304,9 +407,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: Rs. 26.31</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a3',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t3',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p3',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a3" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t3" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p3" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
@@ -334,15 +437,15 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
       <tr class="dtot"><td><span class="hl">NAV per unit</span></td><td class="r"><span class="hl">Rs. 26.31</span></td></tr>
     </tbody>
   </table>
-  <div class="note-row">(1) It is assumed that share purchased by mutual fund rise in same proportion as that of rise in index. (i.e β = 1 stock)</div>
-  <div class="note-row">(2) It is assumed that other fixed income securities were purchased at FV i.e 100 itself.</div>
-  <div class="note-row tutorial">Tutorial note: Concept of ex-dividend price &amp; cum-dividend price — "excluding dividend" → price after book closure date. "cumulative dividend" → price that prevails before book closure date. Investor who buys stock at ex-dividend price isn't eligible for receiving dividend. Ex-dividend price = Cum-dividend price − Dividend per share.</div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t3" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Two new wrinkles on Q2: shares are ex-dividend (dividend is a separate asset — don't double count), and unlisted bonds have a 15% diminution applied (2.5 × 0.85). Operating expenses already paid are gone — do not deduct again.</p></div>
+  <div class="tip-body">
+    <p>Two new twists on Q2. First, shares are given as ex-dividend — dividend has already been stripped from the price. The dividend accrued line is a separate asset; include it normally. Don't double-count.</p>
+    <p>Second, unlisted bonds now have a 15% diminution instead of staying at cost. Write them down: 2.5 × 0.85 = 2.125.</p>
+    <p>Operating expenses of Rs. 2.24 lakhs are already paid during the year — they are gone. Do not deduct them again.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p3" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -377,9 +480,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) Rs.11.551 &nbsp; (ii) Rs.10.751 &nbsp; (iii) Rs.11.551</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a4',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t4',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p4',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a4" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t4" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p4" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
@@ -411,14 +514,17 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
       <tr class="dtot"><td><span class="hl">NAV per unit (i)</span></td><td class="r"><span class="hl">Rs. 11.551</span></td></tr>
     </tbody>
   </table>
-  <div class="ans-row"><span style="color:var(--ink-ref);">Part (ii):</span>&nbsp; Revised NAV = 11.551 – 0.80 = <span class="hl" style="margin-left:4px;">Rs. 10.751</span></div>
+  <div class="ans-row"><span style="color:var(--ink-ref);">Part (ii):</span>&nbsp; Revised NAV =<wbr> 11.551 <wbr>– 0.80 =<wbr> <span class="hl" style="margin-left:4px;">Rs. 10.751</span></div>
   <div class="ans-row">Part (iii): Unreceived interest reduces cash but adds an accrual — net assets unchanged. NAV stays <span class="hl" style="margin-left:4px;">Rs. 11.551</span></div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t4" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Cash balance is not given — construct it from scratch. "Quoted at 175%" means Rs. 175 per Rs. 100 FV. Part (iii) is conceptual: unreceived interest moves from cash to accrued receivable — both are assets, so NAV is unchanged.</p></div>
+  <div class="tip-body">
+    <p>The cash balance is not given — you must construct it. This is the defining skill of "Type 2 — Missing Cash Balance" questions. Start with issue proceeds, subtract investments, add income received, subtract expenses paid.</p>
+    <p>Quoted prices are always a percentage of face value. "175%" means Rs. 175 per Rs. 100 FV share — so 50,000 × Rs. 175 = Rs. 87,50,000.</p>
+    <p>Part (iii) is conceptual: unreceived interest simply moves from cash to accrued interest receivable. Both are assets. Total assets unchanged, NAV unchanged.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p4" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -440,17 +546,18 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: Rs. 9.9</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a5',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t5',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p5',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a5" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t5" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p5" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a5">
   <div class="ans-sep"></div>
-  <div class="ans-row">Capital gain on sale = 63 – 60 = Rs. 3L &nbsp;&nbsp; Dividends earned = Rs. 2L &nbsp;&nbsp; Total realized = Rs. 5L</div>
-  <div class="ans-row">Distribution = 80% of 5L = Rs. 4L &nbsp;&nbsp; Expenses paid = 90% of 8L = Rs. 7.2L</div>
-  <div class="note-row tutorial">T. Note: Realized retained earning of mutual fund = Dividend received + Capital gain on sold securities. Unrealized earning = MV of portfolio − portfolio at cost. Only realized earnings can be distributed.</div>
+  <div class="ans-row">Capital gain on sale =<wbr> 63 <wbr>– 60 =<wbr> Rs. 3L &nbsp; Dividends =<wbr> Rs. 2L</div>
+  <div class="ans-row">Total realized =<wbr> Rs. 5L &nbsp; Distribution =<wbr> 80% of 5L =<wbr> Rs. 4L</div>
+  
+  <div class="note-row">T. Note: Realized retained earning = Dividend received + Capital gain on sold securities. Unrealized earning = MV of portfolio − portfolio at cost. Only realized earnings can be distributed.</div>
   <div class="arrow-note">W.N. 1: Cash Balance</div>
   <table class="ntable">
     <thead><tr><th>Particulars</th><th class="r">Rs. (lakhs)</th></tr></thead>
@@ -466,7 +573,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
       <tr class="tot"><td>Cash Balance</td><td class="r">0.8</td></tr>
     </tbody>
   </table>
-  <div class="arrow-note">NAV Calculation</div>
+  <div class="arrow-note">W.N. 2: NAV Calculation</div>
   <table class="ntable">
     <thead><tr><th>Particulars</th><th class="r">Rs. (lakhs)</th></tr></thead>
     <tbody>
@@ -479,11 +586,14 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
     </tbody>
   </table>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t5" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Three new cash items: flotation costs reduce investable amount, intra-period trades affect cash, and expenses split between paid and accrued. Only realized earnings (dividends + actual sale gains) are distributable — unrealized portfolio appreciation is not.</p></div>
+  <div class="tip-body">
+    <p>The most moving parts so far in cash construction: initial flotation costs reduce the investable amount upfront; intra-period buying and selling changes cash; expenses are split between paid and accrued.</p>
+    <p>Only realized earnings are distributable — dividends received plus capital gain on actual sales. The unrealized appreciation in the Rs. 198L portfolio is not distributable. So distribution = 80% of (2 + 3) = 4L only.</p>
+    <p>The portfolio MV on the last day is Rs. 198L after all trades — take it as given. Do not reconstruct it.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p5" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -511,37 +621,41 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
     No. of units of fund: <strong>800</strong>
     <div class="qparts">
       <span><span class="pl">Calculate:</span></span>
-      <span><span class="pl">(i)</span>&nbsp; NAV of the Fund.</span>
+      <span><span class="pl">(i)</span> NAV of the Fund.</span>
       <span><span class="pl">(ii)</span> Assuming Mr. X, send a cheque of 5,000 to the Fund and Fund Manager purchases 18 shares of C Ltd. and balance is held in bank. Then what will be position of fund.</span>
       <span><span class="pl">(iii)</span> Now suppose on 2 April 2009 at 4.00 p.m. the market price of shares is as follows: A Ltd. 20.30 | B Ltd. 513.70 | C Ltd. 290.80 | D Ltd. 671.90 | E Ltd. 44.20. Then what will be the new NAV.</span>
     </div>
   </div>
   <span class="qans">Ans: (i) NAV = 119.05 &nbsp; (ii) NAV = 119.05 &nbsp; (iii) NAV = Rs. 122.075</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a6',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t6',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p6',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a6" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t6" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p6" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a6">
   <div class="ans-sep"></div>
   <div class="arrow-note">Part (i)</div>
-  <div class="ans-row">MV = (10×19.7)+(50×482.6)+(10×264.4)+(100×674.9)+(30×25.9) = 95,238</div>
+  <div class="ans-row">MV =<wbr> (10×19.7)<wbr>+(50×482.6)<wbr>+(10×264.4)<wbr>+(100×674.9)<wbr>+(30×25.9) =<wbr> 95,238</div>
   <div class="ans-row-fr">NAV = <span class="fr"><span class="num">95,238</span><span class="den">800</span></span> = <span class="hl">Rs. 119.05</span></div>
   <div class="arrow-note">Part (ii): after Mr. X's investment</div>
-  <div class="ans-row">Additional units issued = 5,000 ÷ 119.05 = <span class="hl">42 units</span> &nbsp;&nbsp; New total units = 842</div>
-  <div class="ans-row">C shares added: 18 × 264.4 = Rs. 4,759.2 &nbsp;&nbsp; Residual cash = 5,000 – 4,759.2 = Rs. 240.8</div>
+  <div class="ans-row">Additional units issued =<wbr> 5,000 <wbr>÷ 119.05 =<wbr> <span class="hl">42 units</span> &nbsp; New total units =<wbr> 842</div>
+  <div class="ans-row">C shares added: 18 <wbr>× 264.4 =<wbr> Rs. 4,759.2</div>
+  <div class="ans-row">Residual cash =<wbr> 5,000 <wbr>– 4,759.2 =<wbr> Rs. 240.8</div>
   <div class="ans-row-fr">Revised NAV = <span class="fr"><span class="num">95,238 + 4,759.2 + 240.8</span><span class="den">842</span></span> = <span class="hl">Rs. 119.05</span> (unchanged)</div>
   <div class="arrow-note">Part (iii): 2nd April prices</div>
-  <div class="ans-row">MV = (10×20.3)+(50×513.7)+(28×290.8)+(100×671.9)+(30×44.2) = 1,02,546.4</div>
+  <div class="ans-row">MV =<wbr> (10×20.3)<wbr>+(50×513.7)<wbr>+(28×290.8)<wbr>+(100×671.9)<wbr>+(30×44.2) =<wbr> 1,02,546.4</div>
   <div class="ans-row-fr">New NAV = <span class="fr"><span class="num">1,02,546.4 + 240.8</span><span class="den">842</span></span> = <span class="hl">Rs. 122.075</span></div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t6" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Open-ended mechanics: new investors get fresh units issued at current NAV — not existing units. Issuing units at the exact NAV never changes NAV for existing holders. Remember in Part (iii): C Ltd. now has 28 shares and residual cash of Rs. 240.8 is still in the fund.</p></div>
+  <div class="tip-body">
+    <p>This introduces open-ended fund mechanics. When a new investor puts money in, the fund issues fresh units at the current NAV — not sells existing units. This is why Mr. X gets 42 units and total count goes from 800 to 842.</p>
+    <p>The key insight from Part (ii): issuing new units at the exact current NAV never changes NAV per unit for existing holders. The new money buys a proportionate slice of assets. This is a conceptual question wrapped inside a calculation.</p>
+    <p>In Part (iii) C Ltd. now has 28 shares (original 10 + 18 bought for Mr. X). Don't forget to include the residual cash of Rs. 240.8.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p6" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -574,30 +688,32 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) NAV = Rs. 78.84 &nbsp; (ii) NAV = Rs. 78.84 &nbsp; (iii) NAV = Rs. 82.26</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a7',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t7',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p7',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a7" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t7" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p7" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a7">
   <div class="ans-sep"></div>
   <div class="arrow-note">Part (i): NAV as on 1st Feb 2012</div>
-  <div class="ans-row">MV = (20,000×20)+(30,000×312.4)+(20,000×361.2)+(60,000×505.1) = 4,73,02,000</div>
+  <div class="ans-row">MV =<wbr> (20,000×20)<wbr>+(30,000×312.4)<wbr>+(20,000×361.2)<wbr>+(60,000×505.1) =<wbr> 4,73,02,000</div>
   <div class="ans-row-fr">NAV = <span class="fr"><span class="num">4,73,02,000</span><span class="den">6,00,000</span></span> = <span class="hl">Rs. 78.84</span></div>
   <div class="arrow-note">Part (ii): after Mr. A</div>
-  <div class="ans-row">New units = 30,00,000 ÷ 78.84 = <span class="hl">38,051.75</span></div>
-  <div class="ans-row">M shares bought: 8,000 × 312.4 = Rs. 24,99,200</div>
-  <div class="ans-row">Residual cash = 30,00,000 – 24,99,200 = <span class="hl" style="margin-left:4px;">5,00,800</span></div>
+  <div class="ans-row">New units =<wbr> 30,00,000 <wbr>÷ 78.84 =<wbr> <span class="hl">38,051.75</span></div>
+  <div class="ans-row">M shares bought: 8,000 <wbr>× 312.4 =<wbr> Rs. 24,99,200</div>
+  <div class="ans-row">Residual cash =<wbr> 30,00,000 <wbr>– 24,99,200 =<wbr> <span class="hl" style="margin-left:4px;">5,00,800</span></div>
   <div class="ans-row-fr">Revised NAV = <span class="fr"><span class="num">4,73,02,000 + 24,99,200 + 5,00,800</span><span class="den">6,38,051.75</span></span> = <span class="hl">Rs. 78.84</span> (unchanged)</div>
   <div class="arrow-note">Part (iii): NAV as on 2nd Feb 2012</div>
-  <div class="ans-row">MV = (20,000×20.5)+(38,000×360)+(20,000×383.1)+(60,000×503.9) = 5,19,86,000</div>
+  <div class="ans-row">MV =<wbr> (20,000×20.5)<wbr>+(38,000×360)<wbr>+(20,000×383.1)<wbr>+(60,000×503.9) =<wbr> 5,19,86,000</div>
   <div class="ans-row-fr">NAV = <span class="fr"><span class="num">5,19,86,000 + 5,00,800</span><span class="den">6,38,051.75</span></span> = <span class="hl">Rs. 82.26</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t7" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Same as Q6 but larger scale. Key: Mr. A's money is only partially deployed — Rs. 5,00,800 stays as cash. In Part (iii) M Ltd. has 38,000 shares (30,000 + 8,000 new) and include the residual cash.</p></div>
+  <div class="tip-body">
+    <p>Same mechanics as Q6, just larger numbers. The new wrinkle: Mr. A's Rs. 30L is only partially deployed into shares — the remaining Rs. 5,00,800 stays as cash. In Part (iii) remember M Ltd. now has 38,000 shares (30,000 + 8,000), and include the residual cash balance.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p7" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -617,21 +733,24 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 0.9375% ; 11.25% p.a.</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a8',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t8',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p8',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a8" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t8" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p8" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a8">
   <div class="ans-sep"></div>
   <div class="ans-row-fr">Return (%) = <span class="fr"><span class="num">(NAV₁ – NAV₀) + D₁</span><span class="den">NAV₀</span></span> × 100 = <span class="fr"><span class="num">(16.08 – 16) + 0.04 + 0.03</span><span class="den">16</span></span> × 100 = <span class="hl">0.9375% per month</span></div>
-  <div class="ans-row">Annual return = 0.9375 × 12 = <span class="hl" style="margin-left:4px;">11.25% p.a.</span></div>
+  <div class="ans-row">Annual return =<wbr> 0.9375 <wbr>× 12 =<wbr> <span class="hl" style="margin-left:4px;">11.25% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t8" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Your first return question. D₁ includes both income and capital gain distributions — both are cash flows to the investor, both go in the numerator. Annualize by multiplying by (12 ÷ months) or (365 ÷ days).</p></div>
+  <div class="tip-body">
+    <p>This is your first return question — it introduces the core formula. D₁ includes both income distribution and capital gain distribution; both are cash received by the investor so both go in the numerator.</p>
+    <p>Annualization: if holding period is in months, multiply by (12 ÷ months). If in days, multiply by (365 ÷ days). When the period is short and exact days can be counted, the notes say the exam prefers the days method.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p8" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -643,6 +762,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">9</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 9</span>
   <div class="qcard-body">
@@ -660,25 +780,28 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (1) Rs. 65.78 &nbsp; (2) No Change</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a9',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t9',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p9',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a9" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t9" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p9" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a9">
   <div class="ans-sep"></div>
-  <div class="ans-row">Monthly return = 15% ÷ 12 = 1.25%</div>
-  <div class="ans-row">D₁ = 0.50 + 0.32 = 0.82</div>
-  <div class="ans-row">Let NAV₁ = x</div>
-  <div class="ans-row-fr"><span class="fr"><span class="num">(x – 65.78) + 0.82</span><span class="den">65.78</span></span> = 0.0125 &nbsp;→&nbsp; x – 65.78 = 0.8223 – 0.82 = 0.0023 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">NAV₁ = Rs. 65.78</span></div>
-  <div class="ans-row">Comment: There is no change in NAV. The distributions of Rs. 0.82 exactly offset the return earned, leaving NAV flat.</div>
+  <div class="ans-row">Monthly return =<wbr> 15% <wbr>÷ 12 =<wbr> 1.25%</div>
+  <div class="ans-row">D₁ =<wbr> 0.50 <wbr>+ 0.32 =<wbr> 0.82</div>
+  <div class="ans-row">Let NAV₁ =<wbr> x</div>
+  <div class="ans-row-fr"><span class="fr"><span class="num">(x – 65.78) + 0.82</span><span class="den">65.78</span></span> = 0.0125</div>
+  <div class="ans-row">x <wbr>– 65.78 =<wbr> 0.8223 <wbr>– 0.82 =<wbr> 0.0023</div>
+  <div class="ans-row"><span class="hl">NAV₁ =<wbr> Rs. 65.78</span></div>
+  <div class="note-row">Comment: There is no change in NAV. The distributions of Rs. 0.82 exactly offset the return earned, leaving NAV flat.</div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t9" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>The formula runs in reverse — NAV₁ is the unknown. Rearrange algebraically before plugging in. The "no change" result is intentional: distributing all earnings keeps the NAV perfectly flat.</p></div>
+  <div class="tip-body">
+    <p>The return formula is run in reverse — NAV₁ is the unknown, not the answer. Rearrange algebraically before substituting. The result of "no change" is not a mistake; it is the intended point: when all earnings are distributed out, the NAV stays exactly where it started.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p9" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -700,23 +823,26 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 10.35% p.a.</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a10',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t10',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p10',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a10" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t10" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p10" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a10">
   <div class="ans-sep"></div>
   <div class="ans-row">Since this is a close-ended fund, P₀ and P₁ are market prices (not NAV)</div>
-  <div class="ans-row">P₀ = 18 + 2% of 18 = <span class="hl">Rs. 18.36</span></div>
-  <div class="ans-row">P₁ = 18.50 – 4% of 18.50 = <span class="hl">Rs. 17.76</span></div>
+  <div class="ans-row">P₀ =<wbr> 18 <wbr>+ 2% of 18 =<wbr> <span class="hl">Rs. 18.36</span></div>
+  <div class="ans-row">P₁ =<wbr> 18.50 <wbr>– 4% of 18.50 =<wbr> <span class="hl">Rs. 17.76</span></div>
   <div class="ans-row-fr">Return = <span class="fr"><span class="num">(17.76 – 18.36) + 2.50</span><span class="den">18.36</span></span> × 100 = <span class="hl">10.35% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t10" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Close-ended funds trade at market price, not NAV. P₀ and P₁ are calculated from NAV ± premium/discount — using NAV directly is the classic error. Here the NAV rose but the investor's return was modest because sentiment shifted from 2% premium to 4% discount.</p></div>
+  <div class="tip-body">
+    <p>Close-ended funds trade on the stock exchange, so the investor buys and sells at market price — not at NAV. P₀ and P₁ are market prices calculated from NAV ± premium/discount. Using NAV directly as P₀ and P₁ is the classic mistake here.</p>
+    <p>Notice the fund's NAV actually went up (18 → 18.50) but the investor's return is modest because the market sentiment worsened — it moved from a 2% premium to a 4% discount. The underlying portfolio improved but the investor was hurt by the sentiment shift.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p10" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -728,6 +854,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">11</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 11</span>
   <div class="qcard-body">
@@ -740,9 +867,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) 24.49% &nbsp; (ii) 25.22%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a11',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t11',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p11',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a11" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t11" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p11" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
@@ -751,14 +878,17 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   <div class="arrow-note">Part (i): Cash payout</div>
   <div class="ans-row-fr">Return = <span class="fr"><span class="num">(13 – 12.25) + 1.25 + 1.00</span><span class="den">12.25</span></span> × 100 = <span class="hl">24.49% p.a.</span></div>
   <div class="arrow-note">Part (ii): Reinvestment plan</div>
-  <div class="ans-row">Total distribution = 300 × 2.25 = Rs. 675 &nbsp;→&nbsp; Additional units = 675 ÷ 12.50 = <span class="hl" style="margin-left:4px;">54 units</span></div>
-  <div class="ans-row">Total units = 300 + 54 = 354</div>
+  <div class="ans-row">Total distribution =<wbr> 300 <wbr>× 2.25 =<wbr> Rs. 675 &nbsp;→&nbsp; Additional units =<wbr> 675 <wbr>÷ 12.50 =<wbr> <span class="hl" style="margin-left:4px;">54 units</span></div>
+  <div class="ans-row">Total units =<wbr> 300 <wbr>+ 54 =<wbr> 354</div>
   <div class="ans-row-fr">Return = <span class="fr"><span class="num">(354 × 13) – (300 × 12.25)</span><span class="den">300 × 12.25</span></span> × 100 = <span class="hl">25.22% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t11" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Reinvestment plan gives units instead of cash. Since those units were bought at Rs. 12.50 (below year-end NAV of Rs. 13), return is slightly higher than the cash payout. For Part (ii), unit counts differ — use total basis: (354 × 13) vs (300 × 12.25). No D₁ term — it's already in units.</p></div>
+  <div class="tip-body">
+    <p>Reinvestment plan converts distributions into additional units instead of cash. Since those units were purchased at Rs. 12.50 — lower than the year-end NAV of Rs. 13 — the reinvestment plan yields slightly more.</p>
+    <p>For Part (ii), because the opening and closing unit counts differ, you cannot use the per-unit formula. Switch to total basis: compare total ending value (354 × 13) to total opening investment (300 × 12.25). There is no D₁ term — it has already been converted into units.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p11" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -789,25 +919,32 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: A = 2.858% &nbsp; B = 10.139% &nbsp; C = –23.548%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a12',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t12',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p12',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a12" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t12" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p12" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a12">
   <div class="ans-sep"></div>
-  <div class="ans-row">MF A: units = 50,000÷10.50 = 4,761.9 | held 121 days (Dec1→Mar31) | D = 950</div>
+  <div class="ans-row">MF A: units = 50,000 ÷ 10.50 = 4,761.9</div>
+  <div class="ans-row">held 121 days (Dec1 → Mar31) | D = 950</div>
   <div class="ans-row-fr">Return A = <span class="fr"><span class="num">(4761.9×10.40 + 950) – 50,000</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">365</span><span class="den">121</span></span> × 100 = <span class="hl">2.858% p.a.</span></div>
-  <div class="ans-row">MF B: units = 10,000 | held 90 days (Jan1→Mar31) | D = 1,500</div>
+  <div class="ans-row">MF B: units = 10,000</div>
+  <div class="ans-row">held 90 days (Jan1 → Mar31) | D = 1,500</div>
   <div class="ans-row-fr">Return B = <span class="fr"><span class="num">(10,000×10.10 + 1,500) – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">365</span><span class="den">90</span></span> × 100 = <span class="hl">10.139% p.a.</span></div>
-  <div class="ans-row">MF C: units = 5,000 | held 31 days (Mar1→Mar31) | D = 0</div>
+  <div class="ans-row">MF C: units = 5,000</div>
+  <div class="ans-row">held 31 days (Mar1 → Mar31) | D = 0</div>
   <div class="ans-row-fr">Return C = <span class="fr"><span class="num">(5,000×9.80) – 50,000</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">365</span><span class="den">31</span></span> × 100 = <span class="hl-r">–23.548% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t12" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Three funds, three entry dates, common exit. Count holding days exactly (Dec 1 → Mar 31 = 121 days). Use total basis formula since investment amounts differ. MF C's large negative result is a small 2% NAV drop annualized over just 31 days.</p></div>
+  <div class="tip-body">
+    <p>Three funds, three different entry dates, common exit on 31.03.2010. Each holding period must be counted in exact days for annualization — count carefully: Dec 1 to Mar 31 = 31+31+28+31 = 121 days.</p>
+    <p>Because investment amounts and unit counts differ across funds, use the total basis formula: (Total P₁ – Total P₀) ÷ Total P₀. P₁ = total value of units at closing NAV plus dividends received in cash.</p>
+    <p>MF C's large negative result comes from a small NAV fall amplified enormously by annualizing over just 31 days. A 2% drop over one month becomes –23.5% annualized.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p12" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -842,22 +979,22 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) 19,417.48; 39,603.96; 20,000 &nbsp; (ii) Rs.7,99,068.77 &nbsp; (iii) Rs.10,068.77 &nbsp; (iv) 95; 31; 68 days</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a13',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t13',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p13',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a13" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t13" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p13" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a13">
   <div class="ans-sep"></div>
   <div class="arrow-note">Part (i): Units</div>
-  <div class="ans-row">X = 2,00,000 ÷ 10.30 = <span class="hl">19,417.48 units</span></div>
-  <div class="ans-row">Y = 4,00,000 ÷ 10.10 = <span class="hl">39,603.96 units</span></div>
-  <div class="ans-row">Z = 2,00,000 ÷ 10 = <span class="hl">20,000 units</span></div>
+  <div class="ans-row">X =<wbr> 2,00,000÷10.30 =<wbr> <span class="hl">19,417.48 units</span></div>
+  <div class="ans-row">Y =<wbr> 4,00,000÷10.10 =<wbr> <span class="hl">39,603.96 units</span></div>
+  <div class="ans-row">Z =<wbr> 2,00,000÷10 =<wbr> <span class="hl">20,000 units</span></div>
   <div class="arrow-note">Part (ii): Total NAV on 31.03.2018</div>
-  <div class="ans-row">X: 19,417.48 × 10.25 = Rs. 1,99,029.17</div>
-  <div class="ans-row">Y: 39,603.96 × 10 = Rs. 3,96,039.6 &nbsp;&nbsp; Z: 20,000 × 10.20 = Rs. 2,04,000</div>
-  <div class="ans-row"><span class="hl">Total NAV = Rs. 7,99,068.77</span></div>
+  <div class="ans-row">X: 19,417.48×10.25 =<wbr> Rs. 1,99,029.17</div>
+  <div class="ans-row">Y: 39,603.96×10 =<wbr> Rs. 3,96,039.6 &nbsp;&nbsp; Z: 20,000×10.20 =<wbr> Rs. 2,04,000</div>
+  <div class="ans-row"><span class="hl">Total NAV =<wbr> Rs. 7,99,068.77</span></div>
   <div class="arrow-note">Part (iii): Total Yield</div>
   <table class="ntable">
     <thead><tr><th>Scheme</th><th class="r">Capital Gain</th><th class="r">Dividend</th><th class="r">Total Yield</th></tr></thead>
@@ -868,15 +1005,18 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
       <tr class="dtot"><td>Total</td><td class="r">—</td><td class="r">—</td><td class="r"><span class="hl">Rs. 10,068.77</span></td></tr>
     </tbody>
   </table>
-  <div class="arrow-note">Part (iv): Days held (rearrange: n = Yield ÷ (Investment × yield rate%) × 365)</div>
-  <div class="ans-row">X: n = 5,029.17 × 365 ÷ (2,00,000 × 9.66%) = <span class="hl">95 days</span></div>
-  <div class="ans-row">Y: n = 3,960.4 × 365 ÷ (4,00,000 × 11.66%) = <span class="hl">31 days</span></div>
-  <div class="ans-row">Z: n = 9,000 × 365 ÷ (2,00,000 × 24.15%) = <span class="hl">68 days</span></div>
+  <div class="arrow-note">Part (iv): Days held (rearrange: n =<wbr> Yield <wbr>÷ (Investment <wbr>× yield rate%) <wbr>× 365)</div>
+  <div class="ans-row">X: n =<wbr> 5,029.17×365 <wbr>÷ (2,00,000×9.66%) =<wbr> <span class="hl">95 days</span></div>
+  <div class="ans-row">Y: n =<wbr> 3,960.4×365 <wbr>÷ (4,00,000×11.66%) =<wbr> <span class="hl">31 days</span></div>
+  <div class="ans-row">Z: n =<wbr> 9,000×365 <wbr>÷ (2,00,000×24.15%) =<wbr> <span class="hl">68 days</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t13" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Everything in reverse — yield is given, find days held. Compute total yield amount first, then: n = (Total Yield ÷ Investment) × (365 ÷ yield rate%). "Total NAV" simply means units × current NAV per unit, summed across schemes.</p></div>
+  <div class="tip-body">
+    <p>Everything is in reverse. The annualized yield is given and you need to find how many days the investment was held. You must compute the total yield amount first, then back-calculate the days using: n = (Total Yield ÷ Investment) × (365 ÷ yield rate).</p>
+    <p>"Total NAV" means the total portfolio value across all schemes — simply multiply units held by current NAV per unit for each scheme and sum.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p13" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -919,9 +1059,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) 1,708.82 &nbsp; (ii) Rs.31.07 &nbsp; (iii) 37.68%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a14',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t14',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p14',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a14" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t14" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p14" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
@@ -944,16 +1084,17 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
     </tbody>
   </table>
   <div class="ans-row-fr">(ii) NAV per unit = <span class="fr"><span class="num">1,709</span><span class="den">55</span></span> = <span class="hl">Rs. 31.07</span></div>
-  <div class="ans-row">(iii) Opening NAV assumed = Rs. 20 (cost = MV at purchase, i.e. 2 years ago)</div>
+  <div class="ans-row">(iii) Opening NAV assumed =<wbr> Rs. 20 (cost =<wbr> MV at purchase, i.e. 2 years ago)</div>
   <div class="ans-row-fr">(iii) Return = <span class="fr"><span class="num">(31.07 – 20) + (2+2)</span><span class="den">20</span></span> × <span class="fr"><span class="num">1</span><span class="den">2</span></span> × 100 = <span class="hl">37.68% p.a.</span></div>
-  <div class="note-row">Assumption: It has been assumed that all investments were purchased exactly two years ago so that cost price at that time would be prevailing market price for determining NAV₀.</div>
-  <div class="note-row">W.N. 1: Calculation of expected MP of listed bonds — since current MP of listed bonds isn't available, we use "expected / fair market value" as substitute. Fair MP = PV of perpetuity = A/Y = (Rs. 10,000 × 10.5%) ÷ 8.4% = Rs. 12,500 per bond.</div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t14" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Opening NAV is missing — assume cost = MV at purchase, so opening NAV = Rs. 20. Listed bonds use the perpetuity formula: MV = coupon ÷ required yield = (10,000 × 10.5%) ÷ 8.4% = Rs. 12,500 per bond. Total dividend for Part (iii) = Rs. 2 × 2 years = Rs. 4.</p></div>
+  <div class="tip-body">
+    <p>Opening NAV is missing. The solutions' sticky note says: assume the cost price at purchase equals the market value at that time — so opening NAV = Rs. 20 (total cost ÷ units, with investments assumed to have been at market value when bought 2 years ago).</p>
+    <p>Listed bonds are priced using the perpetuity formula: MV = Annual coupon ÷ Required yield = (Rs. 10,000 × 10.5%) ÷ 8.4% = Rs. 12,500 per bond. Market yield below coupon means the bond trades at a premium.</p>
+    <p>For Part (iii) total dividend = Rs. 2 × 2 years = Rs. 4 per unit. Divide total return by 2 to annualize.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p14" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -973,34 +1114,36 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: NAV as on 31.3.08 = 20.50; as on 31.12.09 = 25.95; as on 31.3.10 = 26.75</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a15',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t15',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p15',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a15" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t15" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p15" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a15">
   <div class="ans-sep"></div>
-  <div class="ans-row">Units grew 10,000 → 11,296.11 with no fresh purchase → reinvestment plan throughout.</div>
-  <div class="note-row">Mr. X has invested 10,000 units during initial offer. But at the time of disposal, he has 11,296.11 units. As no information regarding purchase of additional unit is given in question, Mr. X must have chosen "Reinvestment plan." Otherwise, there is no way that number of units in mutual fund can increase.</div>
-  <div class="arrow-note">W.N. A: NAV on 31.3.2008 (let = x), held 9 months</div>
-  <div class="ans-row">Dividend = 10,000 × 10 × 10% = Rs. 10,000</div>
-  <div class="ans-row">Additional units = 10,000 ÷ x</div>
+  <div class="note-row">Units grew 10,000 → 11,296.11 with no fresh purchase → reinvestment plan throughout.</div>
+  <div class="arrow-note">W.N. A: NAV on 31.3.2008 (let =<wbr> x), held 9 months</div>
+  <div class="ans-row">Dividend =<wbr> 10,000 <wbr>× 10 <wbr>× 10% =<wbr> Rs. 10,000</div>
+  <div class="ans-row">Additional units =<wbr> 10,000 <wbr>÷ x</div>
   <div class="ans-row-fr"><span class="fr"><span class="num">[(10,000 + 10,000/x)×x – 1,00,000]</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">9</span></span> = 1.5333 &nbsp;→&nbsp; 10,000x + 10,000 – 1,00,000 = 45,000</div>
-  <div class="ans-row"><span class="hl">x = NAV = Rs. 20.50</span></div>
-  <div class="arrow-note">W.N. B: NAV on 31.12.2009 (let = y)</div>
-  <div class="ans-row">Units on 31.3.2008 = 10,000 + 10,000÷20.50 = 10,487.8</div>
-  <div class="ans-row">Additional units from 20% dividend = 11,296.11 – 10,487.8 = 808.31</div>
-  <div class="ans-row">Dividend amount = 10,487.8 × 10 × 20% = Rs. 20,975.6</div>
+  <div class="ans-row"><span class="hl">x =<wbr> NAV =<wbr> Rs. 20.50</span></div>
+  <div class="arrow-note">W.N. B: NAV on 31.12.2009 (let =<wbr> y)</div>
+  <div class="ans-row">Units on 31.3.2008 =<wbr> 10,000 <wbr>+ 10,000÷20.50 =<wbr> 10,487.8</div>
+  <div class="ans-row">Additional units from 20% dividend =<wbr> 11,296.11 <wbr>– 10,487.8 =<wbr> 808.31</div>
+  <div class="ans-row">Dividend amount =<wbr> 10,487.8 <wbr>× 10 <wbr>× 20% =<wbr> Rs. 20,975.6</div>
   <div class="ans-row-fr">y = <span class="fr"><span class="num">20,975.6</span><span class="den">808.31</span></span> = <span class="hl">Rs. 25.95</span></div>
-  <div class="arrow-note">W.N. C: NAV on 31.3.2010 (let = z), held 33 months total</div>
+  <div class="arrow-note">W.N. C: NAV on 31.3.2010 (let =<wbr> z), held 33 months total</div>
   <div class="ans-row-fr"><span class="fr"><span class="num">11,296.11×z – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">33</span></span> = 0.7352 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">z = Rs. 26.75</span></div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t15" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>All three NAVs missing — solve sequentially. Units grew without fresh purchase → reinvestment plan. In Step B: the 20% dividend is on 10,487.8 units; the gap to 11,296.11 gives the additional units, from which you derive the NAV. Step C uses the full 33-month holding from day one.</p></div>
+  <div class="tip-body">
+    <p>All three NAVs are missing — you solve for them sequentially. The first insight: units increased without any fresh purchase, so Mr. X must be on the reinvestment plan.</p>
+    <p>Step B is the most delicate. Between 31.3.2008 and 31.12.2009 nothing happens — the unit count stays at 10,487.8. The 20% dividend on 31.12.2009 is declared on that 10,487.8, and the resulting new units close the gap to 11,296.11. From this gap you work out the NAV at which those units were issued.</p>
+    <p>Step C uses the total holding period from the very start (33 months), not just the last leg. Original investment = Rs. 1,00,000 throughout.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p15" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1020,34 +1163,36 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: NAV = Rs. 18.00, Rs. 13.80, Rs. 23.65</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a16',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t16',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p16',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a16" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t16" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p16" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a16">
   <div class="ans-sep"></div>
-  <div class="ans-row">Opening units = 50,000÷10 = 5,000. Final units = 6,271.98 → reinvestment plan. Redemption = 31.3.2013 (inferred).</div>
-  <div class="note-row tutorial">T. Note: Please note that both capital gain distribution and dividend distribution will be reinvested in the reinvestment plan.</div>
-  <div class="note-row tutorial">T. Note: Date of redemption/disposal of 6,271.98 units is not given in question. But, the question has asked for NAV as on 31st March 2013. As there are no other events in this date, we understand that it must be the date of redemption of units.</div>
-  <div class="arrow-note">W.N. A: NAV on 31.03.2011 (let = x), held 9 months</div>
-  <div class="ans-row">Dividend = 5,000 × 10 × 10% = Rs. 5,000</div>
-  <div class="ans-row">Additional units = 5,000 ÷ x</div>
+  <div class="ans-row">Opening units =<wbr> 50,000 <wbr>÷ 10 =<wbr> 5,000</div>
+  <div class="ans-row">Final units =<wbr> 6,271.98 → reinvestment plan. Redemption =<wbr> 31.3.2013 (inferred).</div>
+  <div class="arrow-note">NAV on 31.03.2011 (let =<wbr> x), held 9 months</div>
+  <div class="ans-row">Dividend =<wbr> 5,000 <wbr>× 10 <wbr>× 10% =<wbr> Rs. 5,000</div>
+  <div class="ans-row">Additional units =<wbr> 5,000 <wbr>÷ x</div>
   <div class="ans-row-fr"><span class="fr"><span class="num">[(5,000 + 5,000/x)×x – 50,000]</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">9</span></span> = 1.20 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">NAV = Rs. 18.00</span></div>
-  <div class="arrow-note">W.N. B: NAV on 31.03.2012 (let = y)</div>
-  <div class="ans-row">Units at 31.3.2011 = 5,000 + 5,000÷18 = 5,277.78</div>
-  <div class="ans-row">Units added at 31.3.2012 = 6,271.98 – 5,277.78 = 994.20</div>
-  <div class="ans-row">Total distribution = (5,277.78 × 10 × 20%) + (5,277.78 × 0.60) = 10,555.56 + 3,166.67 = Rs. 13,722.23</div>
+  <div class="arrow-note">NAV on 31.03.2012 (let =<wbr> y)</div>
+  <div class="ans-row">Units at 31.3.2011 =<wbr> 5,000 <wbr>+ 5,000÷18 =<wbr> 5,277.78</div>
+  <div class="ans-row">Units added at 31.3.2012 =<wbr> 6,271.98 <wbr>– 5,277.78 =<wbr> 994.20</div>
+  <div class="ans-row">Total distribution =<wbr> (5,277.78 <wbr>× 10 <wbr>× 20%) <wbr>+ (5,277.78 <wbr>× 0.60)</div>
+  <div class="ans-row">= 10,555.56 <wbr>+ 3,166.67 =<wbr> Rs. 13,722.23</div>
   <div class="ans-row-fr">y = <span class="fr"><span class="num">13,722.23</span><span class="den">994.20</span></span> = <span class="hl">Rs. 13.80</span></div>
-  <div class="arrow-note">W.N. C: NAV on 31.03.2013 (let = z), held 33 months total</div>
+  <div class="arrow-note">NAV on 31.03.2013 (let =<wbr> z), held 33 months total</div>
   <div class="ans-row-fr"><span class="fr"><span class="num">6,271.98×z – 50,000</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">33</span></span> = 0.7150 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">NAV = Rs. 23.65</span></div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t16" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Same as Q15 but capital gain is also reinvested — add both dividend and CG distributions before dividing by NAV to get additional units. Redemption date (31.3.2013) must be inferred from the 33-month total holding period starting 1.7.2010.</p></div>
+  <div class="tip-body">
+    <p>Same structure as Q15 but capital gain distribution is also reinvested alongside the dividend. Add both together before dividing by NAV to get additional units: (20% dividend + Rs. 0.60 CG) per unit × opening units = total reinvestment amount.</p>
+    <p>The redemption date is not stated — infer it as 31.3.2013 since the question asks for NAV on that date and the total holding is 33 months from 1.7.2010.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p16" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1086,16 +1231,16 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: A – 67.64%, B – 73.33%, C – 69.59%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a17',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t17',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p17',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a17" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t17" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p17" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a17">
   <div class="ans-sep"></div>
-  <div class="ans-row">Opening units all plans = 1,00,000÷10 = 10,000. Holding = 1.4.1999 to 31.7.2009 = 124 months.</div>
-  <div class="note-row">Notes/Assumptions: (1) Period from 1st Aug 2008 to 31.7.2009 (1 year time frame) from disposal date has been considered as short date. (2) Purchase rate (cost) for bonus units for tax calculation purpose has been assumed as prevailing NAV at the date of issue of bonus unit. [logic: "Best relief for mutual fund investor."] Alternatively, cost of Rs.10 (FV) or Rs.0 (no cost for bonus) etc can also be considered. But not recommended for exam purpose.</div>
+  <div class="ans-row">Opening units all plans =<wbr> 1,00,000 <wbr>÷ 10 =<wbr> 10,000</div>
+  <div class="ans-row">Holding: 1.4.1999 to 31.7.2009 =<wbr> 124 months</div>
   <div class="arrow-note">Plan A: Mrs. Charu (Dividend Reinvestment)</div>
   <table class="ntable">
     <thead><tr><th>Date</th><th class="r">Open</th><th class="r">Div/unit</th><th class="r">Addl Units</th><th class="r">Close</th></tr></thead>
@@ -1110,18 +1255,25 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   <div class="ans-row">Net realization after STT &amp; STCG (1,144.43 units within 1yr) ≈ Rs. 7,98,969</div>
   <div class="ans-row-fr">Return A = <span class="fr"><span class="num">7,98,969 – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">124</span></span> × 100 = <span class="hl">67.64% p.a.</span></div>
   <div class="arrow-note">Plan B: Mr. Anand (Bonus)</div>
-  <div class="ans-row">31.3.04 (5:4) → 22,500 | 31.3.08 (1:3) → 30,000 | 24.3.09 (1:4) → 37,500 units</div>
+  <div class="ans-row">31.03.04 (5:4) → 22,500 units</div>
+  <div class="ans-row">31.03.08 (1:3) → 30,000 units</div>
+  <div class="ans-row">24.03.09 (1:4) → 37,500 units</div>
   <div class="ans-row">Net realization after STT &amp; STCG (7,500 units within 1yr) ≈ Rs. 8,57,788</div>
   <div class="ans-row-fr">Return B = <span class="fr"><span class="num">8,57,788 – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">124</span></span> × 100 = <span class="hl">73.33% p.a.</span></div>
   <div class="arrow-note">Plan C: Mr. Bacchan (Growth)</div>
-  <div class="ans-row">Units unchanged = 10,000. Realization = 10,000 × 82.07 × (1–0.2%) ≈ Rs. 8,19,058. No STCG (held &gt;1yr).</div>
+  <div class="ans-row">Units unchanged =<wbr> 10,000</div>
+  <div class="ans-row">Realization =<wbr> 10,000 <wbr>× 82.07 <wbr>× (1–0.2%) ≈ Rs. 8,19,058. No STCG (held &gt;1yr).</div>
   <div class="ans-row-fr">Return C = <span class="fr"><span class="num">8,19,058 – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">124</span></span> × 100 = <span class="hl">69.59% p.a.</span></div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t17" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Three plan mechanics plus tax in one question — build each unit table separately first. Bonus unit cost for tax = NAV on date of issue. STCG applies to units acquired within 1 year of 31.7.2009. STT 0.2% is on redemption amount, not gain.</p></div>
+  <div class="tip-body">
+    <p>Three plan mechanics in one question, plus tax. Build each plan's unit table separately before touching returns.</p>
+    <p>For bonus units, the cost for capital gains tax is taken as the NAV on the date of issue — this is the most favorable assumption and the one the notes recommend for exam purposes.</p>
+    <p>STCG applies to units acquired within 1 year of sale (before 1.8.2008 for redemption on 31.7.2009). That means units from 24.3.2009 are short-term. STT of 0.2% is on the redemption amount, not on the gain.</p>
+    <p>The Bonus plan gives the highest return because bonus units are issued at zero cost — any positive NAV on redemption is a pure gain.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p17" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1154,17 +1306,18 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: D – 3.9%, B – 13.12%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a18',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t18',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p18',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a18" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t18" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p18" data-label="Practice">Show Practice</button>
   </div>
 </div>
 
 <div class="ans-block" id="a18">
   <div class="ans-sep"></div>
-  <div class="note-row">Assumption: Dividend plan is assumed to be Dividend Reinvestment Plan.</div>
-  <div class="note-row">Don't repeat mistake — opening unit ≠ Rs. 2,00,000. Plan D = 2,00,000 / 38.2 = 5,235.60 units. Plan B = 2,00,000 / 35.6 = 5,617.98 units.</div>
-  <div class="arrow-note">Plan D: Opening units = 2,00,000 ÷ 38.20 = 5,235.60</div>
+  
+  <div class="note-row">Assumption: Dividend Plan is assumed to be Dividend Reinvestment Plan.</div>
+  <div class="note-row">Don't repeat mistake — opening unit ≠ Rs. 2,00,000. Plan D = 2,00,000÷38.2 = 5,235.60 units. Plan B = 2,00,000÷35.6 = 5,617.98 units.</div>
+  <div class="arrow-note">Plan D: Opening units =<wbr> 2,00,000 <wbr>÷ 38.20 =<wbr> 5,235.60</div>
   <table class="ntable">
     <thead><tr><th>Date</th><th class="r">Open Units</th><th class="r">Div/unit</th><th class="r">Addl. Units</th><th class="r">Close</th></tr></thead>
     <tbody>
@@ -1175,16 +1328,18 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
     </tbody>
   </table>
   <div class="ans-row-fr">Return D = <span class="fr"><span class="num">(5,915.93 × 40.40) – 2,00,000</span><span class="den">2,00,000</span></span> × <span class="fr"><span class="num">1</span><span class="den">5</span></span> × 100 = <span class="hl">3.90% p.a.</span></div>
-  <div class="arrow-note">Plan B: Opening units = 2,00,000 ÷ 35.60 = 5,617.98</div>
+  <div class="arrow-note">Plan B: Opening units =<wbr> 2,00,000 <wbr>÷ 35.60 =<wbr> 5,617.98</div>
   <div class="ans-row">30.06.06 (1:5): +1,123.60 → 6,741.58</div>
-  <div class="ans-row">30.10.08 (1:8): +842.70 → 7,584.28 &nbsp;&nbsp; 11.04.09 (1:10): +758.43 → 8,342.71</div>
+  <div class="ans-row">30.10.08 (1:8): +842.70 → 7,584.28</div>
+  <div class="ans-row">11.04.09 (1:10): +758.43 → 8,342.71</div>
   <div class="ans-row-fr">Return B = <span class="fr"><span class="num">(8,342.71 × 39.70) – 2,00,000</span><span class="den">2,00,000</span></span> × <span class="fr"><span class="num">1</span><span class="den">5</span></span> × 100 = <span class="hl">13.12% p.a.</span></div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t18" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Cleaner than Q17 — no tax. Bonus outperforms reinvestment nearly 3.4× because bonus units are issued at zero cost; any positive NAV on redemption is pure gain.</p></div>
+  <div class="tip-body">
+    <p>Cleaner than Q17 — no tax complications, just a direct comparison of reinvestment vs bonus. Bonus nearly outperforms reinvestment 3.4×, demonstrating the power of compounding free units. Dividend plan underperforms partly because it reinvests at the current (sometimes high) NAV rather than at zero cost.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p18" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1202,16 +1357,16 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   <div class="qcard-body">
     The unit price of Equity Linked Savings Scheme (ELSS) of a mutual fund is Rs.10/-. The public offer price (POP) of the unit is Rs.10.204 and the redemption price is Rs.9.80.
     <div class="qparts">
-      <span>Calculate:</span>
-      <span><span class="pl">(i)</span>&nbsp; Front-end Load</span>
-      <span><span class="pl">(ii)</span>&nbsp; Back end Load</span>
+      <span><span class="pl">Calculate:</span></span>
+      <span><span class="pl">(i)</span> Front-end Load</span>
+      <span><span class="pl">(ii)</span> Back end Load</span>
     </div>
   </div>
   <span class="qans">Ans: (i) 2.04% &nbsp; (ii) 2%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a19',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t19',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p19',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a19" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t19" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p19" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a19">
@@ -1222,7 +1377,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="breath"></div>
 <div class="tip-block" id="t19" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Entry load is added to NAV → Public Offer Price. Exit load is deducted from NAV → Redemption Price. Both expressed as % of NAV, not of the offer or redemption price.</p></div>
+  <div class="tip-body">
+    <p>Introduces load terminology. Entry load is added to NAV to get the public offer price. Exit load is deducted from NAV to get the redemption price. Both are expressed as a percentage of NAV — not of the offer/redemption price.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p19" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1234,6 +1391,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">20</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 20</span>
   <div class="qcard-body">
@@ -1246,22 +1404,24 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) Rs. 19.56 &nbsp; (ii) 48.75%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a20',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t20',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p20',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a20" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t20" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p20" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a20">
   <div class="ans-sep"></div>
-  <div class="ans-row">Purchase rate = 1,000 ÷ 50 = Rs. 20</div>
-  <div class="ans-row">NAV × 1.0225 = 20 &nbsp;→&nbsp; <span class="hl">NAV = Rs. 19.56</span></div>
-  <div class="ans-row">Selling rate = 25 – 0.5% of 25 = Rs. 24.875</div>
+  <div class="ans-row">Purchase rate =<wbr> 1,000 <wbr>÷ 50 =<wbr> Rs. 20</div>
+  <div class="ans-row">NAV <wbr>× 1.0225 =<wbr> 20 &nbsp;→&nbsp; <span class="hl">NAV =<wbr> Rs. 19.56</span></div>
+  <div class="ans-row">Selling rate =<wbr> 25 <wbr>– 0.5% of 25 =<wbr> Rs. 24.875</div>
   <div class="ans-row-fr">Return = <span class="fr"><span class="num">24.875 – 20</span><span class="den">20</span></span> × <span class="fr"><span class="num">12</span><span class="den">6</span></span> × 100 = <span class="hl">48.75% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t20" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>NAV is not given — derive it from units allotted. Purchase rate (Rs. 20) is NAV + entry load, so NAV = 20 ÷ 1.0225. Return is calculated from purchase rate to selling rate, not NAV to NAV.</p></div>
+  <div class="tip-body">
+    <p>NAV is not given — derive it from units allotted and money invested. Purchase rate (1,000 ÷ 50 = Rs. 20) is not the NAV; it is NAV + entry load. Divide by (1 + 2.25%) to get NAV. Return is then from purchase rate to selling rate, not NAV to NAV.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p20" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1288,22 +1448,24 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 11.61% p.a.</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a21',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t21',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p21',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a21" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t21" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p21" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a21">
   <div class="ans-sep"></div>
-  <div class="ans-row">Purchase rate = 16.10 × (1 + 2%) = 16.10 × 1.02 = <span class="hl" style="margin-left:4px;">Rs. 16.422</span></div>
-  <div class="ans-row">Selling rate = 17.10 × (1 – 1%) = 17.10 × 0.99 = <span class="hl" style="margin-left:4px;">Rs. 16.929</span> &nbsp;<em>(1yr holding → 1% exit)</em></div>
-  <div class="ans-row">Dividend net of tax = 2 × (1 – 30%) = <span class="hl" style="margin-left:4px;">Rs. 1.40 per unit</span></div>
+  <div class="ans-row">Purchase rate =<wbr> 16.10 <wbr>× (1 <wbr>+ 2%) =<wbr> 16.10 <wbr>× 1.02 =<wbr> <span class="hl" style="margin-left:4px;">Rs. 16.422</span></div>
+  <div class="ans-row">Selling rate =<wbr> 17.10 <wbr>× (1 <wbr>– 1%) =<wbr> 17.10 <wbr>× 0.99 =<wbr> <span class="hl" style="margin-left:4px;">Rs. 16.929</span> &nbsp;<em>(1yr holding → 1% exit)</em></div>
+  <div class="ans-row">Dividend net of tax =<wbr> 2 <wbr>× (1 <wbr>– 30%) =<wbr> <span class="hl" style="margin-left:4px;">Rs. 1.40 per unit</span></div>
   <div class="ans-row-fr">Return = <span class="fr"><span class="num">(16.929 – 16.422) + 1.40</span><span class="den">16.422</span></span> × 100 = <span class="hl">11.61% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t21" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Three adjustments at once: entry load inflates cost, exit load reduces selling price, dividend tax reduces D₁. Return uses purchase rate → selling rate on a per-unit basis. Number of units held is irrelevant.</p></div>
+  <div class="tip-body">
+    <p>Three adjustments at once: entry load inflates cost, exit load reduces selling price, and dividend tax reduces D₁. The number of units is irrelevant here — return is computed on a per-unit basis from purchase rate to selling rate. Dividend tax reduces the net distribution in the numerator.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p21" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1315,6 +1477,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">22</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 22</span>
   <div class="qcard-body">
@@ -1324,23 +1487,25 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: Investment = Rs. 4,76,187.50; Entry Load = Rs. 1,187.50</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a22',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t22',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p22',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a22" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t22" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p22" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a22">
   <div class="ans-sep"></div>
-  <div class="ans-row">Year-end NAV = 23.75. NAV grew 18.75% → Opening NAV = 23.75 ÷ 1.1875 = <span class="hl" style="margin-left:4px;">Rs. 20</span></div>
-  <div class="ans-row">Let original units = y. Reinvestment units = 3y ÷ 23.75 = 0.1263y</div>
-  <div class="ans-row">y + 0.1263y = 26,750 &nbsp;→&nbsp; y = <span class="hl" style="margin-left:4px;">23,750 units</span></div>
-  <div class="ans-row">Purchase rate = 20 + 0.05 = Rs. 20.05 &nbsp;→&nbsp; Investment = 23,750 × 20.05 = <span class="hl" style="margin-left:4px;">Rs. 4,76,187.50</span></div>
-  <div class="ans-row">Entry load = 23,750 × 0.05 = <span class="hl">Rs. 1,187.50</span></div>
+  <div class="ans-row">Year-end NAV =<wbr> 23.75. NAV grew 18.75% → Opening NAV =<wbr> 23.75 <wbr>÷ 1.1875 =<wbr> <span class="hl" style="margin-left:4px;">Rs. 20</span></div>
+  <div class="ans-row">Let original units =<wbr> y. Reinvestment units =<wbr> 3y <wbr>÷ 23.75 =<wbr> 0.1263y</div>
+  <div class="ans-row">y <wbr>+ 0.1263y =<wbr> 26,750 &nbsp;→&nbsp; y =<wbr> <span class="hl" style="margin-left:4px;">23,750 units</span></div>
+  <div class="ans-row">Purchase rate =<wbr> 20 <wbr>+ 0.05 =<wbr> Rs. 20.05 &nbsp;→&nbsp; Investment =<wbr> 23,750 <wbr>× 20.05 =<wbr> <span class="hl" style="margin-left:4px;">Rs. 4,76,187.50</span></div>
+  <div class="ans-row">Entry load =<wbr> 23,750 <wbr>× 0.05 =<wbr> <span class="hl">Rs. 1,187.50</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t22" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Work backwards: NAV grew 18.75% → opening NAV = 23.75 ÷ 1.1875 = Rs. 20. Set up: original units + reinvestment units = 26,750, where reinvestment units = (3 × original units) ÷ 23.75. Solve for original units, then get investment and entry load.</p></div>
+  <div class="tip-body">
+    <p>Work backwards from the final unit count. You know NAV appreciated 18.75%, so derive the opening NAV first. Then set up the equation: total year-end units = original units + reinvestment units, where reinvestment units = (3 × original units) ÷ 23.75. Solve for original units, then get investment and load.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p22" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1372,23 +1537,25 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 5.34% p.a.</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a23',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t23',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p23',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a23" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t23" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p23" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a23">
   <div class="ans-sep"></div>
-  <div class="ans-row">Opening net assets = 15 × 800 = Rs. 12,000L</div>
-  <div class="ans-row">Closing net assets = 18 × 1,000 = Rs. 18,000L</div>
-  <div class="ans-row">Average net assets = (12,000 + 18,000) ÷ 2 = <span class="hl" style="margin-left:4px;">Rs. 15,000 Lakhs</span></div>
-  <div class="ans-row">Total operating expense = 48 + 15 + 3.8 = Rs. 66.8 Lakhs (for 1 month)</div>
+  <div class="ans-row">Opening net assets =<wbr> 15 <wbr>× 800 =<wbr> Rs. 12,000L</div>
+  <div class="ans-row">Closing net assets =<wbr> 18 <wbr>× 1,000 =<wbr> Rs. 18,000L</div>
+  <div class="ans-row">Average net assets =<wbr> (12,000 <wbr>+ 18,000) <wbr>÷ 2 =<wbr> <span class="hl" style="margin-left:4px;">Rs. 15,000 Lakhs</span></div>
+  <div class="ans-row">Total operating expense =<wbr> 48 <wbr>+ 15 <wbr>+ 3.8 =<wbr> Rs. 66.8 Lakhs (for 1 month)</div>
   <div class="ans-row-fr">Expense Ratio = <span class="fr"><span class="num">66.8</span><span class="den">15,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">1</span></span> × 100 = <span class="hl">5.34% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t23" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Expense ratio = (Total operating expense ÷ Average net assets) annualized. Data is for one month — multiply by 12. Average net assets = (opening + closing) ÷ 2.</p></div>
+  <div class="tip-body">
+    <p>Expense ratio = (Total operating expense ÷ Average net assets) expressed as an annual percentage. Data here is for one month only — annualize by multiplying by 12. Average net assets uses opening and closing values.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p23" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1400,6 +1567,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">24</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 24</span>
   <div class="qcard-body">
@@ -1407,21 +1575,23 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 13.5%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a24',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t24',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p24',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a24" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t24" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p24" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a24">
   <div class="ans-sep"></div>
-  <div class="ans-row">Formula: Net Return = (u – v) × (1 – i) &nbsp;where u = gross return, v = recurring expense %, i = initial expense %</div>
-  <div class="ans-row">Without initial expenses: Net return = (20% – 5%) × (1 – 0) = <span class="hl" style="margin-left:4px;">15% p.a.</span></div>
-  <div class="ans-row">With 10% non-recurring: Net return = (20% – 5%) × (1 – 10%) = 15% × 0.90 = <span class="hl" style="margin-left:4px;">13.5% p.a.</span></div>
+  <div class="note-row">Formula: Net Return = (u – v) × (1 – i) &nbsp; where u = gross return, v = recurring expense %, i = initial expense %</div>
+  <div class="ans-row">Without initial expenses: Net return =<wbr> (20% <wbr>– 5%) <wbr>× (1 <wbr>– 0) =<wbr> <span class="hl" style="margin-left:4px;">15% p.a.</span></div>
+  <div class="ans-row">With 10% non-recurring: Net return =<wbr> (20% <wbr>– 5%) <wbr>× (1 <wbr>– 10%) =<wbr> 15% <wbr>× 0.90 =<wbr> <span class="hl" style="margin-left:4px;">13.5% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t24" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Net Return = (u – v) × (1 – i). Recurring expenses (v) reduce gross return annually. Initial expenses (i) reduce the investable base — a one-time cost that drags all future returns.</p></div>
+  <div class="tip-body">
+    <p>Introduces the expense formula. Recurring expenses reduce gross return annually. Initial (non-recurring) expenses reduce the investable base — expressed as a one-time % that then compounds the drag on all future returns.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p24" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1441,20 +1611,22 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 18.43%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a25',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t25',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p25',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a25" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t25" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p25" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a25">
   <div class="ans-sep"></div>
-  <div class="ans-row">16% = (u – 1.5%) × (1 – 5.5%) &nbsp;→&nbsp; (u – 0.015) = 0.16 ÷ 0.945 = 0.1693</div>
-  <div class="ans-row">u = 0.1693 + 0.015 = <span class="hl">18.43% p.a.</span></div>
+  <div class="ans-row">16% =<wbr> (u <wbr>– 1.5%) <wbr>× (1 <wbr>– 5.5%) &nbsp;→&nbsp; (u <wbr>– 0.015) =<wbr> 0.16 <wbr>÷ 0.945 =<wbr> 0.1693</div>
+  <div class="ans-row">u =<wbr> 0.1693 <wbr>+ 0.015 =<wbr> <span class="hl">18.43% p.a.</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t25" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Run the expense formula in reverse — u is the unknown. Rearrange to: u = (Net Return ÷ (1 – i)) + v. The fund must earn well above 16% just to deliver 16% to the investor.</p></div>
+  <div class="tip-body">
+    <p>The expense formula is run in reverse — gross return (u) is the unknown. Rearrange to: u = (Net Return ÷ (1 – i)) + v. The fund must earn significantly more than 16% to deliver 16% to the investor.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p25" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1466,6 +1638,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">26</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 26</span>
   <div class="qcard-body">
@@ -1477,14 +1650,14 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) 17.96% &nbsp; (ii) Net Financial Benefit = Rs. 300,000</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a26',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t26',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p26',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a26" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t26" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p26" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a26">
   <div class="ans-sep"></div>
-  <div class="ans-row">Part (i): 15% = (u – 2%) × (1 – 6%) &nbsp;→&nbsp; u = (0.15 ÷ 0.94) + 0.02 = <span class="hl" style="margin-left:4px;">17.96% p.a.</span></div>
+  <div class="ans-row">Part (i): 15% =<wbr> (u <wbr>– 2%) <wbr>× (1 <wbr>– 6%) &nbsp;→&nbsp; u =<wbr> (0.15 <wbr>÷ 0.94) <wbr>+ 0.02 =<wbr> <span class="hl" style="margin-left:4px;">17.96% p.a.</span></div>
   <div class="arrow-note">Part (ii): Compare scenarios</div>
   <table class="ntable">
     <thead><tr><th>Scenario</th><th class="r">Professional</th><th class="r">Portfolio</th><th class="r">Total</th></tr></thead>
@@ -1499,7 +1672,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="breath"></div>
 <div class="tip-block" id="t26" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Part (ii) is a financial advice question. The 10% freed time adds 4L to professional income but loses only 1L in lower portfolio return. Net gain = Rs. 3L. Opportunity cost of time is a real financial number.</p></div>
+  <div class="tip-body">
+    <p>Part (ii) is a financial advice question, not just a calculation. The 10% freed-up time adds 10% to professional income (4L gain), which more than compensates for the 2% lower portfolio return (1L loss). Net gain = Rs. 3L. The lesson: opportunity cost of time is a real financial number and should be factored into investment decisions.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p26" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1532,30 +1707,33 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) Rs. 15.5 &nbsp; (ii) Rs. 16.41 &nbsp; (iii) Rs. 18.08</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a27',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t27',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p27',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a27" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t27" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p27" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a27">
   <div class="ans-sep"></div>
-  <div class="ans-row">Div Eq. Adj. = Earnings during period ÷ O/S units during period. Price = Opening NAV + cumulative adjustments.</div>
+  <div class="note-row">Div Eq. Adj. = Earnings during period ÷ O/S units during period. Price = Opening NAV + cumulative adjustments.</div>
   <div class="arrow-note">Part (i): Mr. A buys at end of Week 1</div>
-  <div class="ans-row">Wk1 adj = 50,000 ÷ 1,00,000 = Rs. 0.50</div>
-  <div class="ans-row">Price paid = 15 + 0.50 = <span class="hl">Rs. 15.50</span></div>
+  <div class="ans-row">Wk1 adj =<wbr> 50,000 <wbr>÷ 1,00,000 =<wbr> Rs. 0.50</div>
+  <div class="ans-row">Price paid =<wbr> 15 <wbr>+ 0.50 =<wbr> <span class="hl">Rs. 15.50</span></div>
   <div class="arrow-note">Part (ii): Mr. B sells at end of Week 2</div>
   <div class="ans-row">Units in Wk2 = 1,00,000 + 10,000 = 1,10,000</div>
   <div class="ans-row">Wk2 adj = 1,00,000 ÷ 1,10,000 = Rs. 0.909</div>
-  <div class="ans-row">Price = 15 + 0.50 + 0.909 = <span class="hl">Rs. 16.41</span></div>
+  <div class="ans-row">Price =<wbr> 15 <wbr>+ 0.50 <wbr>+ 0.909 =<wbr> <span class="hl">Rs. 16.41</span></div>
   <div class="arrow-note">Part (iii): Mr. A sells at end of Week 3</div>
-  <div class="ans-row">Units in Wk3 = 1,10,000 – 20,000 = 90,000</div>
-  <div class="ans-row">Wk3 adj = 1,50,000 ÷ 90,000 = Rs. 1.667</div>
-  <div class="ans-row">Price = 15 + 0.50 + 0.909 + 1.667 = <span class="hl">Rs. 18.08</span></div>
+  <div class="ans-row">Units in Wk3 =<wbr> 1,10,000 <wbr>– 20,000 =<wbr> 90,000</div>
+  <div class="ans-row">Wk3 adj =<wbr> 1,50,000 <wbr>÷ 90,000 =<wbr> Rs. 1.667</div>
+  <div class="ans-row">Price =<wbr> 15 <wbr>+ 0.50 <wbr>+ 0.909 <wbr>+ 1.667 =<wbr> <span class="hl">Rs. 18.08</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t27" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Dividend equalization ensures fairness when NAV isn't published daily. Adjustments accumulate week by week — sum them all up to the transaction date. Unit count changes with each buy/sell, so use the correct count for each week's calculation.</p></div>
+  <div class="tip-body">
+    <p>Dividend equalization is used when an open-ended fund doesn't publish NAV daily. New investors shouldn't enjoy earnings they didn't participate in, and exiting investors shouldn't lose earnings they did earn.</p>
+    <p>The adjustment accumulates — sum all weekly adjustments up to the transaction date. The unit count for each week's adjustment changes with each buy or sell, so always use the units outstanding during that specific week.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p27" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1591,19 +1769,19 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (i) Rs. 19.2015 &nbsp; (ii) Rs.18.564 &nbsp; (iii) Rs.102.717 Lakhs &nbsp; (iv) Rs.20.267</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a28',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t28',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p28',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a28" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t28" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p28" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a28">
   <div class="ans-sep"></div>
   <div class="arrow-note">Part (i): Issue price end of April</div>
-  <div class="ans-row">Div eq. adj. April = 22.95 ÷ 300 = 0.0765</div>
-  <div class="ans-row">Price = 18.75 + (18.75 × 2%) + 0.0765 = <span class="hl">Rs. 19.2015</span></div>
+  <div class="ans-row">Div eq. adj. April =<wbr> 22.95 <wbr>÷ 300 =<wbr> 0.0765</div>
+  <div class="ans-row">Price =<wbr> 18.75 <wbr>+ (18.75 <wbr>× 2%) <wbr>+ 0.0765 =<wbr> <span class="hl">Rs. 19.2015</span></div>
   <div class="arrow-note">Part (ii): Repurchase price end of May</div>
-  <div class="ans-row">Units in May = 306L. Div eq. adj. May = 34.425 ÷ 306 = 0.1125</div>
-  <div class="ans-row">Price = 18.75 – (18.75 × 2%) + 0.0765 + 0.1125 = <span class="hl">Rs. 18.564</span></div>
+  <div class="ans-row">Units in May =<wbr> 306L. Div eq. adj. May =<wbr> 34.425 <wbr>÷ 306 =<wbr> 0.1125</div>
+  <div class="ans-row">Price =<wbr> 18.75 <wbr>– (18.75 <wbr>× 2%) <wbr>+ 0.0765 <wbr>+ 0.1125 =<wbr> <span class="hl">Rs. 18.564</span></div>
   <div class="arrow-note">Part (iii): Income available for distribution</div>
   <table class="ntable">
     <thead><tr><th>Item</th><th class="r">Rs. (Lakhs)</th></tr></thead>
@@ -1632,11 +1810,14 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   <div class="note-row">(1) Entry &amp; exit load collected is assumed to be non-distributable income.</div>
   <div class="note-row">(2) Portfolio value appreciation of 425.47 lakh is unrealized earning &amp; can't be distributed.</div>
 </div>
-
 <div class="breath"></div>
 <div class="tip-block" id="t28" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>The most comprehensive dividend equalization question — marked "most revise before exam." Entry/exit loads and portfolio appreciation are non-distributable. For Part (iv) NAV, track every cash flow entering and leaving the fund across the whole quarter.</p></div>
+  <div class="tip-body">
+    <p>The most comprehensive dividend equalization question — the solutions mark this as "most revise before exam." It combines issue, repurchase, and distribution all in one quarter.</p>
+    <p>Entry and exit load collected are non-distributable (they go to the AMC). Portfolio appreciation is unrealized and also non-distributable. Only realized income goes into the distribution pool, adjusted for div eq. collected and paid.</p>
+    <p>For Part (iv), build NAV from net assets — track every cash flow entering or leaving the fund during the quarter.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p28" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1664,9 +1845,9 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: 2.79%</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a29',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t29',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p29',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a29" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t29" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p29" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a29">
@@ -1682,13 +1863,15 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
       <tr class="tot"><td>—</td><td class="r">—</td><td class="r">Σd = 2</td><td class="r">—</td><td class="r">Σ(d–d̄)² = 31.2</td></tr>
     </tbody>
   </table>
-  <div class="ans-row">d̄ = 2 ÷ 5 = 0.4</div>
-  <div class="ans-row-fr">TE (sample) = √<span class="fr"><span class="num">31.2</span><span class="den">n–1 = 4</span></span> = √7.8 = <span class="hl">2.79%</span> &nbsp;&nbsp; TE (population) = √<span class="fr"><span class="num">31.2</span><span class="den">5</span></span> = <span class="hl">2.50%</span></div>
+  <div class="ans-row">d̄ =<wbr> 2 <wbr>÷ 5 =<wbr> 0.4</div>
+  <div class="ans-row-fr">TE (sample) = <span class="sqrt"><span class="sqrt-sign">√</span><span class="sqrt-body"><span class="fr"><span class="num">31.2</span><span class="den">n–1 = 4</span></span></span></span> = <span class="sqrt"><span class="sqrt-sign">√</span><span class="sqrt-body">7.8</span></span> = <span class="hl">2.79%</span> &nbsp;&nbsp; TE (population) = <span class="sqrt"><span class="sqrt-sign">√</span><span class="sqrt-body"><span class="fr"><span class="num">31.2</span><span class="den">5</span></span></span></span> = <span class="hl">2.50%</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t29" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Tracking error = standard deviation of the differences between MF and index returns — not of the returns themselves. Sample formula (÷ n–1) gives 2.79%; population formula (÷ n) gives 2.50%. Both acceptable. Lower TE = closer tracking of benchmark.</p></div>
+  <div class="tip-body">
+    <p>Tracking error = standard deviation of the differences between MF return and index return — not of returns themselves. Two versions: sample formula (divide by n–1 = 4) gives 2.79%; population formula (divide by n = 5) gives 2.50%. Both are acceptable per the notes. Lower tracking error = fund tracks benchmark more closely.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p29" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
@@ -1700,6 +1883,7 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
 <div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
 <div class="page-header"><span class="pg-tag">30</span></div>
 <div class="page-content">
+
 <div class="qcard">
   <span class="qcard-label">Question 30</span>
   <div class="qcard-body">
@@ -1709,40 +1893,79 @@ table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
   </div>
   <span class="qans">Ans: (a) Rs.11,60,000 &nbsp; (b) Rs. 2,00,000 &nbsp; (c) Rs. 2,00,000</span>
   <div class="toggle-row">
-    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a30',this,'Answer')">Hide Answer</button>
-    <button class="tbtn tbtn-tip" onclick="tog('t30',this,'Special')">Show Special</button>
-    <button class="tbtn tbtn-prac" onclick="tog('p30',this,'Practice')">Show Practice</button>
+    <button class="tbtn tbtn-ans tbtn-on" data-id="a30" data-label="Answer">Hide Answer</button>
+    <button class="tbtn tbtn-tip" data-id="t30" data-label="Special">Show Special</button>
+    <button class="tbtn tbtn-prac" data-id="p30" data-label="Practice">Show Practice</button>
   </div>
 </div>
 <div class="ans-block" id="a30">
   <div class="ans-sep"></div>
-  <div class="ans-row">Base fee (always) = 0.10% × 20 crore = <span class="hl" style="margin-left:4px;">Rs. 2,00,000</span></div>
-  <div class="ans-row">Case (a): 29% return</div>
-  <div class="ans-row">Year-end = 20 + 29% of 20 = Rs. 25.8 crore. Exceeds high-water mark of Rs. 21 crore.</div>
-  <div class="ans-row">Incentive = 2% × (25.8 – 21) crore = Rs. 9,60,000</div>
-  <div class="ans-row">Total = 2,00,000 + 9,60,000 = <span class="hl">Rs. 11,60,000</span></div>
-  <div class="ans-row">Case (b): 4.5% return</div>
-  <div class="ans-row">Year-end = Rs. 20.90 crore. Below high-water mark (21 crore) → no incentive fee.</div>
-  <div class="ans-row">Total = <span class="hl">Rs. 2,00,000</span></div>
-  <div class="ans-row">Case (c): –1.8% return</div>
-  <div class="ans-row">Year-end = Rs. 19.64 crore. Negative return, far below high-water mark → no incentive fee.</div>
-  <div class="ans-row">Total = <span class="hl">Rs. 2,00,000</span></div>
+  <div class="ans-row">Base fee (always) =<wbr> 0.10% <wbr>× 20 crore =<wbr> <span class="hl" style="margin-left:4px;">Rs. 2,00,000</span></div>
+  <div class="arrow-note">Case (a): 29% return</div>
+  <div class="ans-row">Year-end =<wbr> 20 <wbr>+ 29% of 20 =<wbr> Rs. 25.8 crore</div>
+  <div class="ans-row">Exceeds high-water mark of Rs. 21 crore → incentive applies</div>
+  <div class="ans-row">Incentive =<wbr> 2% <wbr>× (25.8 <wbr>– 21) crore =<wbr> Rs. 9,60,000</div>
+  <div class="ans-row">Total =<wbr> 2,00,000 <wbr>+ 9,60,000 =<wbr> <span class="hl">Rs. 11,60,000</span></div>
+  <div class="arrow-note">Case (b): 4.5% return</div>
+  <div class="ans-row">Year-end =<wbr> Rs. 20.90 crore</div>
+  <div class="ans-row">Below high-water mark (21 crore) → no incentive fee.</div>
+  <div class="ans-row">Total =<wbr> <span class="hl">Rs. 2,00,000</span></div>
+  <div class="arrow-note">Case (c): –1.8% return</div>
+  <div class="ans-row">Year-end =<wbr> Rs. 19.64 crore</div>
+  <div class="ans-row">Negative return → no incentive fee.</div>
+  <div class="ans-row">Total =<wbr> <span class="hl">Rs. 2,00,000</span></div>
 </div>
 <div class="breath"></div>
 <div class="tip-block" id="t30" style="display:none;">
   <span class="tip-label">✦ What makes this question special</span>
-  <div class="tip-body"><p>Hedge fund structure: base fee always charged, incentive fee only when fund beats its all-time peak (high-water mark = Rs. 21 crore). In cases (b) and (c), even though (b) is positive, neither crosses Rs. 21 crore so no incentive is paid.</p></div>
+  <div class="tip-body">
+    <p>Introduces hedge fund fee structure: base fee is always charged regardless of performance. Incentive fee is only charged when the fund surpasses its all-time peak value — the high-water mark. This protects investors from paying incentive fees twice for recovering previous losses.</p>
+    <p>In cases (b) and (c), no incentive is charged even though case (b) has a positive return — the fund simply did not beat the 21 crore high-water mark.</p>
+  </div>
 </div>
 <div class="breath"></div>
 <div class="prac-block" id="p30" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
 
 </div></div>
 
-
 <script>
+var pages = [];
+var currentPage = 0;
+var TOTAL = 30;
+
+function goTo(idx, save) {
+  idx = Math.max(0, Math.min(TOTAL - 1, idx));
+  currentPage = idx;
+  var el = pages[idx];
+  if (el) window.scrollTo({ top: el.offsetTop - 20, behavior: save === false ? 'auto' : 'smooth' });
+  updateNav();
+  if (save !== false) { try { localStorage.setItem('mf_page', idx); } catch(e){} }
+}
+
+function updateNav() {
+  var info = document.getElementById('nav-info');
+  var prev = document.getElementById('nav-prev');
+  var next = document.getElementById('nav-next');
+  var go   = document.getElementById('nav-go');
+  if (info) info.textContent = (currentPage + 1) + ' / ' + TOTAL;
+  if (prev) prev.disabled = currentPage === 0;
+  if (next) next.disabled = currentPage === TOTAL - 1;
+  if (go)   go.value = currentPage + 1;
+}
+
+function onScroll() {
+  var mid = window.scrollY + window.innerHeight / 3;
+  var best = 0;
+  pages.forEach(function(p, i) { if (p.offsetTop <= mid) best = i; });
+  if (best !== currentPage) {
+    currentPage = best;
+    updateNav();
+    try { localStorage.setItem('mf_page', best); } catch(e){}
+  }
+}
+
 function snapToGrid() {
-  var lhStr = getComputedStyle(document.documentElement).getPropertyValue('--lh').trim();
-  var lh = parseInt(lhStr);
+  var lh = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--lh'));
   if (!lh) return;
   document.querySelectorAll('.page').forEach(function(page) {
     var headerEl = page.querySelector('.page-header');
@@ -1750,16 +1973,17 @@ function snapToGrid() {
     var contentTop = page.offsetTop + headerH;
     page.querySelectorAll('.ans-block').forEach(function(block) {
       block.style.paddingTop = '';
-      var blockOffset = block.offsetTop - contentTop;
-      var rem = ((blockOffset % lh) + lh) % lh;
-      if (rem > 1 && rem < lh - 1) {
-        var snap = lh - rem;
-      if (snap < lh) block.style.paddingTop = snap + 'px';
-      }
+      var rem = ((block.offsetTop - contentTop) % lh + lh) % lh;
+      if (rem > 1 && rem < lh - 1) block.style.paddingTop = (lh - rem) + 'px';
     });
   });
 }
-function tog(id, btn, label) {
+
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-id]');
+  if (!btn) return;
+  var id = btn.getAttribute('data-id');
+  var label = btn.getAttribute('data-label');
   var el = document.getElementById(id);
   if (!el) return;
   var hidden = el.style.display === 'none' || el.style.display === '';
@@ -1767,15 +1991,111 @@ function tog(id, btn, label) {
   btn.textContent = (hidden ? 'Hide ' : 'Show ') + label;
   btn.className = 'tbtn';
   btn.classList.add(id.startsWith('a') ? 'tbtn-ans' : id.startsWith('t') ? 'tbtn-tip' : 'tbtn-prac');
-  if (!hidden) btn.classList.remove('tbtn-on');
-  else btn.classList.add('tbtn-on');
+  if (!hidden) btn.classList.remove('tbtn-on'); else btn.classList.add('tbtn-on');
+  setTimeout(snapToGrid, 60);
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(currentPage + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(currentPage - 1);
+  // Alt+S — toggle special for current page
+  if (e.altKey && e.key === 's') {
+    e.preventDefault();
+    var page = pages[currentPage];
+    if (!page) return;
+    var tipId = 't' + (currentPage + 1);
+    var tipEl = document.getElementById(tipId);
+    var tipBtn = page.querySelector('[data-id="' + tipId + '"]');
+    if (tipEl && tipBtn) {
+      var hidden = tipEl.style.display === 'none' || tipEl.style.display === '';
+      tipEl.style.display = hidden ? 'block' : 'none';
+      tipBtn.textContent = (hidden ? 'Hide ' : 'Show ') + 'Special';
+      tipBtn.className = 'tbtn tbtn-tip';
+      if (!hidden) tipBtn.classList.remove('tbtn-on'); else tipBtn.classList.add('tbtn-on');
+      setTimeout(snapToGrid, 60);
+    }
+  }
+  // Alt+A — toggle ALL specials
+  if (e.altKey && e.key === 'a') { e.preventDefault(); toggleAllSpecials(); }
+});
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', snapToGrid);
+
+// Init after full DOM + fonts loaded
+
+var allSpecialsVisible = false;
+function toggleAllSpecials() {
+  allSpecialsVisible = !allSpecialsVisible;
+  for (var i = 1; i <= TOTAL; i++) {
+    var tipEl  = document.getElementById('t' + i);
+    var tipBtn = document.querySelector('[data-id="t' + i + '"]');
+    if (!tipEl) continue;
+    tipEl.style.display = allSpecialsVisible ? 'block' : 'none';
+    if (tipBtn) {
+      tipBtn.textContent = (allSpecialsVisible ? 'Hide ' : 'Show ') + 'Special';
+      tipBtn.className = 'tbtn tbtn-tip';
+      if (allSpecialsVisible) tipBtn.classList.add('tbtn-on');
+      else tipBtn.classList.remove('tbtn-on');
+    }
+  }
+  // Update the ✦ button appearance
+  var togAll = document.getElementById('tog-all');
+  if (togAll) {
+    togAll.style.background = allSpecialsVisible ? 'rgba(255,200,50,.25)' : '';
+    togAll.title = (allSpecialsVisible ? 'Hide' : 'Show') + ' all specials (Alt+A)';
+  }
   setTimeout(snapToGrid, 60);
 }
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(snapToGrid);
-} else {
-  window.addEventListener('load', snapToGrid);
+function init() {
+  pages = Array.from(document.querySelectorAll('.page'));
+  TOTAL = pages.length;
+  var goInput = document.getElementById('nav-go');
+  if (goInput) goInput.max = TOTAL;
+
+  // Wire nav buttons
+  var prevBtn = document.getElementById('nav-prev');
+  var nextBtn = document.getElementById('nav-next');
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentPage - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentPage + 1); });
+  if (goInput) {
+    goInput.addEventListener('change', function() {
+      var v = parseInt(this.value); if (!isNaN(v)) goTo(v - 1);
+    });
+    goInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { var v = parseInt(this.value); if (!isNaN(v)) goTo(v - 1); }
+    });
+  }
+
+  // Wire toggle-all button
+  var togAll = document.getElementById('tog-all');
+  if (togAll) togAll.addEventListener('click', toggleAllSpecials);
+
+  // Restore saved page
+  var saved = 0;
+  try { saved = parseInt(localStorage.getItem('mf_page') || '0') || 0; } catch(e){}
+  goTo(saved, false);
+  snapToGrid();
 }
-window.addEventListener('resize', snapToGrid);
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(init); }
+    else { init(); }
+  });
+} else {
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(init); }
+  else { init(); }
+}
 </script>
+
+<div id="page-nav">
+  <button id="tog-all" title="Toggle all specials (Alt+A)">✦</button>
+  <button id="nav-prev" title="Previous page">&#8592;</button>
+  <span id="nav-info">1 / 30</span>
+  <button id="nav-next" title="Next page">&#8594;</button>
+  <input id="nav-go" type="number" min="1" max="30" title="Go to page" placeholder="pg">
+</div>
+
 </body></html>
