@@ -21,4 +21,11 @@ const notesData = [
         tags: ["CAP I", "Double Entry", "Trial Balance", "Financial Statements"],
         file: "cap1-financial-accounting.html"
     }
+    {
+        id: "cap1-financial-accounting",
+        title: "Mutual Funds",
+       date: "2025-03-01",
+        category: "Finance",
+        file: "Mutual Fund.html"
+    }
 ];
