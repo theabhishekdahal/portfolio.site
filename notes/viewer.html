@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Viewer · Abhishek Dahal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -16,78 +18,89 @@
             --light-navy: #112240;
             --slate: #8892b0;
         }
-        body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; }
+        body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
         /* ── SMART HEADER ── */
-        #sticky-nav-wrapper {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            transition: transform 0.3s ease-in-out;
+        #nav-container {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
         }
         .nav-hidden { transform: translateY(-100%); }
+        #viewer-header { background-color: #0a192f; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; }
+        #toolbar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1.5rem; background-color: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); }
 
-        #viewer-header { background-color: #0a192f; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; gap: 1rem; }
-        #toolbar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1.5rem; background-color: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.04); }
-        
-        .tool-btn { background: var(--light-navy); border: 1px solid rgba(255,255,255,0.08); color: var(--dark-text); border-radius: 0.4rem; padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; transition: all 0.2s; }
+        .tool-btn { background: var(--light-navy); border: 1px solid rgba(255,255,255,0.1); color: var(--dark-text); border-radius: 0.4rem; padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s; }
         .tool-btn:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(100, 255, 218, 0.05); }
-        .tool-btn.active { color: #facc15; border-color: #facc15; }
+        .btn-primary { color: var(--primary-color); border-color: var(--primary-color); }
 
-        /* Page Content */
-        #pdf-viewport { max-width: 900px; margin: 8rem auto 0; padding: 0 1rem 4rem; }
-        .note-page { background: #fff; width: 100%; max-width: 794px; margin: 0 auto 2.5rem; border-radius: 3px; box-shadow: 0 4px 24px rgba(0,0,0,0.45); padding: 72px 80px; position: relative; font-family: 'Lora', serif; color: #1a1a2e; }
+        /* Content Styling */
+        #pdf-viewport { max-width: 900px; margin: 9rem auto 0; padding: 0 1rem 4rem; }
+        .note-page { background: #fff; width: 100%; max-width: 794px; margin: 0 auto 2.5rem; border-radius: 2px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); padding: 60px 70px; font-family: 'Lora', serif; line-height: 1.8; color: #1a1a2e; min-height: 1000px; position: relative; }
         
-        /* EDITOR OVERLAY */
-        #editor-container { display: none; position: fixed; inset: 0; background: #0a192f; z-index: 200; flex-direction: column; padding: 1rem; }
-        #editor-textarea { flex: 1; background: #112240; color: #e2e8f0; font-family: 'Fira Code', monospace; padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(100,255,218,0.2); outline: none; resize: none; font-size: 0.95rem; line-height: 1.6; }
+        /* ── EDITOR MODAL ── */
+        #editor-overlay { display: none; position: fixed; inset: 0; background: #0f172a; z-index: 200; flex-direction: column; overflow-y: auto; }
+        #editor-nav { position: sticky; top: 0; z-index: 210; background: #0a192f; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(100, 255, 218, 0.2); }
         
-        #page-jump-input { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--white-color); width: 45px; text-align: center; border-radius: 4px; }
+        /* Page Blocks in Editor */
+        .editor-page-block { background: white; width: 100%; max-width: 794px; margin: 2rem auto; position: relative; border-radius: 4px; box-shadow: 0 0 0 10px rgba(255,255,255,0.05); }
+        .page-controls { position: absolute; left: -60px; top: 0; display: flex; flex-direction: column; gap: 8px; }
+        .control-btn { background: #1e293b; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
+        .control-btn:hover { background: var(--primary-color); color: #000; }
+
+        .ql-container { font-family: 'Lora', serif !important; font-size: 1.1rem !important; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
 <body>
 
-    <div id="sticky-nav-wrapper">
+    <!-- ── VIEW NAVIGATION ── -->
+    <div id="nav-container">
         <div id="viewer-header">
-            <a id="back-btn" href="/notes/" class="text-slate-400 font-bold flex items-center gap-2 hover:text-cyan-400">
+            <a href="/notes/" class="text-slate-400 font-bold flex items-center gap-2 hover:text-cyan-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Back
+                Notes
             </a>
-            <span id="header-title" class="text-white font-bold truncate px-4">Loading…</span>
-            <div class="flex items-center gap-2 text-xs">
-                <input type="number" id="page-jump-input" min="1" value="1">
-                <span id="page-jump-total" class="text-slate-500">/ —</span>
+            <span id="header-title" class="text-white font-bold truncate text-sm">Loading...</span>
+            <div class="flex items-center gap-3">
+                <button id="admin-login-btn" class="tool-btn" title="Admin Login">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </button>
+                <div class="flex items-center bg-slate-800 rounded px-2 h-7 border border-white/10">
+                    <input type="number" id="page-jump-input" class="bg-transparent text-white w-8 text-center text-xs outline-none" value="1">
+                    <span id="page-jump-total" class="text-slate-500 text-[10px] ml-1">/ 1</span>
+                </div>
             </div>
         </div>
-
         <div id="toolbar">
             <button class="tool-btn" id="prev-page-btn">Prev</button>
             <button class="tool-btn" id="next-page-btn">Next</button>
             <div class="w-px h-4 bg-gray-700 mx-1"></div>
-            <button class="tool-btn" id="edit-note-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-width="2" /></svg>
-                Edit Note
-            </button>
-            <button class="tool-btn" id="print-btn">Print</button>
+            <button class="tool-btn btn-primary hidden" id="edit-note-btn">Visual Editor</button>
+            <button class="tool-btn" id="print-btn">Save PDF</button>
         </div>
     </div>
 
-    <!-- ── EDITOR MODAL ── -->
-    <div id="editor-container">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-cyan-400 font-bold">Edit Mode (HTML)</h2>
-            <div class="flex gap-2">
-                <button id="close-editor" class="tool-btn">Cancel</button>
-                <button id="save-note-btn" class="tool-btn active">Save to GitHub</button>
+    <!-- ── BLOCK-BASED EDITOR OVERLAY ── -->
+    <div id="editor-overlay">
+        <div id="editor-nav">
+            <div class="flex items-center gap-4">
+                <span class="font-black text-cyan-400 tracking-tighter">PAGE EDITOR</span>
+                <button id="add-page-btn" class="bg-slate-700 text-white px-3 py-1 rounded text-xs font-bold hover:bg-cyan-500 hover:text-black transition">+ Add Page</button>
+            </div>
+            <div class="flex gap-3">
+                <button id="close-editor" class="text-slate-400 hover:text-white text-xs font-bold">Discard</button>
+                <button id="save-note-btn" class="bg-cyan-500 text-slate-900 px-6 py-2 rounded-full text-xs font-black hover:bg-white transition-all shadow-lg shadow-cyan-500/20">COMMIT CHANGES</button>
             </div>
         </div>
-        <textarea id="editor-textarea" spellcheck="false"></textarea>
+        
+        <!-- This container holds the individual page editors -->
+        <div id="editor-workspace" class="pb-20"></div>
     </div>
 
+    <!-- ── VIEWPORT ── -->
     <div id="pdf-viewport">
-        <div id="loading-state" class="text-center py-20 text-slate-400">Loading note…</div>
+        <div id="loading-state" class="text-center py-20 text-slate-500 animate-pulse">Loading content...</div>
         <div id="pages-container"></div>
     </div>
 
@@ -98,146 +111,184 @@
         const noteId = params.get('note') || '';
         const noteMeta = notesData.find(n => n.id === noteId);
         
-        // GH Config (Update these to match your repo)
-        const REPO_OWNER = "theabhishekdahal"; 
-        const REPO_NAME = "portfolio.site"; // Make sure this matches your exact repo name
+        const REPO_OWNER = "theabhishekdahal";
+        const REPO_NAME = "portfolio.site";
 
-        const navWrapper = document.getElementById('sticky-nav-wrapper');
-        const editorContainer = document.getElementById('editor-container');
-        const editorTextarea = document.getElementById('editor-textarea');
+        const navContainer = document.getElementById('nav-container');
+        const editorOverlay = document.getElementById('editor-overlay');
+        const editorWorkspace = document.getElementById('editor-workspace');
         const storageKey = `note_progress_${noteId}`;
+        
+        let pageEditors = []; // Array to store Quill instances
 
         if (!noteMeta) return;
 
         document.title = `${noteMeta.title} · Abhishek Dahal`;
         document.getElementById('header-title').textContent = noteMeta.title;
 
-        // ── 1. SMART HEADER LOGIC ──
+        // ── 1. SMART HEADER ──
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
-            const delta = 10; // min distance to trigger
-
-            if (Math.abs(lastScrollY - currentScrollY) <= delta) return;
-
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                navWrapper.classList.add('nav-hidden'); // Scrolling Down
-            } else {
-                navWrapper.classList.remove('nav-hidden'); // Scrolling Up
-            }
+            if (currentScrollY > lastScrollY && currentScrollY > 150) navContainer.classList.add('nav-hidden');
+            else navContainer.classList.remove('nav-hidden');
             lastScrollY = currentScrollY;
+            updatePageCounter();
         }, { passive: true });
 
-        // ── 2. RENDER & PROGRESS LOGIC ──
+        // ── 2. LOGIN ──
+        document.getElementById('admin-login-btn').addEventListener('click', () => {
+            const token = prompt("Enter GitHub PAT:");
+            if (token) {
+                sessionStorage.setItem('gh_token', token);
+                document.getElementById('edit-note-btn').classList.remove('hidden');
+                document.getElementById('admin-login-btn').classList.add('text-cyan-400');
+            }
+        });
+
+        // ── 3. FETCH & RENDER ──
         fetch(`/notes/${noteMeta.file}`)
             .then(res => res.text())
             .then(html => {
                 document.getElementById('loading-state').style.display = 'none';
                 renderNote(html);
-                
                 const lastPage = localStorage.getItem(storageKey);
-                if (lastPage) setTimeout(() => scrollToPage(parseInt(lastPage), 'auto'), 100);
+                if (lastPage) setTimeout(() => scrollToPage(parseInt(lastPage), 'auto'), 200);
             });
 
         function renderNote(html) {
             const container = document.getElementById('pages-container');
             container.innerHTML = '';
-            
-            // Basic Auto-Pagination (Simpler for rendering)
-            const pages = html.split('<!-- page-break -->'); 
-            const totalPages = pages.length;
-            document.getElementById('page-jump-total').textContent = `/ ${totalPages}`;
+            const contentParts = html.split('<!-- page-break -->');
+            document.getElementById('page-jump-total').textContent = `/ ${contentParts.length}`;
 
-            pages.forEach((content, idx) => {
-                const pageDiv = document.createElement('div');
-                pageDiv.className = 'note-page';
-                pageDiv.dataset.page = idx + 1;
-                pageDiv.innerHTML = content + `<div class="page-num-footer">— ${idx + 1} / ${totalPages} —</div>`;
-                container.appendChild(pageDiv);
+            contentParts.forEach((part, idx) => {
+                const page = document.createElement('div');
+                page.className = 'note-page ql-editor'; 
+                page.dataset.page = idx + 1;
+                page.innerHTML = part;
+                container.appendChild(page);
             });
         }
 
-        // ── 3. EDITOR & GITHUB API LOGIC ──
+        // ── 4. BLOCK-BASED EDITOR LOGIC ──
         document.getElementById('edit-note-btn').addEventListener('click', () => {
-            fetch(`/notes/${noteMeta.file}`)
-                .then(res => res.text())
-                .then(content => {
-                    editorTextarea.value = content;
-                    editorContainer.style.display = 'flex';
-                });
+            editorOverlay.style.display = 'flex';
+            editorWorkspace.innerHTML = '';
+            pageEditors = [];
+
+            // Get current pages from viewer
+            const pages = Array.from(document.querySelectorAll('.note-page'));
+            pages.forEach(p => addPageEditor(p.innerHTML));
+            
+            if (pages.length === 0) addPageEditor(""); 
         });
 
-        document.getElementById('close-editor').addEventListener('click', () => editorContainer.style.display = 'none');
-
-        document.getElementById('save-note-btn').addEventListener('click', async () => {
-            const token = prompt("Enter GitHub Personal Access Token to Save:");
-            if (!token) return;
-
-            const saveBtn = document.getElementById('save-note-btn');
-            saveBtn.textContent = "Saving...";
+        function addPageEditor(content = "") {
+            const wrapper = document.createElement('div');
+            wrapper.className = "editor-page-block";
             
-            const path = `notes/${noteMeta.file}`;
-            const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+            const editorId = `editor-${Date.now()}-${Math.random()}`;
+            wrapper.innerHTML = `
+                <div class="page-controls">
+                    <button class="control-btn move-up" title="Move Up">↑</button>
+                    <button class="control-btn move-down" title="Move Down">↓</button>
+                    <button class="control-btn delete-page" title="Delete Page" style="color:#ff4d4d">✕</button>
+                </div>
+                <div id="${editorId}" style="min-height: 800px;">${content}</div>
+            `;
+            
+            editorWorkspace.appendChild(wrapper);
+
+            const quill = new Quill(`#${editorId}`, {
+                theme: 'snow',
+                modules: { toolbar: [[{'header': [1,2,false]}],['bold','italic','underline'],[{'list':'ordered'},{'list':'bullet'}],['image','link','clean']]}
+            });
+
+            const pageObj = { wrapper, quill };
+            pageEditors.push(pageObj);
+
+            // Control Events
+            wrapper.querySelector('.move-up').onclick = () => movePage(pageObj, -1);
+            wrapper.querySelector('.move-down').onclick = () => movePage(pageObj, 1);
+            wrapper.querySelector('.delete-page').onclick = () => {
+                if (confirm("Delete this page?")) {
+                    wrapper.remove();
+                    pageEditors = pageEditors.filter(p => p !== pageObj);
+                }
+            };
+        }
+
+        function movePage(pageObj, direction) {
+            const index = pageEditors.indexOf(pageObj);
+            const newIndex = index + direction;
+            if (newIndex >= 0 && newIndex < pageEditors.length) {
+                // Swap in array
+                [pageEditors[index], pageEditors[newIndex]] = [pageEditors[newIndex], pageEditors[index]];
+                // Swap in DOM
+                if (direction === -1) editorWorkspace.insertBefore(pageObj.wrapper, pageEditors[index + 1].wrapper);
+                else editorWorkspace.insertBefore(pageEditors[newIndex].wrapper, pageObj.wrapper);
+            }
+        }
+
+        document.getElementById('add-page-btn').addEventListener('click', () => addPageEditor(""));
+        document.getElementById('close-editor').addEventListener('click', () => {
+            if(confirm("Discard changes?")) editorOverlay.style.display = 'none';
+        });
+
+        // ── 5. SAVE ──
+        document.getElementById('save-note-btn').addEventListener('click', async () => {
+            const token = sessionStorage.getItem('gh_token');
+            if (!token) return alert("Please Login First (Lock Icon)");
+
+            const btn = document.getElementById('save-note-btn');
+            btn.textContent = "COMMITTING...";
 
             try {
-                // 1. Get the current file SHA (required for update)
-                const getRes = await fetch(apiUrl, {
-                    headers: { "Authorization": `token ${token}` }
-                });
+                const path = `notes/${noteMeta.file}`;
+                const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+                
+                const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
                 const fileData = await getRes.json();
-                
-                // 2. Commit the new content
-                const newContent = btoa(unescape(encodeURIComponent(editorTextarea.value))); // Handle UTF-8
-                
+
+                // Join page HTML with page-break tag
+                const finalHtml = pageEditors.map(p => p.quill.root.innerHTML).join('<!-- page-break -->');
+                const encoded = btoa(unescape(encodeURIComponent(finalHtml)));
+
                 const putRes = await fetch(apiUrl, {
                     method: "PUT",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        message: `Edit note: ${noteMeta.title} (from frontend)`,
-                        content: newContent,
+                        message: `Block update: ${noteMeta.title}`,
+                        content: encoded,
                         sha: fileData.sha
                     })
                 });
 
-                if (putRes.ok) {
-                    alert("Saved Successfully! Changes will appear on site in 1-2 minutes.");
-                    location.reload();
-                } else {
-                    const err = await putRes.json();
-                    alert("Error: " + err.message);
-                }
-            } catch (e) {
-                alert("Critical Error: " + e.message);
-            } finally {
-                saveBtn.textContent = "Save to GitHub";
-            }
+                if (putRes.ok) { alert("Successfully Saved!"); location.reload(); }
+                else alert("Save failed. Check Token.");
+            } catch (e) { alert("Error: " + e.message); }
+            finally { btn.textContent = "COMMIT CHANGES"; }
         });
 
         // ── HELPERS ──
-        function scrollToPage(num, behavior = 'smooth') {
-            const el = document.querySelector(`.note-page[data-page="${num}"]`);
-            if (el) {
-                const y = el.getBoundingClientRect().top + window.pageYOffset - 140;
-                window.scrollTo({ top: y, behavior: behavior });
-            }
+        function updatePageCounter() {
+            const pages = document.querySelectorAll('.note-page');
+            let current = 1;
+            pages.forEach(p => { if (p.getBoundingClientRect().top < 200) current = p.dataset.page; });
+            document.getElementById('page-jump-input').value = current;
+            localStorage.setItem(storageKey, current);
         }
 
-        document.getElementById('prev-page-btn').addEventListener('click', () => {
-            const curr = parseInt(document.getElementById('page-jump-input').value);
-            scrollToPage(Math.max(1, curr - 1));
-        });
+        function scrollToPage(num, behavior = 'smooth') {
+            const el = document.querySelector(`.note-page[data-page="${num}"]`);
+            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 140, behavior });
+        }
 
-        document.getElementById('next-page-btn').addEventListener('click', () => {
-            const curr = parseInt(document.getElementById('page-jump-input').value);
-            scrollToPage(curr + 1);
-        });
-
+        document.getElementById('prev-page-btn').addEventListener('click', () => scrollToPage(Math.max(1, parseInt(document.getElementById('page-jump-input').value) - 1)));
+        document.getElementById('next-page-btn').addEventListener('click', () => scrollToPage(parseInt(document.getElementById('page-jump-input').value) + 1));
         document.getElementById('page-jump-input').addEventListener('change', (e) => scrollToPage(e.target.value));
         document.getElementById('print-btn').addEventListener('click', () => window.print());
-
     }());
     </script>
 </body>
