@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Viewer · Abhishek Dahal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Quill Rich Text Editor -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <style>
@@ -19,39 +16,37 @@
             --light-navy: #112240;
             --slate: #8892b0;
         }
-        body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; }
 
-        /* ── ADOBE-STYLE SMART HEADER ── */
+        /* ── STICKY HEADER (Adobe Style) ── */
         #nav-container {
             position: fixed; top: 0; width: 100%; z-index: 100;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s ease-in-out;
             box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
         }
         .nav-hidden { transform: translateY(-100%); }
         #viewer-header { background-color: #0a192f; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; }
         #toolbar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1.5rem; background-color: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); }
 
-        .tool-btn { background: var(--light-navy); border: 1px solid rgba(255,255,255,0.1); color: var(--dark-text); border-radius: 0.4rem; padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s; }
-        .tool-btn:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(100, 255, 218, 0.05); }
-        .btn-primary { color: var(--primary-color); border-color: var(--primary-color); }
+        .tool-btn { background: var(--light-navy); border: 1px solid rgba(255,255,255,0.1); color: var(--dark-text); border-radius: 0.4rem; padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .tool-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
-        /* ── PDF VIEWPORT ── */
+        /* ── VIEWPORT ── */
         #pdf-viewport { max-width: 1000px; margin: 9rem auto 0; padding: 0 0 4rem; }
         
-        /* This container mimics the A4 sheet but allows your note's internal CSS to take over */
-        .note-page { 
+        /* This container allows the note's internal CSS to apply correctly */
+        .viewer-page-wrapper { 
             margin: 0 auto 2.5rem; 
-            box-shadow: 0 4px 30px rgba(0,0,0,0.5); 
             position: relative;
-            background: #fff; /* Fallback */
             display: block;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
-        /* ── EDITOR OVERLAY ── */
-        #editor-overlay { display: none; position: fixed; inset: 0; background: #fff; z-index: 200; flex-direction: column; }
-        #editor-nav { background: #0a192f; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-        #quill-editor { flex: 1; overflow-y: auto; }
-        
+        /* Input styling */
+        #page-jump-input { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; width: 40px; text-align: center; border-radius: 4px; font-size: 12px; height: 24px; outline: none; }
+        #page-jump-input:focus { border-color: var(--primary-color); }
+
+        /* Hide Scrollbar */
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
@@ -62,49 +57,31 @@
         <div id="viewer-header">
             <a href="/notes/" class="text-slate-400 font-bold flex items-center gap-2 hover:text-cyan-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Notes
+                Back
             </a>
-            <span id="header-title" class="text-white font-bold truncate text-sm">Loading...</span>
-            <div class="flex items-center gap-3">
-                <button id="admin-login-btn" class="tool-btn" title="Admin Login">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                </button>
-                <div class="flex items-center bg-slate-800 rounded px-2 h-7 border border-white/10">
-                    <input type="number" id="page-jump-input" class="bg-transparent text-white w-8 text-center text-xs outline-none" value="1">
-                    <span id="page-jump-total" class="text-slate-500 text-[10px] ml-1">/ 1</span>
-                </div>
+            <span id="header-title" class="text-white font-bold truncate text-sm px-4">Loading Note...</span>
+            <div class="flex items-center gap-2">
+                <input type="number" id="page-jump-input" value="1">
+                <span id="page-jump-total" class="text-slate-500 text-[10px]">/ 1</span>
             </div>
         </div>
         <div id="toolbar">
             <button class="tool-btn" id="prev-page-btn">Prev</button>
             <button class="tool-btn" id="next-page-btn">Next</button>
-            <div class="w-px h-4 bg-gray-700 mx-1"></div>
-            <button class="tool-btn btn-primary hidden" id="edit-note-btn">Edit Note</button>
+            <div class="w-px h-4 bg-gray-700 mx-2"></div>
             <button class="tool-btn" id="print-btn">Print / PDF</button>
         </div>
     </div>
 
-    <!-- ── EDITOR ── -->
-    <div id="editor-overlay">
-        <div id="editor-nav">
-            <span class="text-cyan-400 font-black text-xs">VISUAL EDITOR</span>
-            <div class="flex gap-3">
-                <button id="close-editor" class="text-slate-400 hover:text-white text-xs font-bold">CANCEL</button>
-                <button id="save-note-btn" class="bg-cyan-500 text-slate-900 px-6 py-1.5 rounded-full text-xs font-black hover:bg-white transition-all">SAVE TO GITHUB</button>
-            </div>
-        </div>
-        <div id="quill-editor"></div>
-    </div>
-
     <!-- ── VIEWPORT ── -->
     <div id="pdf-viewport">
-        <div id="loading-state" class="text-center py-20 text-slate-500 animate-pulse font-bold">LOADING NOTE...</div>
+        <div id="loading-state" class="text-center py-20 text-slate-500 animate-pulse font-bold">LOADING...</div>
         <div id="pages-container"></div>
     </div>
 
     <script src="notes-data.js"></script>
     <script>
-    // Global toggle function for notes that have Q&A buttons
+    // Global support for Note's internal Q&A toggle buttons
     window.tog = function(id, btn, label) {
         var el = document.getElementById(id);
         if (!el) return;
@@ -118,22 +95,17 @@
         const params = new URLSearchParams(window.location.search);
         const noteId = params.get('note') || '';
         const noteMeta = notesData.find(n => n.id === noteId);
-        
-        const REPO_OWNER = "theabhishekdahal";
-        const REPO_NAME = "portfolio.site";
-
-        const navContainer = document.getElementById('nav-container');
-        const editorOverlay = document.getElementById('editor-overlay');
         const storageKey = `note_progress_${noteId}`;
-        let quill = null;
 
         if (!noteMeta) return;
 
         document.title = `${noteMeta.title} · Abhishek Dahal`;
         document.getElementById('header-title').textContent = noteMeta.title;
 
-        // ── 1. SMART HEADER ──
+        // ── 1. SMART HEADER (Hide on scroll down, show on up) ──
         let lastScrollY = window.scrollY;
+        const navContainer = document.getElementById('nav-container');
+
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
             if (currentScrollY > lastScrollY && currentScrollY > 150) navContainer.classList.add('nav-hidden');
@@ -142,17 +114,7 @@
             updatePageCounter();
         }, { passive: true });
 
-        // ── 2. LOGIN ──
-        document.getElementById('admin-login-btn').addEventListener('click', () => {
-            const token = prompt("Enter GitHub PAT:");
-            if (token) {
-                sessionStorage.setItem('gh_token', token);
-                document.getElementById('edit-note-btn').classList.remove('hidden');
-                document.getElementById('admin-login-btn').classList.add('text-cyan-400');
-            }
-        });
-
-        // ── 3. RENDER NOTE WITH CSS SCOPING ──
+        // ── 2. FETCH & RENDER ──
         fetch(`/notes/${noteMeta.file}`)
             .then(res => res.text())
             .then(html => {
@@ -161,114 +123,85 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 
-                // --- FIX 1: SCOPE INTERNAL CSS ---
+                // Fix CSS scoping (ensure note background/styles stay inside the page)
                 const noteStyles = doc.querySelectorAll('style');
                 noteStyles.forEach(style => {
                     let css = style.innerHTML;
-                    // Change 'body' to '.note-page' so the background doesn't leak
-                    css = css.replace(/body\s*{/g, '.note-page {');
-                    // Change fixed margins so viewer can center it
-                    css = css.replace(/margin:\s*40px\s*0\s*80px/g, 'margin: 0 auto');
+                    css = css.replace(/body\s*{/g, '.viewer-page-wrapper {'); // Scope background
+                    css = css.replace(/\.page\s*{/g, '.viewer-page-wrapper {'); // Use wrapper as page base
+                    css = css.replace(/margin:\s*[^;]+;/g, 'margin: 0 auto;'); // Center pages
                     
                     const scopedStyle = document.createElement('style');
                     scopedStyle.innerHTML = css;
                     document.head.appendChild(scopedStyle);
                 });
 
-                // --- FIX 2: PRESERVE PAGE STRUCTURE ---
                 const container = document.getElementById('pages-container');
                 const manualPages = doc.querySelectorAll('.page');
                 
                 if (manualPages.length > 0) {
                     manualPages.forEach((p, idx) => {
-                        const pageDiv = document.createElement('div');
-                        // Add both viewer and note classes
-                        pageDiv.className = 'note-page page'; 
-                        pageDiv.dataset.page = idx + 1;
-                        
-                        // Explicitly re-insert the separator line if it exists
-                        const sep = p.querySelector('.sep-line') || document.createElement('div');
-                        if(!p.querySelector('.sep-line')) sep.className = 'sep-line';
-                        
-                        pageDiv.innerHTML = p.innerHTML;
-                        container.appendChild(pageDiv);
+                        const wrapper = document.createElement('div');
+                        // Apply both viewer class and the note's original class for 1:1 rendering
+                        wrapper.className = 'viewer-page-wrapper page'; 
+                        wrapper.dataset.page = idx + 1;
+                        wrapper.innerHTML = p.innerHTML;
+                        container.appendChild(wrapper);
                     });
                 } else {
-                    // Fallback for simple notes
-                    const pageDiv = document.createElement('div');
-                    pageDiv.className = 'note-page';
-                    pageDiv.innerHTML = html;
-                    container.appendChild(pageDiv);
+                    // Fallback for notes without .page divs
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'viewer-page-wrapper';
+                    wrapper.innerHTML = html;
+                    container.appendChild(wrapper);
                 }
 
-                document.getElementById('page-jump-total').textContent = `/ ${document.querySelectorAll('.note-page').length}`;
+                const total = document.querySelectorAll('.viewer-page-wrapper').length;
+                document.getElementById('page-jump-total').textContent = `/ ${total}`;
                 
-                // Restore progress
+                // Progress Memory: Restore last page
                 const lastPage = localStorage.getItem(storageKey);
                 if (lastPage) setTimeout(() => scrollToPage(parseInt(lastPage), 'auto'), 200);
             });
 
-        // ── 4. EDITOR ──
-        document.getElementById('edit-note-btn').addEventListener('click', () => {
-            editorOverlay.style.display = 'flex';
-            if (!quill) {
-                quill = new Quill('#quill-editor', {
-                    theme: 'snow',
-                    modules: { toolbar: [[{'header': [1,2,false]}],['bold','italic','underline'],[{'list':'ordered'},{'list':'bullet'}],['image','link','clean']]}
-                });
-            }
-            fetch(`/notes/${noteMeta.file}?t=${Date.now()}`)
-                .then(res => res.text())
-                .then(rawHtml => {
-                    quill.clipboard.dangerouslyPasteHTML(rawHtml);
-                });
-        });
-
-        // ── 5. SAVE ──
-        document.getElementById('save-note-btn').addEventListener('click', async () => {
-            const token = sessionStorage.getItem('gh_token');
-            if (!token) return alert("Login first.");
-            const btn = document.getElementById('save-note-btn');
-            btn.textContent = "SAVING...";
-
-            try {
-                const path = `notes/${noteMeta.file}`;
-                const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
-                const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
-                const fileData = await getRes.json();
-                const encoded = btoa(unescape(encodeURIComponent(quill.root.innerHTML)));
-
-                const putRes = await fetch(apiUrl, {
-                    method: "PUT",
-                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: `Edit: ${noteMeta.title}`, content: encoded, sha: fileData.sha })
-                });
-
-                if (putRes.ok) location.reload();
-                else alert("Save failed.");
-            } catch (e) { alert(e.message); }
-            finally { btn.textContent = "SAVE TO GITHUB"; }
-        });
-
-        // ── HELPERS ──
+        // ── 3. PAGINATION HELPERS ──
         function updatePageCounter() {
-            const pages = document.querySelectorAll('.note-page');
+            const pages = document.querySelectorAll('.viewer-page-wrapper');
             let current = 1;
-            pages.forEach(p => { if (p.getBoundingClientRect().top < 300) current = p.dataset.page; });
+            pages.forEach(p => {
+                if (p.getBoundingClientRect().top < 200) current = p.dataset.page;
+            });
             document.getElementById('page-jump-input').value = current;
             localStorage.setItem(storageKey, current);
         }
 
         function scrollToPage(num, behavior = 'smooth') {
-            const el = document.querySelector(`.note-page[data-page="${num}"]`);
-            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 140, behavior });
+            const el = document.querySelector(`.viewer-page-wrapper[data-page="${num}"]`);
+            if (el) {
+                // Adjust for the height of the sticky header
+                const offset = 140; 
+                const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: y, behavior: behavior });
+            }
         }
 
-        document.getElementById('prev-page-btn').addEventListener('click', () => scrollToPage(Math.max(1, parseInt(document.getElementById('page-jump-input').value) - 1)));
-        document.getElementById('next-page-btn').addEventListener('click', () => scrollToPage(parseInt(document.getElementById('page-jump-input').value) + 1));
-        document.getElementById('page-jump-input').addEventListener('change', (e) => scrollToPage(e.target.value));
+        // ── 4. EVENT LISTENERS ──
+        document.getElementById('prev-page-btn').addEventListener('click', () => {
+            const curr = parseInt(document.getElementById('page-jump-input').value);
+            scrollToPage(Math.max(1, curr - 1));
+        });
+
+        document.getElementById('next-page-btn').addEventListener('click', () => {
+            const curr = parseInt(document.getElementById('page-jump-input').value);
+            const total = document.querySelectorAll('.viewer-page-wrapper').length;
+            scrollToPage(Math.min(total, curr + 1));
+        });
+
+        document.getElementById('page-jump-input').addEventListener('change', (e) => {
+            scrollToPage(e.target.value);
+        });
+
         document.getElementById('print-btn').addEventListener('click', () => window.print());
-        document.getElementById('close-editor').addEventListener('click', () => editorOverlay.style.display = 'none');
 
     }());
     </script>
