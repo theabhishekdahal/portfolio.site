@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Viewer · Abhishek Dahal</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Quill Rich Text Editor -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -20,46 +21,57 @@
         }
         body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* ── SMART HEADER ── */
+        /* ── ADOBE-STYLE SMART HEADER ── */
         #nav-container {
             position: fixed; top: 0; width: 100%; z-index: 100;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s ease-in-out;
             box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
         }
         .nav-hidden { transform: translateY(-100%); }
         #viewer-header { background-color: #0a192f; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; }
-        #toolbar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1.5rem; background-color: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); }
+        #toolbar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1.5rem; background-color: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
 
         .tool-btn { background: var(--light-navy); border: 1px solid rgba(255,255,255,0.1); color: var(--dark-text); border-radius: 0.4rem; padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s; }
         .tool-btn:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(100, 255, 218, 0.05); }
         .btn-primary { color: var(--primary-color); border-color: var(--primary-color); }
 
-        /* Content Styling */
+        /* ── PDF VIEWPORT ── */
         #pdf-viewport { max-width: 900px; margin: 9rem auto 0; padding: 0 1rem 4rem; }
-        .note-page { background: #fff; width: 100%; max-width: 794px; margin: 0 auto 2.5rem; border-radius: 2px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); padding: 60px 70px; font-family: 'Lora', serif; line-height: 1.8; color: #1a1a2e; min-height: 1000px; position: relative; }
-        
-        /* ── EDITOR MODAL ── */
-        #editor-overlay { display: none; position: fixed; inset: 0; background: #0f172a; z-index: 200; flex-direction: column; overflow-y: auto; }
-        #editor-nav { position: sticky; top: 0; z-index: 210; background: #0a192f; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(100, 255, 218, 0.2); }
-        
-        /* Page Blocks in Editor */
-        .editor-page-block { background: white; width: 100%; max-width: 794px; margin: 2rem auto; position: relative; border-radius: 4px; box-shadow: 0 0 0 10px rgba(255,255,255,0.05); }
-        .page-controls { position: absolute; left: -60px; top: 0; display: flex; flex-direction: column; gap: 8px; }
-        .control-btn { background: #1e293b; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
-        .control-btn:hover { background: var(--primary-color); color: #000; }
+        .note-page { 
+            background: #fff; width: 100%; max-width: 800px; margin: 0 auto 2.5rem; 
+            padding: 80px 90px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); 
+            font-family: 'Lora', serif; color: #1a1a2e; line-height: 1.7; position: relative;
+            min-height: 1050px; /* A4 Ratio Approximate */
+        }
+        /* Page numbering inside the footer */
+        .page-footer { position: absolute; bottom: 30px; left: 0; right: 0; text-align: center; font-family: 'Inter'; font-size: 11px; color: #94a3b8; }
 
-        .ql-container { font-family: 'Lora', serif !important; font-size: 1.1rem !important; }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        /* Typography fixes for Note content */
+        .note-page h1 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: #0f172a; }
+        .note-page h2 { font-size: 1.5rem; font-weight: 700; margin-top: 1.5rem; border-bottom: 1px solid #e2e8f0; }
+        .note-page p { margin-bottom: 1rem; }
+        .note-page img { max-width: 100%; height: auto; border-radius: 4px; }
+
+        /* ── EDITOR MODAL ── */
+        #editor-overlay { display: none; position: fixed; inset: 0; background: #fff; z-index: 200; flex-direction: column; }
+        #editor-nav { background: #0a192f; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        #quill-editor { flex: 1; overflow-y: auto; font-family: 'Lora', serif; font-size: 1.1rem; }
+        
+        /* Custom styling for the "Page Break" in editor */
+        .page-break-marker { 
+            border: none; border-top: 2px dashed #64ffda; margin: 40px 0; position: relative; height: 0;
+        }
+        .page-break-marker::after { content: 'PAGE BREAK'; position: absolute; right: 0; top: -20px; font-size: 10px; color: #64ffda; font-family: 'Inter'; font-weight: 800; }
     </style>
 </head>
 <body>
 
-    <!-- ── VIEW NAVIGATION ── -->
+    <!-- ── TOP NAVIGATION ── -->
     <div id="nav-container">
         <div id="viewer-header">
             <a href="/notes/" class="text-slate-400 font-bold flex items-center gap-2 hover:text-cyan-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Notes
+                All Notes
             </a>
             <span id="header-title" class="text-white font-bold truncate text-sm">Loading...</span>
             <div class="flex items-center gap-3">
@@ -76,31 +88,29 @@
             <button class="tool-btn" id="prev-page-btn">Prev</button>
             <button class="tool-btn" id="next-page-btn">Next</button>
             <div class="w-px h-4 bg-gray-700 mx-1"></div>
-            <button class="tool-btn btn-primary hidden" id="edit-note-btn">Visual Editor</button>
-            <button class="tool-btn" id="print-btn">Save PDF</button>
+            <button class="tool-btn btn-primary hidden" id="edit-note-btn">Edit Note</button>
+            <button class="tool-btn" id="print-btn">Download PDF</button>
         </div>
     </div>
 
-    <!-- ── BLOCK-BASED EDITOR OVERLAY ── -->
+    <!-- ── VISUAL EDITOR ── -->
     <div id="editor-overlay">
         <div id="editor-nav">
             <div class="flex items-center gap-4">
-                <span class="font-black text-cyan-400 tracking-tighter">PAGE EDITOR</span>
-                <button id="add-page-btn" class="bg-slate-700 text-white px-3 py-1 rounded text-xs font-bold hover:bg-cyan-500 hover:text-black transition">+ Add Page</button>
+                <span class="text-cyan-400 font-black text-xs">VISUAL EDITOR</span>
+                <button id="insert-page-break" class="bg-slate-700 text-white px-3 py-1 rounded text-[10px] font-bold hover:bg-cyan-500 hover:text-black">INSERT PAGE BREAK</button>
             </div>
             <div class="flex gap-3">
-                <button id="close-editor" class="text-slate-400 hover:text-white text-xs font-bold">Discard</button>
-                <button id="save-note-btn" class="bg-cyan-500 text-slate-900 px-6 py-2 rounded-full text-xs font-black hover:bg-white transition-all shadow-lg shadow-cyan-500/20">COMMIT CHANGES</button>
+                <button id="close-editor" class="text-slate-400 hover:text-white text-xs font-bold">CANCEL</button>
+                <button id="save-note-btn" class="bg-cyan-500 text-slate-900 px-6 py-1.5 rounded-full text-xs font-black hover:scale-105 transition-all">SAVE TO GITHUB</button>
             </div>
         </div>
-        
-        <!-- This container holds the individual page editors -->
-        <div id="editor-workspace" class="pb-20"></div>
+        <div id="quill-editor"></div>
     </div>
 
-    <!-- ── VIEWPORT ── -->
+    <!-- ── VIEWER ── -->
     <div id="pdf-viewport">
-        <div id="loading-state" class="text-center py-20 text-slate-500 animate-pulse">Loading content...</div>
+        <div id="loading-state" class="text-center py-20 text-slate-500 animate-pulse font-bold">FETCHING NOTE CONTENT...</div>
         <div id="pages-container"></div>
     </div>
 
@@ -116,22 +126,26 @@
 
         const navContainer = document.getElementById('nav-container');
         const editorOverlay = document.getElementById('editor-overlay');
-        const editorWorkspace = document.getElementById('editor-workspace');
         const storageKey = `note_progress_${noteId}`;
-        
-        let pageEditors = []; // Array to store Quill instances
+        let quill = null;
 
-        if (!noteMeta) return;
+        if (!noteMeta) {
+            document.getElementById('loading-state').textContent = "Note not found.";
+            return;
+        }
 
         document.title = `${noteMeta.title} · Abhishek Dahal`;
         document.getElementById('header-title').textContent = noteMeta.title;
 
-        // ── 1. SMART HEADER ──
+        // ── 1. SMART HEADER (Show/Hide on Scroll) ──
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 150) navContainer.classList.add('nav-hidden');
-            else navContainer.classList.remove('nav-hidden');
+            if (currentScrollY > lastScrollY && currentScrollY > 150) {
+                navContainer.classList.add('nav-hidden');
+            } else {
+                navContainer.classList.remove('nav-hidden');
+            }
             lastScrollY = currentScrollY;
             updatePageCounter();
         }, { passive: true });
@@ -143,6 +157,7 @@
                 sessionStorage.setItem('gh_token', token);
                 document.getElementById('edit-note-btn').classList.remove('hidden');
                 document.getElementById('admin-login-btn').classList.add('text-cyan-400');
+                alert("Editing unlocked.");
             }
         });
 
@@ -152,97 +167,80 @@
             .then(html => {
                 document.getElementById('loading-state').style.display = 'none';
                 renderNote(html);
+                
+                // Restore progress
                 const lastPage = localStorage.getItem(storageKey);
                 if (lastPage) setTimeout(() => scrollToPage(parseInt(lastPage), 'auto'), 200);
+            })
+            .catch(() => {
+                document.getElementById('loading-state').textContent = "Failed to load file.";
             });
 
         function renderNote(html) {
             const container = document.getElementById('pages-container');
             container.innerHTML = '';
+            
+            // Logic: Split by the comment tag for manual pages
             const contentParts = html.split('<!-- page-break -->');
             document.getElementById('page-jump-total').textContent = `/ ${contentParts.length}`;
 
             contentParts.forEach((part, idx) => {
                 const page = document.createElement('div');
-                page.className = 'note-page ql-editor'; 
+                page.className = 'note-page'; 
                 page.dataset.page = idx + 1;
-                page.innerHTML = part;
+                page.innerHTML = part + `<div class="page-footer">Page ${idx + 1} of ${contentParts.length}</div>`;
                 container.appendChild(page);
             });
         }
 
-        // ── 4. BLOCK-BASED EDITOR LOGIC ──
+        // ── 4. EDITOR LOGIC ──
         document.getElementById('edit-note-btn').addEventListener('click', () => {
             editorOverlay.style.display = 'flex';
-            editorWorkspace.innerHTML = '';
-            pageEditors = [];
-
-            // Get current pages from viewer
-            const pages = Array.from(document.querySelectorAll('.note-page'));
-            pages.forEach(p => addPageEditor(p.innerHTML));
+            if (!quill) {
+                quill = new Quill('#quill-editor', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{ 'header': [1, 2, 3, false] }],
+                            ['bold', 'italic', 'underline'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            ['link', 'image', 'clean']
+                        ]
+                    }
+                });
+            }
             
-            if (pages.length === 0) addPageEditor(""); 
+            // Collect all HTML including the markers
+            const pages = Array.from(document.querySelectorAll('.note-page'));
+            let fullHtml = pages.map(p => {
+                const clone = p.cloneNode(true);
+                const footer = clone.querySelector('.page-footer');
+                if(footer) footer.remove();
+                return clone.innerHTML;
+            }).join('<hr class="page-break-marker">');
+            
+            quill.root.innerHTML = fullHtml;
         });
 
-        function addPageEditor(content = "") {
-            const wrapper = document.createElement('div');
-            wrapper.className = "editor-page-block";
-            
-            const editorId = `editor-${Date.now()}-${Math.random()}`;
-            wrapper.innerHTML = `
-                <div class="page-controls">
-                    <button class="control-btn move-up" title="Move Up">↑</button>
-                    <button class="control-btn move-down" title="Move Down">↓</button>
-                    <button class="control-btn delete-page" title="Delete Page" style="color:#ff4d4d">✕</button>
-                </div>
-                <div id="${editorId}" style="min-height: 800px;">${content}</div>
-            `;
-            
-            editorWorkspace.appendChild(wrapper);
-
-            const quill = new Quill(`#${editorId}`, {
-                theme: 'snow',
-                modules: { toolbar: [[{'header': [1,2,false]}],['bold','italic','underline'],[{'list':'ordered'},{'list':'bullet'}],['image','link','clean']]}
-            });
-
-            const pageObj = { wrapper, quill };
-            pageEditors.push(pageObj);
-
-            // Control Events
-            wrapper.querySelector('.move-up').onclick = () => movePage(pageObj, -1);
-            wrapper.querySelector('.move-down').onclick = () => movePage(pageObj, 1);
-            wrapper.querySelector('.delete-page').onclick = () => {
-                if (confirm("Delete this page?")) {
-                    wrapper.remove();
-                    pageEditors = pageEditors.filter(p => p !== pageObj);
-                }
-            };
-        }
-
-        function movePage(pageObj, direction) {
-            const index = pageEditors.indexOf(pageObj);
-            const newIndex = index + direction;
-            if (newIndex >= 0 && newIndex < pageEditors.length) {
-                // Swap in array
-                [pageEditors[index], pageEditors[newIndex]] = [pageEditors[newIndex], pageEditors[index]];
-                // Swap in DOM
-                if (direction === -1) editorWorkspace.insertBefore(pageObj.wrapper, pageEditors[index + 1].wrapper);
-                else editorWorkspace.insertBefore(pageEditors[newIndex].wrapper, pageObj.wrapper);
+        document.getElementById('insert-page-break').addEventListener('click', () => {
+            const range = quill.getSelection();
+            if (range) {
+                quill.insertEmbed(range.index, 'hr', 'page-break-marker');
+                quill.setSelection(range.index + 1);
             }
-        }
+        });
 
-        document.getElementById('add-page-btn').addEventListener('click', () => addPageEditor(""));
         document.getElementById('close-editor').addEventListener('click', () => {
             if(confirm("Discard changes?")) editorOverlay.style.display = 'none';
         });
 
-        // ── 5. SAVE ──
+        // ── 5. SAVE TO GITHUB ──
         document.getElementById('save-note-btn').addEventListener('click', async () => {
             const token = sessionStorage.getItem('gh_token');
-            if (!token) return alert("Please Login First (Lock Icon)");
+            if (!token) return alert("Please Login (Lock Icon)");
 
             const btn = document.getElementById('save-note-btn');
-            btn.textContent = "COMMITTING...";
+            btn.textContent = "SAVING...";
 
             try {
                 const path = `notes/${noteMeta.file}`;
@@ -251,44 +249,59 @@
                 const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
                 const fileData = await getRes.json();
 
-                // Join page HTML with page-break tag
-                const finalHtml = pageEditors.map(p => p.quill.root.innerHTML).join('<!-- page-break -->');
-                const encoded = btoa(unescape(encodeURIComponent(finalHtml)));
+                // Convert <hr class="page-break-marker"> back to <!-- page-break -->
+                let cleanHtml = quill.root.innerHTML;
+                cleanHtml = cleanHtml.replace(/<hr class="page-break-marker">/g, '<!-- page-break -->');
+                cleanHtml = cleanHtml.replace(/<hr>/g, '<!-- page-break -->'); // Catch simple HRs too
+
+                // Robust UTF-8 encoding for GitHub
+                const encoded = btoa(unescape(encodeURIComponent(cleanHtml)));
 
                 const putRes = await fetch(apiUrl, {
                     method: "PUT",
                     headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        message: `Block update: ${noteMeta.title}`,
+                        message: `Edit: ${noteMeta.title} via Web Editor`,
                         content: encoded,
                         sha: fileData.sha
                     })
                 });
 
-                if (putRes.ok) { alert("Successfully Saved!"); location.reload(); }
-                else alert("Save failed. Check Token.");
+                if (putRes.ok) { 
+                    alert("Success! Changes pushed to GitHub."); 
+                    location.reload(); 
+                } else { 
+                    alert("Error saving. Ensure your token has 'repo' permissions."); 
+                }
             } catch (e) { alert("Error: " + e.message); }
-            finally { btn.textContent = "COMMIT CHANGES"; }
+            finally { btn.textContent = "SAVE TO GITHUB"; }
         });
 
         // ── HELPERS ──
         function updatePageCounter() {
             const pages = document.querySelectorAll('.note-page');
             let current = 1;
-            pages.forEach(p => { if (p.getBoundingClientRect().top < 200) current = p.dataset.page; });
+            pages.forEach(p => {
+                const rect = p.getBoundingClientRect();
+                if (rect.top < 300) current = p.dataset.page;
+            });
             document.getElementById('page-jump-input').value = current;
             localStorage.setItem(storageKey, current);
         }
 
         function scrollToPage(num, behavior = 'smooth') {
             const el = document.querySelector(`.note-page[data-page="${num}"]`);
-            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 140, behavior });
+            if (el) {
+                const y = el.getBoundingClientRect().top + window.pageYOffset - 150;
+                window.scrollTo({ top: y, behavior: behavior });
+            }
         }
 
         document.getElementById('prev-page-btn').addEventListener('click', () => scrollToPage(Math.max(1, parseInt(document.getElementById('page-jump-input').value) - 1)));
         document.getElementById('next-page-btn').addEventListener('click', () => scrollToPage(parseInt(document.getElementById('page-jump-input').value) + 1));
         document.getElementById('page-jump-input').addEventListener('change', (e) => scrollToPage(e.target.value));
         document.getElementById('print-btn').addEventListener('click', () => window.print());
+
     }());
     </script>
 </body>
