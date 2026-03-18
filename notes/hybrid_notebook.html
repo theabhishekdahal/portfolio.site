@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hybrid Securities — Study Notebook</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink-h: #1a2f5e;
+  --ink-b: #1e2d3d;
+  --ink-arrow: #3b3fa8;
+  --ink-ref: #2a7a6e;
+  --lh: 36px;
+  --header-h: calc(var(--lh) * 3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a192f; font-family: 'Lora', serif; padding: 0 0 80px; }
+.page {
+  width: 210mm; min-height: 297mm; background: #fff;
+  margin: 36px auto !important; position: relative;
+  overflow: visible; border-radius: 10px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.45);
+  padding: var(--header-h) 18mm 16mm calc(33mm + 1mm);
+}
+.page::after {
+  content: ''; position: absolute; top: 0; left: 33mm; bottom: 0; width: 1px;
+  background: rgba(200,60,60,0.45); pointer-events: none; z-index: 1;
+}
+.sep-line {
+  position: absolute; top: var(--header-h); left: 0; right: 0; height: 1px;
+  background: rgba(200,60,60,0.3); z-index: 5;
+}
+.chapter-tab {
+  position: absolute; right: 0; top: 52px;
+  background: var(--ink-h); color: #fff;
+  font-family: 'Caveat', cursive; font-size: 12px; font-weight: 700;
+  writing-mode: vertical-rl; padding: 14px 5px;
+  border-radius: 5px 0 0 5px; letter-spacing: 1px; z-index: 10;
+}
+.page-header {
+  position: absolute; top: 0; left: 0; right: 0; height: var(--header-h);
+  z-index: 5; display: flex; align-items: flex-end;
+  padding: 0 16mm 8px calc(33mm + 1mm); justify-content: space-between;
+}
+.page-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 26px; font-weight: 700; color: var(--ink-h); line-height: 1; }
+.pg-tag { font-family: 'Caveat', cursive; font-size: 14px; color: rgba(26,47,94,0.35); }
+.page-content { position: relative; z-index: 2; }
+
+.qcard { background: #f3f5fc; border-radius: 8px; padding: 12px 16px 10px; margin-bottom: 8px; z-index: 10; position: relative; }
+.qcard-label { font-family: 'Nunito', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--ink-arrow); display: block; margin-bottom: 5px; }
+.qcard-body { font-family: 'Nunito', sans-serif; font-size: 13.5px; color: var(--ink-b); line-height: 1.6; }
+.qdata { width: 100%; border-collapse: collapse; margin: 5px 0; }
+.qdata td { font-family: 'Nunito', sans-serif; font-size: 12.5px; padding: 2px 10px; color: var(--ink-b); }
+.qdata td:first-child { font-weight: 700; color: var(--ink-h); width: 55%; }
+.qdata tr:nth-child(even) td { background: rgba(26,47,94,0.04); }
+.qparts { margin-top: 5px; }
+.qparts span { display: flex; align-items: baseline; gap: 4px; font-size: 13px; margin: 2px 0; font-family: 'Nunito', sans-serif; color: var(--ink-b); }
+.qans { font-family: 'Nunito', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #1a6b4a; display: block; margin-top: 7px; }
+.toggle-row { display: flex; gap: 7px; margin-top: 9px; flex-wrap: wrap; }
+.tbtn { font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700; padding: 4px 13px; border-radius: 20px; border: none; cursor: pointer; letter-spacing: 0.2px; transition: all 0.15s; }
+.tbtn-ans { background: #0d7a6e; color: #fff; }
+.tbtn-ans.off { background: transparent; color: #0d7a6e; border: 1.5px solid #0d7a6e; }
+.tbtn-tip { background: transparent; color: #b07400; border: 1.5px solid #b07400; }
+.tbtn-tip.on { background: #b07400; color: #fff; }
+.tbtn-prac { background: transparent; color: var(--ink-h); border: 1.5px solid var(--ink-h); }
+.tbtn-prac.on { background: var(--ink-h); color: #fff; }
+
+.ans-block { margin: 4px 0 2px; }
+.ans-row { display: block; height: var(--lh); line-height: var(--lh); overflow: hidden; white-space: nowrap; font-family: 'Lora', serif; font-size: 15px; color: var(--ink-b); }
+.ans-row-fr { display: flex; align-items: center; min-height: calc(var(--lh)*2); flex-wrap: wrap; gap: 6px; font-family: 'Lora', serif; font-size: 15px; color: var(--ink-b); }
+.arrow-note { display: block; height: var(--lh); line-height: var(--lh); font-family: 'Lora', serif; font-weight: 600; color: var(--ink-arrow); overflow: hidden; white-space: nowrap; }
+.bullet-arrow { display: block; height: var(--lh); line-height: var(--lh); font-family: 'Lora', serif; font-weight: 600; color: var(--ink-ref); overflow: hidden; white-space: nowrap; }
+.note-row { font-family: 'Lora', serif; font-size: 14px; font-style: italic; color: #1e2d3d; line-height: var(--lh); display: block; }
+.note-row.tutorial { color: #1a6b7a; }
+.fr { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; font-size: 13px; font-family: 'Lora', Georgia, serif; line-height: 1.2; }
+.fr .num { border-bottom: 1.5px solid currentColor; padding: 0 3px 1px; white-space: nowrap; }
+.fr .den { padding: 1px 3px 0; white-space: nowrap; }
+sub { font-size: 0.72em; vertical-align: sub; line-height: 0; }
+sup { font-size: 0.72em; vertical-align: super; line-height: 0; }
+
+.ntable { width: 100%; border-collapse: collapse; font-family: 'Lora', serif; font-size: 14px; color: var(--ink-b); margin: 2px 0; }
+.ntable th { height: var(--lh); line-height: var(--lh); padding: 0 8px; text-align: left; font-weight: 600; color: var(--ink-h); border-top: 1.5px solid rgba(26,47,94,0.4); border-bottom: 1.5px solid rgba(26,47,94,0.4); background: rgba(26,47,94,0.06); }
+.ntable th.r, .ntable td.r { text-align: right; }
+.ntable th.c, .ntable td.c { text-align: center; }
+.ntable td { height: var(--lh); line-height: var(--lh); padding: 0 8px; vertical-align: middle; }
+.ntable tr:nth-child(even) td { background: rgba(26,47,94,0.025); }
+.ntable tr.tot td { border-top: 1.5px solid rgba(26,47,94,0.35); font-weight: 600; background: rgba(26,47,94,0.04); }
+.ntable tr.dtot td { border-top: 2px double rgba(26,47,94,0.5); font-weight: 700; background: rgba(42,122,110,0.07); color: var(--ink-ref); }
+
+.tip-block { background: #fffbf0; border: 1px dashed rgba(180,120,20,0.28); border-radius: 6px; padding: 10px 14px; margin: 4px 0; }
+.tip-label { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #b07400; display: block; margin-bottom: 5px; }
+.tip-body p { font-family: 'Lora', serif; font-size: 13.5px; color: #5a4000; line-height: 1.6; }
+.prac-block { background: rgba(42,122,110,0.04); border: 1px dashed rgba(42,122,110,0.35); border-radius: 6px; padding: 10px 14px; margin: 4px 0; }
+.prac-label { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-ref); display: block; margin-bottom: 4px; }
+.prac-lines .prac-line { display: block; height: var(--lh); border-bottom: 1px dotted rgba(42,122,110,0.28); }
+.breath { display: block; height: calc(var(--lh) * 0.5); }
+
+#nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,25,47,0.97); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; gap: 14px; padding: 10px 24px; z-index: 999; }
+#nav-bar button { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.20); color: #fff; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; padding: 6px 20px; border-radius: 20px; cursor: pointer; }
+#nav-bar button:hover { background: rgba(255,255,255,0.22); }
+#nav-counter { color: rgba(255,255,255,0.65); font-family: 'Nunito', sans-serif; font-size: 13px; min-width: 54px; text-align: center; }
+#nav-jump { width: 50px; padding: 4px 8px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; font-family: 'Nunito', sans-serif; font-size: 13px; text-align: center; }
+
+@media (max-width: 800px) {
+  .page { width: 100%; min-height: 100vh; border-radius: 0; box-shadow: none; padding: var(--header-h) 12px 16px 16px; }
+  .page::after { display: none; }
+  .ans-row { height: auto; white-space: normal; overflow: visible; font-size: 14px; padding-left: 1em; text-indent: -1em; }
+  .ans-row-fr { flex-wrap: wrap; height: auto; }
+  .ntable td, .ntable th { height: auto; white-space: normal; padding: 5px 8px; }
+}
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: none !important; padding: 0 !important; margin: 0 !important; }
+  .page { width: 210mm !important; min-height: 0 !important; height: auto !important; margin: 0 !important; border-radius: 0 !important; box-shadow: none !important; overflow: visible !important; page-break-after: always !important; break-after: page !important; }
+  .chapter-tab, #nav-bar { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ PAGE 1 — Q1 ════════ -->
+<div class="page" id="pg1">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header">
+    <span class="page-title">Hybrid Securities</span>
+    <span class="pg-tag">1</span>
+  </div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 1 · OCD — Basic Calculations</span>
+      <div class="qcard-body">The data given below relates to a convertible bond:
+        <table class="qdata">
+          <tr><td>Face value</td><td>Rs. 250</td></tr>
+          <tr><td>Coupon rate</td><td>12%</td></tr>
+          <tr><td>No. of shares per bond</td><td>20</td></tr>
+          <tr><td>Market price of share</td><td>Rs. 12</td></tr>
+          <tr><td>Straight value of bond</td><td>Rs. 235</td></tr>
+          <tr><td>Market price of convertible bond</td><td>Rs. 265</td></tr>
+        </table>
+        Calculate: (i) Stock value of bond. (ii) % of downside risk. (iii) Conversion premium. (iv) Conversion parity price of stock.
+      </div>
+      <span class="qans">Ans: (i) Rs. 240 &nbsp;(ii) 11.32% &nbsp;(iii) 10.42% &nbsp;(iv) Rs. 13.25</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a1" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t1" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p1" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a1">
+      <div class="arrow-note">(i) Stock value of bond</div>
+      <div class="ans-row">= MP of share × Conversion ratio = 12 × 20 = <strong>Rs. 240</strong></div>
+      <div class="arrow-note">(ii) Percentage of downside risk</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">MP of OCD − Straight value</span><span class="den">MP of OCD</span></span> × 100 = <span class="fr"><span class="num">265 − 235</span><span class="den">265</span></span> × 100 = <strong>11.32%</strong></div>
+      <div class="arrow-note">(iii) Conversion premium</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">CPP − MP</span><span class="den">MP</span></span> × 100 = <span class="fr"><span class="num">(265/20) − 12</span><span class="den">12</span></span> × 100 = <span class="fr"><span class="num">13.25 − 12</span><span class="den">12</span></span> × 100 = <strong>10.42%</strong></div>
+      <div class="arrow-note">(iv) Conversion parity price of stock</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">MP of OCD</span><span class="den">MP of shares × Conversion ratio</span></span> = <span class="fr"><span class="num">265</span><span class="den">20</span></span> = <strong>Rs. 13.25</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t1" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Foundational OCD question. Four key ratios: Stock Value = MPS × CR. Downside risk = how far MP can fall before hitting straight value. CPP = MP of OCD ÷ CR. Conversion premium = (CPP − MPS)/MPS × 100.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p1" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 2 — Q2 ════════ -->
+<div class="page" id="pg2">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">2</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 2 · OCD — Seven-Part Analysis (JAC Ltd.)</span>
+      <div class="qcard-body">8.5% Fully Convertible Debentures issued by JAC Ltd. at Rs. 1000:
+        <table class="qdata">
+          <tr><td>Market Price of Debenture</td><td>Rs. 900</td></tr>
+          <tr><td>Conversion Ratio</td><td>30</td></tr>
+          <tr><td>Straight Value of Debenture</td><td>Rs. 700</td></tr>
+          <tr><td>Market Price of Equity share on Conversion</td><td>Rs. 25</td></tr>
+          <tr><td>Expected Dividend Per Share</td><td>Rs. 1</td></tr>
+        </table>
+        Calculate: (a) Conversion Value (b) Market Conversion Price (c) Conversion Premium per share (d) Ratio of Conversion Premium (e) Premium over Straight Value (f) Favorable income differential per share (g) Premium pay back period.
+      </div>
+      <span class="qans">Ans: (a) Rs. 750 &nbsp;(b) Rs. 30 &nbsp;(c) Rs. 5 &nbsp;(d) 20% &nbsp;(e) 28.6% &nbsp;(f) Rs. 1.833 &nbsp;(g) 2.73 years</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a2" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t2" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p2" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a2">
+      <div class="arrow-note">(a) Conversion Value of Debenture</div>
+      <div class="ans-row">= Conversion ratio × MP of share = 30 × 25 = <strong>Rs. 750</strong></div>
+      <div class="arrow-note">(b) Market Conversion Price (CPP)</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">MV of OCD</span><span class="den">Conversion ratio</span></span> = <span class="fr"><span class="num">900</span><span class="den">30</span></span> = <strong>Rs. 30</strong></div>
+      <div class="arrow-note">(c) Conversion Premium per share</div>
+      <div class="ans-row">= CPP − Actual MP = 30 − 25 = <strong>Rs. 5</strong></div>
+      <div class="arrow-note">(d) Ratio of Conversion Premium</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">CPP − Actual MP</span><span class="den">MP</span></span> × 100 = <span class="fr"><span class="num">5</span><span class="den">25</span></span> × 100 = <strong>20%</strong></div>
+      <div class="arrow-note">(e) Premium over Straight Value of Debenture</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">MV of OCD − Straight value</span><span class="den">Straight value</span></span> × 100 = <span class="fr"><span class="num">900 − 700</span><span class="den">700</span></span> × 100 = <strong>28.6%</strong></div>
+      <div class="arrow-note">(f) Favorable income differential per share</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">Coupon amt p.a.</span><span class="den">Conversion ratio</span></span> − Expected annual dividend income = <span class="fr"><span class="num">1000 × 8.5%</span><span class="den">30</span></span> − 1 = <strong>Rs. 1.833</strong></div>
+      <div class="arrow-note">(g) Premium pay back period</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">Conversion premium per share</span><span class="den">Favourable income diff.</span></span> = <span class="fr"><span class="num">5</span><span class="den">1.833</span></span> = <strong>2.73 years</strong></div>
+      <div class="note-row tutorial">T. Note: MPS to be used for calculating conversion premium per share, conversion premium (%) etc. is today's MPS, not MPS on date of conversion. But MPS today isn't available, given MPS of Rs. 25 is also considered as today's MPS.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t2" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Most comprehensive OCD formula question — all 7 ratios. Favorable income diff = (coupon/CR) − dividend per share. Payback period = premium per share ÷ income diff. Note: MPS used is today's price (not future conversion price).</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p2" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 3 — Q3 ════════ -->
+<div class="page" id="pg3">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">3</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 3 · OCD — Straight Value + Full Analysis (GHI Ltd.)</span>
+      <div class="qcard-body">GHI Ltd. (AAA rated) issued fully convertible bonds 1 year ago:
+        <table class="qdata">
+          <tr><td>Face value of bond</td><td>Rs. 1000</td></tr>
+          <tr><td>Coupon rate</td><td>8.5%</td></tr>
+          <tr><td>Time to Maturity (remaining)</td><td>3 years (annual interest)</td></tr>
+          <tr><td>Conversion ratio</td><td>25 shares per bond</td></tr>
+          <tr><td>Current market price per share</td><td>Rs. 45</td></tr>
+          <tr><td>Market price of convertible bond</td><td>Rs. 1175</td></tr>
+          <tr><td>Plain vanilla bond rate (AAA)</td><td>9.5%</td></tr>
+        </table>
+        Calculate: (i) Straight Value (ii) Conversion Value (iii) Conversion Premium (iv) % Downside Risk (v) Conversion Parity Price.
+      </div>
+      <span class="qans">Ans: (i) Rs. 974.91 &nbsp;(ii) Rs. 1125 &nbsp;(iii) 4.44% &nbsp;(iv) 17.02% &nbsp;(v) Rs. 47</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a3" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t3" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p3" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a3">
+      <div class="arrow-note">(i) Straight value of bond</div>
+      <div class="ans-row">= PV of all future cashflows associated with bond</div>
+      <div class="ans-row">= (1000×8.5%) × PVIFA(9.5%, 3yr) + 1000 × PVIF(9.5%, 3yr)</div>
+      <div class="ans-row">= 85 × PVIFA(9.5%, 3yr) + 1000 × PVIF(9.5%, 3yr)</div>
+      <div class="ans-row">= 85 × 2.5089 + 1000 × 0.76165</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 974.91</div>
+      <div class="arrow-note">(ii) Conversion value of bond</div>
+      <div class="ans-row">= Conversion ratio × MP of share = 25 × 45 = <strong>Rs. 1125</strong></div>
+      <div class="arrow-note">(iii) Conversion premium (Rs.)</div>
+      <div class="ans-row-fr">= CPP − MP = <span class="fr"><span class="num">MV of OCD</span><span class="den">Conversion ratio</span></span> − 45 = <span class="fr"><span class="num">1175</span><span class="den">25</span></span> − 45 = 47 − 45 = Rs. 2</div>
+      <div class="ans-row-fr">Conversion premium (%) = <span class="fr"><span class="num">2</span><span class="den">45</span></span> × 100 = <strong>4.44%</strong></div>
+      <div class="arrow-note">(iv) Percentage of downside risk</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">MV of OCD − Straight value</span><span class="den">Straight MV of OCD</span></span> × 100 = <span class="fr"><span class="num">1175 − 974.91</span><span class="den">974.91 + 1175</span></span> × 100 = <span class="fr"><span class="num">200.09</span><span class="den">1175</span></span> × 100</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 17.02%</div>
+      <div class="arrow-note">(v) Conversion parity price</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">MV of OCD</span><span class="den">Conversion ratio</span></span> = <span class="fr"><span class="num">1175</span><span class="den">25</span></span> = <strong>Rs. 47</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t3" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Straight value must be computed (not given) using the plain vanilla bond rate (9.5%) as discount rate. Note: downside risk formula uses straight value in denominator per solution — (MP − SV)/MP × 100.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p3" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 4 — Q4 ════════ -->
+<div class="page" id="pg4">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">4</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 4 · OCD — EPS Dilution (Convertible Preference Shares)</span>
+      <div class="qcard-body">XYZ company: current EPS = Rs. 3/share, 5,00,000 shares outstanding. Plans to issue 40,000 convertible preference shares of Rs. 50 each at par, 7% dividend, convertible into 2 equity shares each. Equity MPS = Rs. 21.
+        <div class="qparts">
+          <span><strong>(i)</strong> Preference share's conversion value?</span>
+          <span><strong>(ii)</strong> Conversion premium?</span>
+          <span><strong>(iii)</strong> Effect on basic EPS (a) before conversion (b) after conversion (same total earnings).</span>
+          <span><strong>(iv)</strong> If profits after tax increase by Rs. 1 million, what is basic EPS (a) before conversion (b) on fully diluted basis?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 42 &nbsp;(ii) 19.05% &nbsp;(iii) Rs. 2.72, Rs. 2.59 &nbsp;(iv) Rs. 4.72, Rs. 4.31</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a4" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t4" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p4" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a4">
+      <div class="arrow-note">(i) Conversion value</div>
+      <div class="ans-row">= Conversion ratio × MP per share = 2 × 21 = <strong>Rs. 42</strong></div>
+      <div class="arrow-note">(ii) Conversion premium</div>
+      <div class="ans-row-fr">CPP = <span class="fr"><span class="num">MP of pref. share</span><span class="den">Conversion ratio</span></span> = <span class="fr"><span class="num">50</span><span class="den">2</span></span> = Rs. 25 &nbsp;&nbsp; Conversion premium = <span class="fr"><span class="num">CPP − MP</span><span class="den">MP</span></span> × 100 = <span class="fr"><span class="num">25 − 21</span><span class="den">21</span></span> × 100 = <strong>19.05%</strong></div>
+      <div class="arrow-note">(iii) Part (iii): Before conversion</div>
+      <div class="ans-row">Total earnings = 3 × 5,00,000 = Rs. 15,00,000</div>
+      <div class="ans-row">Less: Preference dividend = 40,000 × 50 × 7% = (Rs. 1,40,000)</div>
+      <div class="ans-row">Earnings available for equity = Rs. 13,60,000</div>
+      <div class="ans-row-fr">EPS = <span class="fr"><span class="num">13,60,000</span><span class="den">5,00,000</span></span> = <strong>Rs. 2.72 per share</strong></div>
+      <div class="arrow-note">After conversion (1 pref. share = 2 equity shares; 40,000 pref = 80,000 eq. shares)</div>
+      <div class="ans-row">No preference dividend. Earnings available for equity = Rs. 15,00,000</div>
+      <div class="ans-row-fr">EPS = <span class="fr"><span class="num">15,00,000</span><span class="den">5,00,000 + 80,000</span></span> = <span class="fr"><span class="num">15,00,000</span><span class="den">5,80,000</span></span> = <strong>Rs. 2.59 per share</strong></div>
+      <div class="note-row">* Assumed 100% pref. shares converted into equity shares.</div>
+      <div class="arrow-note">(iv) Part (iv): Before conversion (profits increase by Rs. 10,00,000)</div>
+      <div class="ans-row">Total earnings = 15,00,000 + 10,00,000 = 25,00,000</div>
+      <div class="ans-row">Less: Pref. dividend = (1,40,000); EAE = 23,60,000</div>
+      <div class="ans-row-fr">EPS = <span class="fr"><span class="num">23,60,000</span><span class="den">5,00,000</span></span> = <strong>Rs. 4.72 per share</strong></div>
+      <div class="arrow-note">After conversion (fully diluted basis)</div>
+      <div class="ans-row-fr">EPS = <span class="fr"><span class="num">25,00,000</span><span class="den">5,80,000</span></span> = <strong>Rs. 4.31 per share</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t4" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>EPS dilution from convertible preference shares. Before conversion: deduct pref. dividend from earnings. After conversion: no pref. dividend but more equity shares. Fully diluted EPS always lower than basic EPS.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p4" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 5 — Q5 ════════ -->
+<div class="page" id="pg5">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">5</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 5 · OCD — Blue Sky Corporation (EPS &amp; Retained Earnings)</span>
+      <div class="qcard-body">Blue Sky Corp: EPS = Rs. 3/share, 60% dividend payout, P/E ratio = 8.333. Issues Rs. 10 million of 9%, 20-year convertible debentures with 20% initial conversion premium and call price Rs. 1050. 1 million shares outstanding, tax rate 40%.
+        <div class="qparts">
+          <span><strong>(i)</strong> Conversion price.</span>
+          <span><strong>(ii)</strong> Conversion ratio per Rs. 1,000 debenture.</span>
+          <span><strong>(iii)</strong> Initial conversion value of each debenture.</span>
+          <span><strong>(iv)</strong> New shares if all debentures converted.</span>
+          <span><strong>(v)</strong> New EPS and earnings retained before and after conversion (EBIT ↑ Rs. 1M with proceeds).</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 30 &nbsp;(ii) 33.3333 shares &nbsp;(iii) Rs. 833.33 &nbsp;(iv) 3,33,333 &nbsp;(v) EPS = Rs. 3.00 before / Rs. 3.06 retained before / Rs. 2.70 after conversion</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a5" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t5" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p5" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a5">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">EPS = Rs. 3/share; Dividend payout = 60%; P/E = 8.333</div>
+      <div class="ans-row">MPS = P/E × EPS = 8.333 × 3 = Rs. 25/share</div>
+      <div class="ans-row">Conversion premium (%) = 20%</div>
+      <div class="arrow-note">Part (i): Conversion price</div>
+      <div class="ans-row-fr">= FV of bond / Conversion ratio &nbsp; Or: = MPS × (1 + premium) → CPP = 25 × 1.20 = <strong>Rs. 30</strong></div>
+      <div class="arrow-note">Part (ii): Conversion ratio per Rs. 1,000 debenture</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">1000</span><span class="den">30</span></span> = <strong>33.3333 shares</strong></div>
+      <div class="ans-row">∴ OCD is going to issue now; issue price = market price = FV = Rs. 1000</div>
+      <div class="arrow-note">Part (iii): Initial conversion value</div>
+      <div class="ans-row">= Conversion ratio × MP per share = 33.3333 × 25 = <strong>Rs. 833.33</strong></div>
+      <div class="arrow-note">Part (iv): New shares if all debentures converted</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">10,00,00,000 × 33.3333</span><span class="den">1000</span></span> = <strong>3,33,333 shares</strong></div>
+      <div class="arrow-note">Part (v): Calculation of RIE (Revised Income &amp; EPS)</div>
+      <div class="ans-row">Total earning (before tax) = 3 × 10,000,000/1000 × 1000 = Rs. 30,000</div>
+      <div class="ans-row">Total earning (before) = 30,000,000 ÷ 0.6 = 50,000,000; Revised = 50,000,000 + 10,000,000 = 60,000,000</div>
+      <table class="ntable" style="margin-top:4px;">
+        <thead><tr><th>Particular</th><th class="r">Before Conversion</th><th class="r">After Conversion</th></tr></thead>
+        <tbody>
+          <tr><td>EBIT</td><td class="r">6,00,00,000</td><td class="r">6,00,00,000</td></tr>
+          <tr><td>(−) Interest (10M × 9%)</td><td class="r">(9,00,000)</td><td class="r">—</td></tr>
+          <tr><td>EBT</td><td class="r">5,10,00,000</td><td class="r">6,00,00,000</td></tr>
+          <tr><td>Tax @40%</td><td class="r">(2,04,00,000)</td><td class="r">(2,40,00,000)</td></tr>
+          <tr><td>EAE</td><td class="r">3,06,00,000</td><td class="r">3,60,00,000</td></tr>
+          <tr><td>÷ No. of eq. shares</td><td class="r">10,00,000</td><td class="r">13,33,333</td></tr>
+          <tr class="dtot"><td>EPS</td><td class="r"><strong>Rs. 3.06</strong></td><td class="r"><strong>Rs. 2.70</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t5" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Multi-step: derive MPS from P/E × EPS, then CPP = MPS × (1+premium), CR = FV/CPP. RIE table: before conversion has interest deduction but fewer shares; after conversion no interest but many more shares. EPS may fall after conversion.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p5" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 6 — Q6 ════════ -->
+<div class="page" id="pg6">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">6</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 6 · OCD Valuation — Type 2 (Delta Corporation)</span>
+      <div class="qcard-body">Delta Corporation OCD details:
+        <table class="qdata">
+          <tr><td>Face value</td><td>Rs. 1000</td></tr>
+          <tr><td>Life</td><td>8 years</td></tr>
+          <tr><td>Coupon rate</td><td>10%</td></tr>
+          <tr><td>YTM on similar NCD</td><td>15%</td></tr>
+          <tr><td>Conversion Ratio</td><td>5</td></tr>
+          <tr><td>Market Price of Share</td><td>Rs. 150</td></tr>
+        </table>
+        <div class="qparts">
+          <span><strong>(i)</strong> Expected market value if option premium = Rs. 30.</span>
+          <span><strong>(ii)</strong> Expected market value if MPS expected to reach Rs. 250 in 8 years.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 805.63 &nbsp;(ii) Rs. 857.36</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a6" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t6" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p6" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a6">
+      <div class="arrow-note">Part (i)</div>
+      <div class="arrow-note">Step 1: Calc of straight / investment value</div>
+      <div class="ans-row">= PV of all future cash flows associated with bond</div>
+      <div class="ans-row">= (1000×10%) × PVIFA(15%, 8yr) + 1000 × PVIF(15%, 8yr)</div>
+      <div class="ans-row">= 100 × 4.48732 + 1000 × 0.32690</div>
+      <div class="ans-row" style="font-weight:700;">= Rs. 775.632</div>
+      <div class="arrow-note">Step 2: Calc of conversion value</div>
+      <div class="ans-row">= Conversion ratio × MP per share = 5 × 150 = <strong>Rs. 750</strong></div>
+      <div class="arrow-note">Step 3: Floor value = Higher of (Step 1, Step 2) = Higher of (775.632, 750) = <strong>775.632</strong></div>
+      <div class="arrow-note">Step 4: Expected MV = Floor value + Option premium = 775.632 + 30 = <strong>Rs. 805.632</strong></div>
+      <div class="arrow-note">Part (ii)</div>
+      <div class="note-row tutorial">T. Note: In this part, value of option premium is not given. But expected MP of Delta after 8 years is given, which is a base for calculating value of option premium.</div>
+      <div class="note-row">Value of option is the PV of expected benefit from the convertible bond. Convertible option provides an investor a right to choose the following two cashflows after 8 years:</div>
+      <div class="ans-row">(i) Redemption value of Rs. 1000</div>
+      <div class="ans-row">(ii) 5 shares of Delta [expected value at t<sub>8</sub>] = 250 × 5 = 1250</div>
+      <div class="ans-row">Extra benefit on choosing conversion = 1250 − 1000 = 250</div>
+      <div class="ans-row-fr">PV of benefit = 250 × PVIF(15%, 8yr) = 250 × 0.32690 = <strong>Rs. 81.73</strong></div>
+      <div class="ans-row">So, value of option premium = Rs. 81.73</div>
+      <div class="ans-row-fr">Calc of expected value of OCD = Floor value + Option premium = 775.632 + 81.73 = <strong>Rs. 857.36</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t6" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>OCD Valuation: always 4 steps. Floor value = higher of (straight value, conversion value). Option premium in part (ii) must be derived as PV of extra benefit from choosing conversion over redemption. Always use current MPS for conversion value in step 2.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p6" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 7 — Q7 ════════ -->
+<div class="page" id="pg7">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">7</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 7 · OCD Valuation — Phototech plc (Floor, MV, Premium)</span>
+      <div class="qcard-body">Phototech plc has 9% bonds redeemable at par £100 in 5 years. Each bond may be converted on that date into 20 ordinary shares. Current share price = £4.45, expected to grow at 6.5% p.a. Cost of debt = 7% p.a.
+        <div class="qparts">
+          <span><strong>(i)</strong> Floor value.</span>
+          <span><strong>(ii)</strong> Market value.</span>
+          <span><strong>(iii)</strong> Conversion premium.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) £108.20 &nbsp;(ii) £123.84 &nbsp;(iii) 39.15%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a7" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t7" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p7" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a7">
+      <div class="arrow-note">Part (i): Floor value</div>
+      <div class="note-row">Conversion ratio = 20. MP of share = £4.45</div>
+      <div class="arrow-note">(A) Straight value</div>
+      <div class="ans-row">= (100×9%) × PVIFA(7%, 5yr) + 100 × PVIF(7%, 5yr)</div>
+      <div class="ans-row">= 9 × 4.100197 + 100 × 0.71298 = 36.90 + 71.30 = <strong>Rs. 108.1997</strong></div>
+      <div class="arrow-note">(B) Conversion value (always use current MPS)</div>
+      <div class="ans-row">= Conversion ratio × MP of share = 20 × 4.45 = <strong>£ 89</strong></div>
+      <div class="arrow-note">Floor value = Higher of (A, B) = Higher of (108.20, 89) = <strong>£ 108.20</strong></div>
+      <div class="arrow-note">Part (ii): Market value of OCD</div>
+      <div class="note-row">MP of share at end of 5 years = 4.45 × (1+6.5%)⁵ = 4.45 × 1.37009 = 6.09688</div>
+      <div class="ans-row">Redemption value = £ 100; Expected value from 20 shares (t<sub>5</sub>) = 6.09688 × 20 = £ 121.9377</div>
+      <div class="ans-row">Extra benefit on choosing conversion = 121.9377 − 100 = 21.9377</div>
+      <div class="ans-row-fr">PV of benefit = 21.9377 × PVIF(7%, 5yr) = 21.9377 × 0.71298 = <strong>£ 15.641</strong></div>
+      <div class="ans-row">MV of OCD = Floor value + Option premium = 108.20 + 15.641 = <strong>£ 123.84</strong></div>
+      <div class="arrow-note">Part (iii): Conversion premium</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">CPP − MP</span><span class="den">MP</span></span> × 100 = <span class="fr"><span class="num">123.84/20 − 4.45</span><span class="den">4.45</span></span> × 100 = <span class="fr"><span class="num">6.192 − 4.45</span><span class="den">4.45</span></span> × 100 = <strong>39.15%</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t7" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Share price grows at 6.5% p.a. — must project MPS to t<sub>5</sub> to compute option premium. Conversion value for floor (step 2) uses today's MPS. Option premium uses future MPS. This distinction is critical.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p7" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 8 — Q8 ════════ -->
+<div class="page" id="pg8">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">8</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 8 · OCD Valuation — Reverse Calculation (XYZ Corporation)</span>
+      <div class="qcard-body">Data given for XYZ Corporation convertible bond:
+        <table class="qdata">
+          <tr><td>Face value</td><td>Rs. 1000</td></tr>
+          <tr><td>Conversion Ratio</td><td>4</td></tr>
+          <tr><td>Conversion Parity Price</td><td>Rs. 300</td></tr>
+          <tr><td>Current MP of similar NCD</td><td>Rs. 1100</td></tr>
+          <tr><td>Expected Dividend per share</td><td>Rs. 10</td></tr>
+          <tr><td>Option Premium</td><td>Rs. 50</td></tr>
+          <tr><td>Premium Payback Period</td><td>3 years</td></tr>
+        </table>
+        Calculate: (i) Market Price of OCD &nbsp;(ii) Market Price of Stock &nbsp;(iii) Coupon rate of OCD.
+      </div>
+      <span class="qans">Ans: (i) Rs. 1200 &nbsp;(ii) Rs. 287.5 &nbsp;(iii) 5.67%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a8" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t8" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p8" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a8">
+      <div class="arrow-note">Part (i): Market Price of OCD</div>
+      <div class="note-row">Here, Conversion parity price = 300. &nbsp; MP of OCD/Conversion ratio = 300 &nbsp; ∴ MP of OCD = 300 × 4 = <strong>Rs. 1200</strong></div>
+      <div class="arrow-note">Part (ii): Market Price of OCD = Floor price + Option premium</div>
+      <div class="ans-row">∴ Floor price = 1200 − 50 = Rs. 1150</div>
+      <div class="note-row">As floor price = higher of (a) straight value and (b) conversion value. Straight value = 1100 (given as similar NCD).</div>
+      <div class="ans-row">So, conversion value = 1150</div>
+      <div class="ans-row">Conversion ratio × MP per share = 1150 &nbsp; Or, 4 × MP per share = 1150</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">∴ MP per share = Rs. 287.5</div>
+      <div class="arrow-note">Part (iii): Coupon rate of OCD</div>
+      <div class="note-row">Conversion premium price = CPP − MP = 300 − n (where n is coupon rate × 1000/4)</div>
+      <div class="ans-row">Favourable diff. income = (1000×n%) / 4 − 10 = 2.5n − 10</div>
+      <div class="ans-row">Premium payback period = 3; &nbsp; Or, 12.5/(2.5n−10) = 3 &nbsp; [Premium = CPP − MPS = 300 − 287.5 = 12.5]</div>
+      <div class="ans-row">Or, 12.5 = 3 × (2.5n − 10) &nbsp; Or, 12.5 = 7.5n − 30 &nbsp; Or, 42.5 = 7.5n</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">∴ n = 5.67%</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t8" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Reverse OCD: work backwards from given CPP and payback period to find MPS and coupon rate. Floor price = MP − option premium. Set up the payback equation: premium per share ÷ (coupon/CR − dividend) = payback period, then solve for n.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p8" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 9 — Q9 ════════ -->
+<div class="page" id="pg9">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">9</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 9 · OCD — When to Exercise Conversion (Saranam Ltd.)</span>
+      <div class="qcard-body">Saranam Ltd. issued convertible debentures with coupon rate 12%. Each debenture has an option to convert to 20 equity shares at any time until maturity. Debentures redeemed at Rs. 100 on maturity of 5 years. Investor requires 8% p.a. on a 5-year security. When will you exercise conversion for market prices: (i) Rs. 4, (ii) Rs. 5, (iii) Rs. 6?<br><em style="font-size:12px;">[PVIFA(8%,5) = 3.993; PVIF(8%,5) = 0.681]</em></div>
+      <span class="qans">Ans: Exercisable only if MPS = Rs. 6</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a9" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t9" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p9" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a9">
+      <div class="arrow-note">Calc of PV of cashflow of bond if conversion isn't opted</div>
+      <div class="ans-row">Cashflows: t<sub>1</sub> to t<sub>4</sub> = Rs. 12; t<sub>5</sub> = Rs. 12 + Rs. 100 = Rs. 112</div>
+      <div class="ans-row">PV = 12 × PVIFA(8%, 5) + 100 × PVIF(8%, 5)</div>
+      <div class="ans-row">= 12 × 3.993 + 100 × 0.681</div>
+      <div class="ans-row" style="font-weight:700;">= Rs. 116.016</div>
+      <div class="arrow-note">Calc of PV of cashflow from equity if conversion is opted today</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Case</th><th class="r">MPS today</th><th class="r">Total value from equity CF</th></tr></thead>
+        <tbody>
+          <tr><td class="c">(i)</td><td class="r">Rs. 4</td><td class="r">4 × 20 = 80</td></tr>
+          <tr><td class="c">(ii)</td><td class="r">Rs. 5</td><td class="r">5 × 20 = 100</td></tr>
+          <tr><td class="c">(iii)</td><td class="r">Rs. 6</td><td class="r">6 × 20 = 120</td></tr>
+        </tbody>
+      </table>
+      <div class="note-row">As cash flow from equity (if converted) is higher than PV of cash flows from bond (if not converted) in case (iii) only, investor may consider conversion option today only if MPS of each share is <strong>Rs. 6.</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t9" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Exercise decision: compare PV of bond (if held to maturity) vs. immediate conversion value (MPS × CR). Conversion is worthwhile only when conversion value exceeds PV of bond cash flows. For Rs. 4 and Rs. 5, bond is better; for Rs. 6, conversion wins.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p9" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 10 — Q10 ════════ -->
+<div class="page" id="pg10">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">10</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 10 · OCD — Forced Conversion (XYZ Limited)</span>
+      <div class="qcard-body">XYZ Limited plans to issue NPR 10 million in 10% convertible subordinated debentures (par value NPR 1,000 each). Stock price = NPR 36; conversion premium ≈ 12%. Call prices: first 10 yrs NPR 1,060, next 10 yrs NPR 1,030, last 10 yrs NPR 1,000. Company will not call until conversion value is at least 15% in excess of call price. EPS grows at 8% p.a. (P/E ratio unchanged).
+        <div class="qparts">
+          <span><strong>(i)</strong> Expected length of time before company can force conversion.</span>
+          <span><strong>(ii)</strong> Is issuance of convertible security a good idea? Explain.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) ≈ 4 years</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a10" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t10" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p10" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a10">
+      <div class="arrow-note">Sol: Part (i)</div>
+      <div class="ans-row">MPS = NPR 36; Conversion premium = 12%</div>
+      <div class="ans-row-fr">Conversion parity price = 36 × (1.12) = NPR 40.32 &nbsp;&nbsp; MP of OCD = 40.32 × Conversion ratio</div>
+      <div class="ans-row-fr">Or, <span class="fr"><span class="num">1000</span><span class="den">Conversion ratio</span></span> = 40.32 &nbsp; ∴ Conversion ratio = 24.8016</div>
+      <div class="note-row">OCD is in process of being issued; it's assumed to be issued at Rs. 1000 = FV.</div>
+      <div class="arrow-note">WN 1: Calc of conversion value required for calling debenture</div>
+      <table class="ntable">
+        <thead><tr><th>Case</th><th class="r">Call Price</th><th class="r">Conversion Value reqd (×1.15)</th></tr></thead>
+        <tbody>
+          <tr><td>First 10yr</td><td class="r">1060</td><td class="r">1060 × 1.15 = 1219</td></tr>
+          <tr><td>Next 10yr</td><td class="r">1030</td><td class="r">1030 × 1.15 = 1184.50</td></tr>
+          <tr><td>Last 10yr</td><td class="r">1000</td><td class="r">1000 × 1.15 = 1150</td></tr>
+        </tbody>
+      </table>
+      <div class="arrow-note">WN 2: Calc of MP required for calling debenture</div>
+      <table class="ntable">
+        <thead><tr><th>Case</th><th class="r">Desired Conv. Value</th><th class="r">Conversion ratio</th><th class="r">Desired MPS</th></tr></thead>
+        <tbody>
+          <tr><td>First 10yr</td><td class="r">1219</td><td class="r">24.8016</td><td class="r">49.15</td></tr>
+          <tr><td>Next 10yr</td><td class="r">1184.50</td><td class="r">24.8016</td><td class="r">47.76</td></tr>
+          <tr><td>Last 10yr</td><td class="r">1150</td><td class="r">24.8016</td><td class="r">46.37</td></tr>
+        </tbody>
+      </table>
+      <div class="arrow-note">Calc of expected length of time (first 10 yr period)</div>
+      <div class="note-row">Growth rate in EPS = Growth rate in MPS (since P/E ratio remains constant). Company will call only if price reaches 49.15 from current 36. Say n years required:</div>
+      <div class="ans-row">36(1+0.08)ⁿ = 49.15 &nbsp; Or, (1.08)ⁿ = 1.365 &nbsp; By trial &amp; error: (1.08)⁴ = 1.3605</div>
+      <div class="ans-row">By interpolation: n = 4 + 1 × (1.3653 − 1.3605)/(1.4693 − 1.3605) = 4 + 0.0048/0.1088 = <strong>4.05 yrs ≈ 4 years</strong></div>
+      <div class="arrow-note">Part (ii): Issuing convertible security is beneficial for the firm</div>
+      <div class="note-row">Issuing convertible security is beneficial for firms which aren't in position to bear very high cost of debt funds. But there is chance of dilution in EPS &amp; MPS once convertible bond gets converted into equity shares. A firm should therefore analyse all consequences before taking decision regarding issuance of convertible security.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t10" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Forced conversion: company calls when conversion value exceeds call price by 15%. Derive desired MPS → use growth rate to find how many years until MPS reaches that level. Since P/E is constant, EPS growth = MPS growth.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p10" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 11 — Q11 ════════ -->
+<div class="page" id="pg11">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">11</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 11 · CCD — Compulsory Convertible Debenture Valuation</span>
+      <div class="qcard-body">ABC Ltd. issued 5-year 12% coupon paying bond with face value of Rs. 1000. Each bond compulsorily gets converted into 5 equity shares at the end of life of the bond. At that time, each equity share is expected to command a market value of Rs. 150 per share. Compute value of the bond today if investor's required rate is 15% p.a.</div>
+      <span class="qans">Ans: Rs. 775.13</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a11" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t11" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p11" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a11">
+      <div class="arrow-note">Sol: [Part B — CCD]</div>
+      <div class="note-row">Mathematically, value of CCD is computed as:</div>
+      <div class="note-row">IV of CCD = PV of all coupon payments till date of conversion + PV of (conversion value expected on the date of conversion)</div>
+      <div class="note-row">* Conversion value = Conversion ratio × MPS</div>
+      <div class="note-row tutorial">Note: Discount rate to be used for computing PV should be reqd rate on similar risk class instrument i.e. similar CCD or equity instrument.</div>
+      <div class="arrow-note">Diagram:</div>
+      <div class="ans-row">t<sub>1</sub> to t<sub>5</sub>: coupons of Rs. 120 each year</div>
+      <div class="ans-row">t<sub>5</sub>: Conversion value = 5 × 150 = Rs. 750 (instead of Rs. 1000 redemption)</div>
+      <div class="arrow-note">Intrinsic value of CCD</div>
+      <div class="ans-row">= 120 × PVIFA(15%, 5yr) + 750 × PVIF(15%, 5yr)</div>
+      <div class="ans-row">= 120 × 3.35215 + 750 × 0.49717</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 775.13</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t11" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>CCD differs from OCD: conversion is compulsory (no option). The terminal cashflow is the conversion value (CR × expected MPS), NOT the face value Rs. 1000. Discount rate = required rate on similar equity-type instrument (15% here).</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p11" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 12 — Q12 ════════ -->
+<div class="page" id="pg12">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">12</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 12 · NCD with Warrants — Infinity Limited</span>
+      <div class="qcard-body">Infinity Limited issued 6-year, 10%, Rs. 1000 FV bond with a warrant attached. The warrant provides right to buy 5 equity shares of Infinity at an exercise price of Rs. 300 per share in 3 years from now. Expected market price of each equity share at that time is Rs. 400. Find Value of the bond if NCD without warrants are yielding 12%.</div>
+      <span class="qans">Ans: Rs. 1,274</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a12" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t12" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p12" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a12">
+      <div class="arrow-note">Sol: [Part C — NCD with Warrants]</div>
+      <div class="note-row">Warrant = right to buy shares at pre-determined exercise price. If MP of share &gt; exercise price → bondholder will exercise warrant. If MP of share &lt; exercise price → bondholder won't exercise warrant.</div>
+      <div class="note-row">Valuation of NCD with warrant: IV of NCD = Step 1 + Step 2</div>
+      <div class="ans-row">Step 2: Expected MP = Straight value + Option premium</div>
+      <div class="arrow-note">Step 1: Calculation of straight value</div>
+      <div class="ans-row">= 100 × PVIFA(12%, 6yr) + 1000 × PVIF(12%, 6yr)</div>
+      <div class="ans-row">= 100 × 4.111407 + 1000 × 0.50663</div>
+      <div class="ans-row" style="font-weight:700;">= Rs. 917.77</div>
+      <div class="arrow-note">Step 2: Calculation of option premium</div>
+      <div class="note-row">Benefit due to option to buy equity share = 5 × (400 − 300) = 5 × 100 = Rs. 500</div>
+      <div class="ans-row-fr">PV of benefit = 500 × PVIF(12%, 3yr) = 500 × 0.71178 = <strong>Rs. 355.89</strong></div>
+      <div class="ans-row">∴ Value of option premium = Rs. 355.89</div>
+      <div class="arrow-note">Hence, IV of NCD with warrant = Step 1 + Step 2</div>
+      <div class="ans-row">= 917.77 + 355.89 = <strong>Rs. 1,273.66 ≈ Rs. 1,274</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t12" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>NCD with warrant: non-convertible but has an attached call option on equity shares. Option premium = PV of benefit from exercising warrant = PV of (expected MPS − exercise price) × no. of shares. Discounted at NCD yield rate back to t<sub>0</sub>.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p12" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ NAV BAR ════════ -->
+<div id="nav-bar">
+  <button id="btn-prev">← Prev</button>
+  <span id="nav-counter">1 / 12</span>
+  <input id="nav-jump" type="number" min="1" max="12" placeholder="pg">
+  <button id="btn-next">Next →</button>
+</div>
+
+<script>
+(function () {
+  var TOTAL = 12;
+  var cur = parseInt(localStorage.getItem('hybrid_nb_pg') || '1', 10);
+  if (cur < 1 || cur > TOTAL) cur = 1;
+
+  function tog(id, btn, label) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var hidden = el.style.display === 'none';
+    el.style.display = hidden ? 'block' : 'none';
+    if (label === 'Answer') {
+      btn.textContent = hidden ? 'Hide Answer' : 'Show Answer';
+      if (hidden) btn.classList.remove('off'); else btn.classList.add('off');
+    } else if (label === 'Special') {
+      btn.textContent = hidden ? 'Hide Special' : 'Show Special';
+      if (hidden) btn.classList.add('on'); else btn.classList.remove('on');
+    } else if (label === 'Practice') {
+      btn.textContent = hidden ? 'Hide Practice' : 'Show Practice';
+      if (hidden) btn.classList.add('on'); else btn.classList.remove('on');
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-id]');
+    if (!btn) return;
+    tog(btn.getAttribute('data-id'), btn, btn.getAttribute('data-label'));
+  });
+
+  function showPage(n) {
+    cur = Math.max(1, Math.min(TOTAL, n));
+    var pg = document.getElementById('pg' + cur);
+    if (pg) pg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('nav-counter').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('nav-jump').value = cur;
+    localStorage.setItem('hybrid_nb_pg', cur);
+  }
+
+  function onScroll() {
+    for (var i = TOTAL; i >= 1; i--) {
+      var pg = document.getElementById('pg' + i);
+      if (pg && pg.getBoundingClientRect().top <= window.innerHeight / 2) {
+        if (cur !== i) {
+          cur = i;
+          document.getElementById('nav-counter').textContent = cur + ' / ' + TOTAL;
+          document.getElementById('nav-jump').value = cur;
+          localStorage.setItem('hybrid_nb_pg', cur);
+        }
+        break;
+      }
+    }
+  }
+
+  function init() {
+    document.getElementById('btn-prev').addEventListener('click', function () { showPage(cur - 1); });
+    document.getElementById('btn-next').addEventListener('click', function () { showPage(cur + 1); });
+    document.getElementById('nav-jump').addEventListener('change', function () { showPage(parseInt(this.value, 10) || 1); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') showPage(cur + 1);
+      if (e.key === 'ArrowLeft') showPage(cur - 1);
+    });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (cur > 1) { setTimeout(function () { showPage(cur); }, 100); }
+    document.getElementById('nav-counter').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('nav-jump').value = cur;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
