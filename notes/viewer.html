@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Viewer · Abhishek Dahal</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -22,206 +16,79 @@
             --light-navy: #112240;
             --slate: #8892b0;
         }
-        body {
-            background-color: #1e2a3a;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            scroll-behavior: smooth;
-        }
+        body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; }
 
+        /* ── SMART HEADER ── */
         #sticky-nav-wrapper {
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 100;
+            transition: transform 0.3s ease-in-out;
             box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
         }
+        .nav-hidden { transform: translateY(-100%); }
 
-        #viewer-header {
-            background-color: #0a192f;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1.5rem;
-            gap: 1rem;
-        }
-        #back-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--dark-text);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        #back-btn:hover { color: var(--primary-color); }
+        #viewer-header { background-color: #0a192f; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; gap: 1rem; }
+        #toolbar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem 1.5rem; background-color: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.04); }
         
-        #header-title {
-            color: var(--white-color);
-            font-size: 0.9rem;
-            font-weight: 700;
-            flex: 1;
-            text-align: center;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* Toolbar styles */
-        #toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1.5rem;
-            background-color: rgba(10, 25, 47, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            flex-wrap: wrap;
-        }
-        .tool-btn {
-            background: var(--light-navy);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: var(--dark-text);
-            border-radius: 0.4rem;
-            padding: 0.35rem 0.75rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: all 0.2s;
-        }
+        .tool-btn { background: var(--light-navy); border: 1px solid rgba(255,255,255,0.08); color: var(--dark-text); border-radius: 0.4rem; padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; transition: all 0.2s; }
         .tool-btn:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(100, 255, 218, 0.05); }
+        .tool-btn.active { color: #facc15; border-color: #facc15; }
 
-        /* Go to page input */
-        #page-jump-container {
-            display: flex;
-            align-items: center;
-            background: var(--light-navy);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 0.4rem;
-            padding: 0 0.5rem;
-            height: 32px;
-        }
-        #page-jump-input {
-            background: transparent;
-            border: none;
-            color: var(--white-color);
-            width: 30px;
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-            outline: none;
-        }
-        #page-jump-total {
-            color: var(--slate);
-            font-size: 0.7rem;
-            margin-left: 2px;
-            user-select: none;
-        }
-
-        #pdf-viewport {
-            max-width: 900px;
-            margin: 2rem auto 0;
-            padding: 0 1rem 4rem;
-        }
-        .note-page {
-            background: #fff;
-            width: 100%;
-            max-width: 794px;
-            margin: 0 auto 2.5rem;
-            border-radius: 3px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.3);
-            padding: 72px 80px;
-            position: relative;
-            min-height: 200px;
-            font-family: 'Lora', Georgia, serif;
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #1a1a2e;
-        }
-        .page-num-footer {
-            position: absolute;
-            bottom: 22px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
-            color: #9ca3af;
-            letter-spacing: 0.06em;
-        }
-        /* Typography */
-        .note-page h1 { font-size: 1.7rem; font-weight: 700; margin: 0 0 1rem; color: #0f172a; }
-        .note-page h2 { font-size: 1.25rem; font-weight: 700; margin: 1.6rem 0 0.6rem; color: #1e3a5f; border-bottom: 1.5px solid #e2e8f0; }
-        .note-page pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; margin: 1rem 0; }
+        /* Page Content */
+        #pdf-viewport { max-width: 900px; margin: 8rem auto 0; padding: 0 1rem 4rem; }
+        .note-page { background: #fff; width: 100%; max-width: 794px; margin: 0 auto 2.5rem; border-radius: 3px; box-shadow: 0 4px 24px rgba(0,0,0,0.45); padding: 72px 80px; position: relative; font-family: 'Lora', serif; color: #1a1a2e; }
         
-        #comments-section { max-width: 794px; margin: 0 auto 4rem; padding: 0 1rem; }
-        #comments-section h2 { font-size: 0.75rem; color: var(--white-color); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
-
-        @media print {
-            #sticky-nav-wrapper, #comments-section { display: none !important; }
-            body { background: #fff !important; }
-            .note-page { box-shadow: none; margin: 0; page-break-after: always; }
-        }
-        @media (max-width: 600px) {
-            .note-page { padding: 32px 20px 48px; }
-            #toolbar { gap: 0.3rem; padding: 0.5rem; }
-        }
+        /* EDITOR OVERLAY */
+        #editor-container { display: none; position: fixed; inset: 0; background: #0a192f; z-index: 200; flex-direction: column; padding: 1rem; }
+        #editor-textarea { flex: 1; background: #112240; color: #e2e8f0; font-family: 'Fira Code', monospace; padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(100,255,218,0.2); outline: none; resize: none; font-size: 0.95rem; line-height: 1.6; }
+        
+        #page-jump-input { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--white-color); width: 45px; text-align: center; border-radius: 4px; }
     </style>
 </head>
 <body>
 
     <div id="sticky-nav-wrapper">
         <div id="viewer-header">
-            <a id="back-btn" href="/notes/">
+            <a id="back-btn" href="/notes/" class="text-slate-400 font-bold flex items-center gap-2 hover:text-cyan-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                All Notes
+                Back
             </a>
-            <span id="header-title">Loading…</span>
-            <div id="page-jump-container">
+            <span id="header-title" class="text-white font-bold truncate px-4">Loading…</span>
+            <div class="flex items-center gap-2 text-xs">
                 <input type="number" id="page-jump-input" min="1" value="1">
-                <span id="page-jump-total">/ —</span>
+                <span id="page-jump-total" class="text-slate-500">/ —</span>
             </div>
         </div>
 
         <div id="toolbar">
-            <button class="tool-btn" id="prev-page-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Prev
+            <button class="tool-btn" id="prev-page-btn">Prev</button>
+            <button class="tool-btn" id="next-page-btn">Next</button>
+            <div class="w-px h-4 bg-gray-700 mx-1"></div>
+            <button class="tool-btn" id="edit-note-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-width="2" /></svg>
+                Edit Note
             </button>
-            <button class="tool-btn" id="next-page-btn">
-                Next
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
-            <div class="w-px h-4 bg-gray-700 mx-1 hidden sm:block"></div>
-            <button class="tool-btn" id="print-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                Print
-            </button>
-            <button class="tool-btn" id="scroll-comments-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
-                Comments
-            </button>
+            <button class="tool-btn" id="print-btn">Print</button>
         </div>
+    </div>
+
+    <!-- ── EDITOR MODAL ── -->
+    <div id="editor-container">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-cyan-400 font-bold">Edit Mode (HTML)</h2>
+            <div class="flex gap-2">
+                <button id="close-editor" class="tool-btn">Cancel</button>
+                <button id="save-note-btn" class="tool-btn active">Save to GitHub</button>
+            </div>
+        </div>
+        <textarea id="editor-textarea" spellcheck="false"></textarea>
     </div>
 
     <div id="pdf-viewport">
-        <div id="loading-state" class="text-center py-20 text-slate-400">
-            <p>Loading note…</p>
-        </div>
-        <div id="error-state" style="display:none" class="text-center py-20 text-slate-400">
-            <p>Note not found.</p>
-        </div>
+        <div id="loading-state" class="text-center py-20 text-slate-400">Loading note…</div>
         <div id="pages-container"></div>
-    </div>
-
-    <div id="comments-section" style="display:none">
-        <h2>Comments</h2>
-        <div id="utterances-container"></div>
     </div>
 
     <script src="notes-data.js"></script>
@@ -230,164 +97,147 @@
         const params = new URLSearchParams(window.location.search);
         const noteId = params.get('note') || '';
         const noteMeta = notesData.find(n => n.id === noteId);
+        
+        // GH Config (Update these to match your repo)
+        const REPO_OWNER = "theabhishekdahal"; 
+        const REPO_NAME = "portfolio.site"; // Make sure this matches your exact repo name
 
-        const pagesContainer = document.getElementById('pages-container');
-        const loadingState = document.getElementById('loading-state');
-        const errorState = document.getElementById('error-state');
-        const headerTitle = document.getElementById('header-title');
-        const pageJumpInput = document.getElementById('page-jump-input');
-        const pageJumpTotal = document.getElementById('page-jump-total');
-        const commentsSection = document.getElementById('comments-section');
-
+        const navWrapper = document.getElementById('sticky-nav-wrapper');
+        const editorContainer = document.getElementById('editor-container');
+        const editorTextarea = document.getElementById('editor-textarea');
         const storageKey = `note_progress_${noteId}`;
 
-        if (!noteMeta) {
-            loadingState.style.display = 'none';
-            errorState.style.display = 'block';
-            return;
-        }
+        if (!noteMeta) return;
 
         document.title = `${noteMeta.title} · Abhishek Dahal`;
-        headerTitle.textContent = noteMeta.title;
+        document.getElementById('header-title').textContent = noteMeta.title;
 
+        // ── 1. SMART HEADER LOGIC ──
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const delta = 10; // min distance to trigger
+
+            if (Math.abs(lastScrollY - currentScrollY) <= delta) return;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                navWrapper.classList.add('nav-hidden'); // Scrolling Down
+            } else {
+                navWrapper.classList.remove('nav-hidden'); // Scrolling Up
+            }
+            lastScrollY = currentScrollY;
+        }, { passive: true });
+
+        // ── 2. RENDER & PROGRESS LOGIC ──
         fetch(`/notes/${noteMeta.file}`)
             .then(res => res.text())
             .then(html => {
-                loadingState.style.display = 'none';
+                document.getElementById('loading-state').style.display = 'none';
                 renderNote(html);
-                loadComments();
-            })
-            .catch(() => {
-                loadingState.style.display = 'none';
-                errorState.style.display = 'block';
+                
+                const lastPage = localStorage.getItem(storageKey);
+                if (lastPage) setTimeout(() => scrollToPage(parseInt(lastPage), 'auto'), 100);
             });
 
         function renderNote(html) {
-            const parser = new DOMParser();
-            const body = parser.parseFromString(html, 'text/html').body;
-            body.querySelectorAll('script').forEach(s => s.remove());
+            const container = document.getElementById('pages-container');
+            container.innerHTML = '';
+            
+            // Basic Auto-Pagination (Simpler for rendering)
+            const pages = html.split('<!-- page-break -->'); 
+            const totalPages = pages.length;
+            document.getElementById('page-jump-total').textContent = `/ ${totalPages}`;
 
-            let pageContents = [];
-            const manualPages = body.querySelectorAll('.page, [data-page]');
-
-            if (manualPages.length > 0) {
-                manualPages.forEach(p => pageContents.push(p.innerHTML));
-            } else {
-                const PAGE_HEIGHT = 1050; 
-                let currentGroup = document.createElement('div');
-                let estimatedHeight = 0;
-
-                Array.from(body.children).forEach(child => {
-                    const h = child.offsetHeight || 60; 
-                    if (estimatedHeight + h > PAGE_HEIGHT && currentGroup.innerHTML.trim()) {
-                        pageContents.push(currentGroup.innerHTML);
-                        currentGroup = document.createElement('div');
-                        estimatedHeight = 0;
-                    }
-                    currentGroup.appendChild(child.cloneNode(true));
-                    estimatedHeight += h;
-                });
-                if (currentGroup.innerHTML.trim()) pageContents.push(currentGroup.innerHTML);
-            }
-
-            const totalPages = pageContents.length;
-            pageJumpTotal.textContent = `/ ${totalPages}`;
-            pageJumpInput.max = totalPages;
-
-            pageContents.forEach((content, idx) => {
+            pages.forEach((content, idx) => {
                 const pageDiv = document.createElement('div');
                 pageDiv.className = 'note-page';
                 pageDiv.dataset.page = idx + 1;
                 pageDiv.innerHTML = content + `<div class="page-num-footer">— ${idx + 1} / ${totalPages} —</div>`;
-                pagesContainer.appendChild(pageDiv);
+                container.appendChild(pageDiv);
             });
-
-            setupScrollSpy();
-            setupNavigation(totalPages);
-
-            // AUTO-RESTORE LAST PAGE
-            const lastPage = localStorage.getItem(storageKey);
-            if (lastPage) {
-                setTimeout(() => scrollToPage(parseInt(lastPage), 'auto'), 100);
-            }
         }
 
-        let isScrolling = false;
-        function setupScrollSpy() {
-            window.addEventListener('scroll', () => {
-                if (isScrolling) return;
-                
-                const pages = document.querySelectorAll('.note-page');
-                const stickyHeight = document.getElementById('sticky-nav-wrapper').offsetHeight;
-                let current = 1;
+        // ── 3. EDITOR & GITHUB API LOGIC ──
+        document.getElementById('edit-note-btn').addEventListener('click', () => {
+            fetch(`/notes/${noteMeta.file}`)
+                .then(res => res.text())
+                .then(content => {
+                    editorTextarea.value = content;
+                    editorContainer.style.display = 'flex';
+                });
+        });
 
-                pages.forEach(p => {
-                    if (p.getBoundingClientRect().top <= stickyHeight + 100) {
-                        current = parseInt(p.dataset.page, 10);
-                    }
+        document.getElementById('close-editor').addEventListener('click', () => editorContainer.style.display = 'none');
+
+        document.getElementById('save-note-btn').addEventListener('click', async () => {
+            const token = prompt("Enter GitHub Personal Access Token to Save:");
+            if (!token) return;
+
+            const saveBtn = document.getElementById('save-note-btn');
+            saveBtn.textContent = "Saving...";
+            
+            const path = `notes/${noteMeta.file}`;
+            const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+
+            try {
+                // 1. Get the current file SHA (required for update)
+                const getRes = await fetch(apiUrl, {
+                    headers: { "Authorization": `token ${token}` }
+                });
+                const fileData = await getRes.json();
+                
+                // 2. Commit the new content
+                const newContent = btoa(unescape(encodeURIComponent(editorTextarea.value))); // Handle UTF-8
+                
+                const putRes = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: `Edit note: ${noteMeta.title} (from frontend)`,
+                        content: newContent,
+                        sha: fileData.sha
+                    })
                 });
 
-                if (pageJumpInput.value != current) {
-                    pageJumpInput.value = current;
-                    localStorage.setItem(storageKey, current);
+                if (putRes.ok) {
+                    alert("Saved Successfully! Changes will appear on site in 1-2 minutes.");
+                    location.reload();
+                } else {
+                    const err = await putRes.json();
+                    alert("Error: " + err.message);
                 }
-            }, { passive: true });
-        }
+            } catch (e) {
+                alert("Critical Error: " + e.message);
+            } finally {
+                saveBtn.textContent = "Save to GitHub";
+            }
+        });
 
-        function setupNavigation(totalPages) {
-            // Next/Prev Buttons
-            document.getElementById('prev-page-btn').addEventListener('click', () => {
-                scrollToPage(Math.max(1, parseInt(pageJumpInput.value) - 1));
-            });
-            document.getElementById('next-page-btn').addEventListener('click', () => {
-                scrollToPage(Math.min(totalPages, parseInt(pageJumpInput.value) + 1));
-            });
-
-            // Enter Key Jump
-            pageJumpInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    let val = parseInt(pageJumpInput.value);
-                    if (val < 1) val = 1;
-                    if (val > totalPages) val = totalPages;
-                    scrollToPage(val);
-                    pageJumpInput.blur();
-                }
-            });
-
-            document.getElementById('print-btn').addEventListener('click', () => window.print());
-            document.getElementById('scroll-comments-btn').addEventListener('click', () => {
-                commentsSection.scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-
+        // ── HELPERS ──
         function scrollToPage(num, behavior = 'smooth') {
             const el = document.querySelector(`.note-page[data-page="${num}"]`);
-            const stickyHeight = document.getElementById('sticky-nav-wrapper').offsetHeight;
             if (el) {
-                isScrolling = true;
-                const y = el.getBoundingClientRect().top + window.pageYOffset - stickyHeight - 20;
+                const y = el.getBoundingClientRect().top + window.pageYOffset - 140;
                 window.scrollTo({ top: y, behavior: behavior });
-                
-                pageJumpInput.value = num;
-                localStorage.setItem(storageKey, num);
-                
-                // Reset scroll block after animation
-                setTimeout(() => { isScrolling = false; }, 800);
             }
         }
 
-        function loadComments() {
-            commentsSection.style.display = 'block';
-            const script = document.createElement('script');
-            script.src = "https://utteranc.es/client.js";
-            script.setAttribute('repo', "theabhishekdahal/portfolio.site");
-            script.setAttribute('issue-term', "pathname");
-            script.setAttribute('label', "note-comment");
-            script.setAttribute('theme', "github-dark");
-            script.setAttribute('crossorigin', "anonymous");
-            script.async = true;
-            document.getElementById('utterances-container').appendChild(script);
-        }
+        document.getElementById('prev-page-btn').addEventListener('click', () => {
+            const curr = parseInt(document.getElementById('page-jump-input').value);
+            scrollToPage(Math.max(1, curr - 1));
+        });
+
+        document.getElementById('next-page-btn').addEventListener('click', () => {
+            const curr = parseInt(document.getElementById('page-jump-input').value);
+            scrollToPage(curr + 1);
+        });
+
+        document.getElementById('page-jump-input').addEventListener('change', (e) => scrollToPage(e.target.value));
+        document.getElementById('print-btn').addEventListener('click', () => window.print());
+
     }());
     </script>
 </body>
