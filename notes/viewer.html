@@ -177,21 +177,45 @@
             });
 
         function renderNote(html) {
-            const container = document.getElementById('pages-container');
-            container.innerHTML = '';
+    const container = document.getElementById('pages-container');
+    container.innerHTML = '';
+    
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    // 1. Check for manual <div class="page"> elements
+    const manualPages = doc.querySelectorAll('.page');
+    
+    if (manualPages.length > 0) {
+        // If the file already has .page divs, use them directly
+        manualPages.forEach((p, idx) => {
+            const pageDiv = document.createElement('div');
+            pageDiv.className = 'note-page'; // The viewer's styling
+            pageDiv.dataset.page = idx + 1;
             
-            // Logic: Split by the comment tag for manual pages
-            const contentParts = html.split('<!-- page-break -->');
-            document.getElementById('page-jump-total').textContent = `/ ${contentParts.length}`;
-
-            contentParts.forEach((part, idx) => {
-                const page = document.createElement('div');
-                page.className = 'note-page'; 
-                page.dataset.page = idx + 1;
-                page.innerHTML = part + `<div class="page-footer">Page ${idx + 1} of ${contentParts.length}</div>`;
-                container.appendChild(page);
-            });
-        }
+            // Append the internal note CSS if it exists in the fetched file
+            const noteStyles = doc.querySelectorAll('style');
+            noteStyles.forEach(style => pageDiv.appendChild(style.cloneNode(true)));
+            
+            pageDiv.innerHTML += p.innerHTML; // Put the note content inside
+            container.appendChild(pageDiv);
+        });
+    } else {
+        // 2. Fallback to comment-based splitting or auto-pagination
+        const contentParts = html.split('<!-- page-break -->');
+        contentParts.forEach((part, idx) => {
+            const pageDiv = document.createElement('div');
+            pageDiv.className = 'note-page';
+            pageDiv.dataset.page = idx + 1;
+            pageDiv.innerHTML = part;
+            container.appendChild(pageDiv);
+        });
+    }
+    
+    // Update total count
+    const total = document.querySelectorAll('.note-page').length;
+    document.getElementById('page-jump-total').textContent = `/ ${total}`;
+}
 
         // ── 4. EDITOR LOGIC ──
         document.getElementById('edit-note-btn').addEventListener('click', () => {
