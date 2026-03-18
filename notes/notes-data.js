@@ -26,6 +26,6 @@ const notesData = [
         title: "Mutual Funds",
        date: "2025-03-01",
         category: "Finance",
-        file: "Mutual Fund.html"
+        file: "Mutual_funds.html"
     }
 ];
