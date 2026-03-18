@@ -1,249 +1,1781 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CAP I – Financial Accounting: Key Concepts</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 1 — Mutual Funds Q&A</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink-h:#1a2f5e; --ink-b:#1e2d3d; --ink-arrow:#3b3fa8; --ink-ref:#2a7a6e;
+  --lh:36px; --header-h:calc(var(--lh)*3);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f5ede0;background-image:radial-gradient(ellipse at 25% 25%,rgba(255,240,215,.9) 0%,transparent 55%),radial-gradient(ellipse at 75% 75%,rgba(250,230,205,.7) 0%,transparent 50%);font-family:'Nunito',sans-serif;padding:40px 0 80px;}
+.page{width:210mm;min-height:297mm;background:#fff;margin:36px auto;position:relative;overflow:hidden;border-radius:10px;box-shadow:0 0 0 .5px rgba(180,190,210,.35),0 2px 8px rgba(120,140,170,.10),0 10px 32px rgba(100,120,155,.13),0 28px 80px rgba(80,100,140,.09);padding:var(--header-h) 16mm 16mm 38mm;}
+.page::before{display:none;}
+.page::after{content:'';position:absolute;top:0;left:33mm;bottom:0;width:1px;background:linear-gradient(to bottom,transparent 0%,rgba(210,90,90,.32) 5%,rgba(210,90,90,.32) 95%,transparent 100%);pointer-events:none;z-index:3;}
+.sep-line{position:absolute;top:var(--header-h);left:0;right:0;height:1px;background:linear-gradient(to right,rgba(210,90,90,.30),rgba(155,175,210,.20) 25%,rgba(155,175,210,.20) 75%,rgba(210,90,90,.30));z-index:4;}
+.page-header{position:absolute;top:0;left:0;right:0;height:var(--header-h);z-index:5;display:flex;align-items:center;padding:0 16mm 0 38mm;justify-content:space-between;}
+.page-title{font-family:'Playfair Display', Georgia, serif;font-size:28px;font-weight:700;font-style:italic;color:var(--ink-h);line-height:1;letter-spacing:-.3px;}
+.pg-tag{font-family:'Caveat', cursive;font-size:14px;font-weight:400;color:rgba(26,47,94,.30);align-self:flex-end;padding-bottom:6px;}
+.chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat', cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
+.page-content{position:relative;z-index:2;}
+
+/* QUESTION CARD */
+.qcard{position:relative;z-index:10;border-radius:10px;padding:12px 16px 12px;margin-bottom:0;margin-top:0;}
+.qcard::before{content:'';position:absolute;inset:0;background:#f3f5fc;border-radius:10px;z-index:-1;}
+.qcard-label{font-size:9px;font-weight:800;color:rgba(26,47,94,.35);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.qcard-body{font-size:13.5px;font-weight:400;color:#1a2140;line-height:1.78;}
+.qcard-body strong{font-weight:700;}
+.qcard-body em{font-style:italic;color:rgba(26,33,64,.6);font-size:12.5px;}
+
+/* table inside question */
+.qdata{width:100%;border-collapse:collapse;font-size:12.5px;color:#1a2140;margin-top:10px;}
+.qdata td{padding:3.5px 6px 3.5px 0;line-height:1.55;border:none;vertical-align:middle;}
+.qdata td.r{text-align:right;min-width:90px;padding-right:0;}
+.qdata .qh td{font-size:9.5px;font-weight:800;color:rgba(26,47,94,.38);letter-spacing:.7px;text-transform:uppercase;border-bottom:1.5px solid rgba(26,47,94,.15);padding-bottom:5px;}
+
+/* ul inside question */
+.qcard ul{margin:8px 0 0;padding:0;list-style:none;}
+.qcard ul li{font-size:12.5px;color:#1a2140;line-height:1.72;padding-left:16px;position:relative;}
+.qcard ul li::before{content:'–';position:absolute;left:2px;color:rgba(26,47,94,.3);}
+
+/* required parts */
+.qparts{margin-top:8px;}
+.qparts span{display:flex;align-items:baseline;gap:4px;font-size:12.5px;color:#1a2140;line-height:1.75;}
+.qparts span span{display:inline;line-height:inherit;}
+.qparts .pl{font-weight:700;color:rgba(26,47,94,.5);white-space:nowrap;flex-shrink:0;}
+.qparts .pl-head{font-weight:700;color:rgba(26,47,94,.6);display:block;margin-bottom:2px;}
+
+/* answer line */
+.qans{display:block;font-size:11px;font-weight:700;color:rgba(26,92,85,.55);letter-spacing:.8px;margin-top:8px;padding:4px 0 0;}
+
+/* TOGGLE BUTTONS */
+.toggle-row{display:flex;gap:8px;margin-top:10px;margin-bottom:0;position:relative;z-index:10;flex-wrap:wrap;}
+.tbtn{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 13px;border-radius:20px;border:none;cursor:pointer;transition:all .18s;}
+.tbtn-ans{background:rgba(26,92,85,.13);color:#1a5c55;}
+.tbtn-tip{background:rgba(140,85,10,.12);color:#6b4000;}
+.tbtn-prac{background:rgba(26,47,94,.10);color:#1a2f5e;}
+.tbtn-on{opacity:.45;}
+
+/* ANSWER BLOCK */
+.ans-block{position:relative;z-index:2;}
+.ans-sep{display:none;}
+
+/* answer text rows — snap to ruled grid */
+
+.ans-row{display:block;height:var(--lh);font-size:15px;font-family:'Lora', Georgia, serif;color:var(--ink-b);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
+.ans-row-fr{display:flex;align-items:center;min-height:calc(var(--lh)*2);font-size:15px;font-family:'Lora', Georgia, serif;color:var(--ink-b);position:relative;z-index:2;flex-wrap:wrap;gap:6px;padding:calc((var(--lh) - 22px)/2) 0;}
+.arrow-note{display:block;height:var(--lh);font-size:15px;font-family:'Lora', Georgia, serif;font-weight:600;color:var(--ink-arrow);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
+.bullet-arrow{display:block;height:var(--lh);font-size:15px;font-family:'Lora', Georgia, serif;color:var(--ink-ref);position:relative;z-index:2;line-height:var(--lh);overflow:hidden;white-space:nowrap;}
+table.ntable{width:100%;border-collapse:collapse;font-family:'Lora', Georgia, serif;font-size:14.5px;color:var(--ink-b);position:relative;z-index:2;;margin-top:0;margin-bottom:0;}
+table.ntable th{font-family:'Lora', Georgia, serif;font-size:13.5px;font-weight:700;color:var(--ink-h);height:var(--lh);line-height:var(--lh);padding:0 8px;text-align:left;border-top:1.5px solid rgba(26,47,94,.28);border-bottom:1.5px solid rgba(26,47,94,.28);background:rgba(26,47,94,.06);white-space:nowrap;box-sizing:border-box;vertical-align:middle;}
+table.ntable th.r{text-align:right;}
+table.ntable td{height:var(--lh);line-height:var(--lh);padding:0 8px;border:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box;vertical-align:middle;}
+table.ntable td.r{text-align:right;}
+table.ntable tbody tr:nth-child(odd) td{background:#fff;}
+table.ntable tbody tr:nth-child(even) td{background:rgba(26,47,94,.028);}
+table.ntable tr.tot td{background:rgba(26,47,94,.06)!important;font-weight:700;border-top:1.5px solid rgba(26,47,94,.28)!important;}
+table.ntable tr.dtot td{background:rgba(26,92,85,.07)!important;font-weight:700;border-top:2.5px double rgba(26,47,94,.45)!important;}
+table.ntable tr.sub td{color:rgba(30,45,61,.42);font-style:italic;}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;font-size:13px;font-family:'Lora', Georgia, serif;line-height:1.2;color:inherit;position:relative;top:1px;}
+.fr .num{border-bottom:1.5px solid currentColor;padding:0 3px 1px;white-space:nowrap;}
+.fr .den{padding:1px 3px 0;white-space:nowrap;}
+
+/* SPECIAL TIP */
+.tip-block{position:relative;z-index:10;border-radius:8px;padding:11px 14px;margin-top:0;}
+.tip-block::before{content:'';position:absolute;inset:0;background:#fffbf0;border-radius:8px;border:1px dashed rgba(180,120,20,.28);z-index:-1;}
+.tip-label{font-size:8.5px;font-weight:800;letter-spacing:2.8px;text-transform:uppercase;color:rgba(140,85,10,.55);display:block;margin-bottom:6px;}
+.tip-body{font-size:12.5px;color:#3a2800;line-height:1.75;}
+.tip-body p{margin-bottom:5px;}
+.tip-body p:last-child{margin-bottom:0;}
+
+/* PRACTICE BOX */
+.prac-block{position:relative;z-index:10;border-radius:8px;margin-top:0;}
+.prac-block::before{content:'';position:absolute;inset:0;background:#f8fff8;border-radius:8px;border:1px dashed rgba(26,92,85,.25);z-index:-1;}
+.prac-label{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(26,92,85,.5);display:block;padding:10px 14px 6px;}
+.prac-lines{padding:0 14px 10px;}
+.prac-line{display:block;height:var(--lh);border-bottom:1px solid rgba(26,92,85,.15);}
+
+/* spacer between two questions on same page */
+.qgap{display:block;height:var(--lh);}
+.breath{display:block;height:calc(var(--lh)*0.5);}
+.grid-snap{display:block;height:var(--lh);}
+
+/* MOBILE */
+@media(max-width:800px){
+  :root{--lh:34px;}
+  body{padding:0 0 40px;}
+  .page{width:100%!important;min-height:unset!important;margin:0 0 3px!important;border-radius:0!important;box-shadow:none!important;border-bottom:2px solid rgba(210,185,150,.5);padding:var(--header-h) 16px 16px 18px!important;}
+  .page::after{left:12px!important;}
+  .page-title{font-family:'Playfair Display', Georgia, serif;font-size:28px;font-weight:700;font-style:italic;color:var(--ink-h);line-height:1;letter-spacing:-.3px;}
+  .chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat', cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
+  .page-header{padding:0 16px 0 18px!important;}
+  table.ntable td,table.ntable th{white-space:normal!important;font-size:14px!important;height:auto!important;line-height:1.6!important;padding:6px 8px!important;vertical-align:middle!important;}
+  .ans-row-fr{min-height:calc(var(--lh)*2)!important;flex-wrap:wrap!important;height:auto!important;}
+  .ans-row{height:auto!important;min-height:var(--lh);white-space:normal!important;line-height:1.6;overflow:visible!important;}
+}
+@page{size:A4;margin:0;}
+@media print{
+  html,body{background:none!important;padding:0!important;margin:0!important;}
+  .toggle-row{display:none!important;}
+  .ans-block,.tip-block,.prac-block{display:block!important;}
+  .page{width:210mm!important;min-height:0!important;height:auto!important;margin:0!important;padding:102px 16mm 16mm 38mm!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;page-break-after:always!important;break-after:page!important;}
+  .page::before{display:none!important;}
+  .chapter-tab{position:absolute;right:0;top:48px;background:var(--ink-h);color:#fff;font-family:'Caveat', cursive;font-size:13px;font-weight:700;writing-mode:vertical-rl;padding:14px 5px;border-radius:5px 0 0 5px;letter-spacing:1.5px;opacity:.72;z-index:10;}
+}
+
+/* Tutorial note */
+
+
+.note-row{display:block;font-size:14px;font-family:'Lora',Georgia,serif;font-style:italic;color:#1e2d3d;line-height:1.65;padding:3px 0 2px;position:relative;z-index:2;}
+.note-row.tutorial{color:#1a6b7a;}
+</style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     Page 1 — Introduction & Double-Entry Principles
-     Each <div class="page"> becomes one "page" in the viewer.
-     You can have as many pages as you like.
-════════════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 1 -->
 <div class="page">
-    <h1>CAP I — Financial Accounting: Key Concepts</h1>
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="page-title">Chapter 1 — Mutual Funds</span><span class="pg-tag">1</span></div>
+<div class="page-content">
 
-    <div class="note-meta">
-        <span>📅 1 March 2025</span>
-        <span>📂 Financial Accounting</span>
-        <span>🏷️ CAP I · Double Entry · Trial Balance</span>
+<div class="qcard">
+  <span class="qcard-label">Question 1</span>
+  <div class="qcard-body">
+    Following details of a Mutual Fund Scheme are given:
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">Amount</td></tr>
+      <tr><td>Name of the scheme</td><td class="r">Money Plant</td></tr>
+      <tr><td>Size of the scheme</td><td class="r">Rs. 100 lacs</td></tr>
+      <tr><td>Face value of the share</td><td class="r">Rs. 10</td></tr>
+      <tr><td>Number of the outstanding shares</td><td class="r">10 lacs</td></tr>
+      <tr><td>Market value of the fund's investments</td><td class="r">Rs. 180 lacs</td></tr>
+      <tr><td>Receivables</td><td class="r">Rs. 1 lac</td></tr>
+      <tr><td>Accrued income</td><td class="r">Rs. 1 lac</td></tr>
+      <tr><td>Liabilities</td><td class="r">Rs. 50,000</td></tr>
+      <tr><td>Accrued expenses</td><td class="r">Rs. 50,000</td></tr>
+    </table>
+    Find NAV per unit.
+  </div>
+  <span class="qans">Ans: Rs. 18.1 per unit</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a1',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t1',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p1',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a1">
+  <div class="ans-sep"></div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Amount (in lacs)</th></tr></thead>
+    <tbody>
+      <tr><td>MV of Investment</td><td class="r">180</td></tr>
+      <tr><td>Receivables</td><td class="r">1</td></tr>
+      <tr><td>Accrued Income</td><td class="r">1</td></tr>
+      <tr><td>Less: Liabilities</td><td class="r">(0.5)</td></tr>
+      <tr><td>Less: Accrued Expenses</td><td class="r">(0.5)</td></tr>
+      <tr class="tot"><td>Net Asset (Total)</td><td class="r">181</td></tr>
+      <tr><td>÷ No. of units</td><td class="r">100</td></tr>
+      <tr class="dtot"><td><span class="hl">NAV per unit</span></td><td class="r"><span class="hl">Rs. 18.1</span></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t1" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>All values are already at market value — just plug in. The one trap: "Size of scheme = Rs. 100 lacs" is a distractor. Always divide by the stated outstanding units, not the scheme size.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p1" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 2 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">2</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 2</span>
+  <div class="qcard-body">
+    Based on the following data, determine the NAV of a Regular Income Scheme
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">Rs. (in lakhs)</td></tr>
+      <tr><td>Listed Shares at cost</td><td class="r">20.00</td></tr>
+      <tr><td>Cash in hand</td><td class="r">1.23</td></tr>
+      <tr><td>Bonds and Debentures at cost <em>(of these, Bonds not listed and quoted = 1 lakh)</em></td><td class="r">4.30</td></tr>
+      <tr><td>Other fixed interest securities at cost</td><td class="r">4.50</td></tr>
+      <tr><td>Dividend accrued</td><td class="r">0.50</td></tr>
+      <tr><td>Interest accrued on bonds and debentures</td><td class="r">0.30</td></tr>
+      <tr><td>Amounts payable on shares</td><td class="r">6.32</td></tr>
+      <tr><td>Expenditure accrued</td><td class="r">0.75</td></tr>
+      <tr><td>Number of Units (Rs. 10 F.V. each)</td><td class="r">2,40,000</td></tr>
+    </table>
+    <ul>
+      <li>Current realizable value of fixed-income securities of F.V. of Rs. 100: <strong>Rs. 106.50</strong></li>
+      <li>All the listed shares were purchased at a time when index was <strong>1200</strong>. On NAV date, the index is ruling at <strong>2120</strong>.</li>
+      <li>Listed bonds and debentures carry a market value of <strong>5 lakhs</strong> on NAV date.</li>
+    </ul>
+  </div>
+  <span class="qans">Ans: NAV per unit = Rs. 17.12</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a2',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t2',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p2',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a2">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">W.N. 1: Market value calculations</div>
+  <div class="ans-row-fr">Listed shares MV = <span class="fr"><span class="num">20 × 2120</span><span class="den">1200</span></span> = <span class="hl">35.33 lacs</span></div>
+  <div class="ans-row-fr">Other fixed income MV = <span class="fr"><span class="num">4.5 × 106.5</span><span class="den">100</span></span> = <span class="hl">4.79 lacs</span></div>
+  <div class="bullet-arrow">Listed bonds at given MV = Rs. 5L</div>
+  <div class="bullet-arrow">Unlisted bonds remain at cost = Rs. 1L</div>
+  <div class="arrow-note">W.N. 2: NAV Calculation</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Note</th><th class="r">Rs. (in lakhs)</th></tr></thead>
+    <tbody>
+      <tr><td>MV of listed shares</td><td class="r">1</td><td class="r">35.33</td></tr>
+      <tr><td>Cash in hand</td><td class="r">—</td><td class="r">1.23</td></tr>
+      <tr><td>Listed bonds &amp; debentures (MV)</td><td class="r">—</td><td class="r">5.00</td></tr>
+      <tr><td>Unlisted bonds (at cost)</td><td class="r">—</td><td class="r">1.00</td></tr>
+      <tr><td>Other fixed interest securities</td><td class="r">2</td><td class="r">4.79</td></tr>
+      <tr><td>Dividend accrued</td><td class="r">—</td><td class="r">0.50</td></tr>
+      <tr><td>Interest accrued</td><td class="r">—</td><td class="r">0.30</td></tr>
+      <tr><td>Less: Amounts payable on shares</td><td class="r">—</td><td class="r">(6.32)</td></tr>
+      <tr><td>Less: Expenditure accrued</td><td class="r">—</td><td class="r">(0.75)</td></tr>
+      <tr class="tot"><td>Net Assets (Total)</td><td class="r">—</td><td class="r">41.08 lacs</td></tr>
+      <tr class="sub"><td>i.e. Net assets = 41.08 × 1,00,000 = Rs. 41,08,000</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td>÷ Number of units</td><td class="r">—</td><td class="r">2,40,000</td></tr>
+      <tr class="dtot"><td><span class="hl">NAV per unit</span></td><td class="r">—</td><td class="r"><span class="hl">Rs. 17.12</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note-row">(1) It is assumed that share purchased by mutual fund rise in same proportion as that of rise in index. (i.e "beta = 1" stock)</div>
+  <div class="note-row">(2) Unlisted bonds and debentures are measured at cost.</div>
+  <div class="note-row">(3) It is assumed that cost of Other fixed income securities is fixed value itself i.e 100.</div>
+  <div class="note-row tutorial">Tutorial note: As MV of bonds &amp; debenture separately given, "realizable value of 106.5 for fixed income securities" is interpreted to be for "other fixed income securities" not bonds &amp; debenture.</div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t2" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Nothing is at market value — every asset needs revaluation before building the NAV table. Four different treatments: listed shares use the index ratio, listed bonds use the given MV, unlisted bonds stay at cost, and other fixed income uses the Rs. 106.50 per Rs. 100 FV scaling factor.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p2" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 3 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">3</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 3</span>
+  <div class="qcard-body">
+    Based on the following data, estimate the Net Asset Value (NAV) on per unit basis of a Regular Income Scheme of a Mutual Fund:
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">Rs. (in Lakhs)</td></tr>
+      <tr><td>Listed Equity shares at cost (ex-dividend)</td><td class="r">40.00</td></tr>
+      <tr><td>Cash in hand</td><td class="r">2.76</td></tr>
+      <tr><td>Bonds &amp; Debentures at cost</td><td class="r">8.96</td></tr>
+      <tr><td>Of these, Bonds not listed &amp; not quoted</td><td class="r">2.50</td></tr>
+      <tr><td>Other fixed interest securities at cost</td><td class="r">9.75</td></tr>
+      <tr><td>Dividend accrued</td><td class="r">1.95</td></tr>
+      <tr><td>Amount payable on shares</td><td class="r">13.54</td></tr>
+      <tr><td>Expenditure accrued</td><td class="r">1.76</td></tr>
+    </table>
+    <ul>
+      <li>Current realizable value of fixed income securities of face value of Rs.100 is <strong>Rs.96.50</strong>.</li>
+      <li>Number of Units (Rs.10 face value each): <strong>275,000</strong></li>
+      <li>All the listed equity shares were purchased at a time when market portfolio index was <strong>12,500</strong>.</li>
+      <li>On NAV date, the market portfolio index is at <strong>19,975</strong>.</li>
+      <li>There has been a diminution of <strong>15%</strong> in unlisted bonds and debentures valuation.</li>
+      <li>Listed bonds and debentures carry a market value of <strong>Rs.7.5 lakhs</strong>, on NAV date.</li>
+      <li>Operating expenses paid during the year amounted to <strong>Rs.2.24 lakhs</strong>.</li>
+    </ul>
+  </div>
+  <span class="qans">Ans: Rs. 26.31</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a3',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t3',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p3',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a3">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">W.N. 1: Revalue</div>
+  <div class="ans-row-fr">Listed shares MV = <span class="fr"><span class="num">40 × 19,975</span><span class="den">12,500</span></span> = <span class="hl">63.92 lacs</span></div>
+  <div class="ans-row">Listed bonds MV = Rs. 7.5L</div>
+  <div class="ans-row">Unlisted bonds = 2.5 × (1 – 15%) = <span class="hl">Rs. 2.125 lacs</span></div>
+  <div class="ans-row-fr">Other fixed income = <span class="fr"><span class="num">9.75 × 96.5</span><span class="den">100</span></span> = <span class="hl">9.41 lacs</span></div>
+  <div class="arrow-note">W.N. 2: NAV table</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Rs. (in Lakhs)</th></tr></thead>
+    <tbody>
+      <tr><td>Listed shares (MV)</td><td class="r">63.92</td></tr>
+      <tr><td>Cash in hand</td><td class="r">2.76</td></tr>
+      <tr><td>Listed bonds &amp; debentures (MV)</td><td class="r">7.50</td></tr>
+      <tr><td>Unlisted bonds (after 15% diminution)</td><td class="r">2.125</td></tr>
+      <tr><td>Other fixed interest securities</td><td class="r">9.41</td></tr>
+      <tr><td>Dividend accrued</td><td class="r">1.95</td></tr>
+      <tr><td>Less: Amount payable on shares</td><td class="r">(13.54)</td></tr>
+      <tr><td>Less: Expenditure accrued</td><td class="r">(1.76)</td></tr>
+      <tr class="tot"><td>Net Assets (in Lakhs)</td><td class="r">72.365</td></tr>
+      <tr><td>÷ Number of Units</td><td class="r">2,75,000</td></tr>
+      <tr class="dtot"><td><span class="hl">NAV per unit</span></td><td class="r"><span class="hl">Rs. 26.31</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note-row">(1) It is assumed that share purchased by mutual fund rise in same proportion as that of rise in index. (i.e β = 1 stock)</div>
+  <div class="note-row">(2) It is assumed that other fixed income securities were purchased at FV i.e 100 itself.</div>
+  <div class="note-row tutorial">Tutorial note: Concept of ex-dividend price &amp; cum-dividend price — "excluding dividend" → price after book closure date. "cumulative dividend" → price that prevails before book closure date. Investor who buys stock at ex-dividend price isn't eligible for receiving dividend. Ex-dividend price = Cum-dividend price − Dividend per share.</div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t3" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Two new wrinkles on Q2: shares are ex-dividend (dividend is a separate asset — don't double count), and unlisted bonds have a 15% diminution applied (2.5 × 0.85). Operating expenses already paid are gone — do not deduct again.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p3" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 4 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">4</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 4</span>
+  <div class="qcard-body">
+    A mutual fund made an issue of 10,00,000 units of Rs.10 each on January 01, 2008. It made the following investments:
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">Rs.</td></tr>
+      <tr><td>50,000 Equity shares of Rs.100 each @ Rs.160</td><td class="r">80,00,000</td></tr>
+      <tr><td>7% Government Securities</td><td class="r">8,00,000</td></tr>
+      <tr><td>9% Debentures (Unlisted)</td><td class="r">5,00,000</td></tr>
+      <tr><td>10% Debentures (Listed)</td><td class="r">5,00,000</td></tr>
+      <tr class="qh"><td></td><td class="r">98,00,000</td></tr>
+    </table>
+    During the year, dividends of Rs.12,00,000 were received on equity shares. Interest on all types of debt securities was received as and when due. At the end of the year equity shares and 10% debentures are quoted at 175% and 90% respectively. Other investments are at par.
+    <div class="qparts">
+      <span><span class="pl">Required:</span></span>
+      <span><span class="pl">(i)</span> Find out the Net Asset Value (NAV) per unit given that operating expenses paid during the year amounted to Rs.5,00,000.</span>
+      <span><span class="pl">(ii)</span> What would be the NAV, if the Mutual fund had distributed a dividend of Rs.0.80 per unit during the year to the unit holders?</span>
+      <span><span class="pl">(iii)</span> If in part (i) interest on 10% debentures was not yet received by the fund, what would have been NAV of the fund?</span>
     </div>
-
-    <p>
-        This note summarises the core concepts tested in the <strong>CAP I Financial Accounting</strong>
-        paper set by the Institute of Chartered Accountants of Nepal (ICAN). The topics below cover
-        approximately 60–70 % of the marks in a typical exam.
-    </p>
-
-    <h2>1. The Accounting Equation</h2>
-    <p>
-        All of accounting rests on one identity:
-    </p>
-    <blockquote>
-        <strong>Assets = Liabilities + Owner's Equity</strong>
-    </blockquote>
-    <p>
-        Every transaction must leave this equation balanced. When cash is received from a customer,
-        Assets ↑ (Cash) and Liabilities/Equity ↑ (Revenue → Retained Earnings).
-    </p>
-
-    <h2>2. Double-Entry Bookkeeping</h2>
-    <p>
-        Every transaction is recorded in <strong>at least two accounts</strong>: a debit in one
-        account and an equal credit in another.
-    </p>
-    <table>
-        <thead>
-            <tr><th>Account Type</th><th>Normal Balance</th><th>Increases with</th><th>Decreases with</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Asset</td><td>Debit</td><td>Debit</td><td>Credit</td></tr>
-            <tr><td>Liability</td><td>Credit</td><td>Credit</td><td>Debit</td></tr>
-            <tr><td>Owner's Equity</td><td>Credit</td><td>Credit</td><td>Debit</td></tr>
-            <tr><td>Revenue</td><td>Credit</td><td>Credit</td><td>Debit</td></tr>
-            <tr><td>Expense</td><td>Debit</td><td>Debit</td><td>Credit</td></tr>
-        </tbody>
-    </table>
-
-    <h2>3. Journals, Ledgers &amp; Trial Balance</h2>
-    <ul>
-        <li><strong>Journal</strong> — chronological record of every transaction (date, accounts, amounts, narration).</li>
-        <li><strong>Ledger</strong> — classifies all journal entries by account (T-accounts).</li>
-        <li><strong>Trial Balance</strong> — list of all ledger balances; total debits must equal total credits.</li>
-    </ul>
-
-    <hr>
-    <p style="font-size:0.85rem;color:#64748b;font-style:italic;">
-        Tip: Always verify the trial balance before preparing financial statements.
-        A balanced trial balance does <em>not</em> guarantee the absence of errors (e.g., compensating errors).
-    </p>
+  </div>
+  <span class="qans">Ans: (i) Rs.11.551 &nbsp; (ii) Rs.10.751 &nbsp; (iii) Rs.11.551</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a4',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t4',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p4',this,'Practice')">Show Practice</button>
+  </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     Page 2 — Adjusting Entries & Financial Statements
-════════════════════════════════════════════════════════════════════════ -->
+<div class="ans-block" id="a4">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">W.N. 1: Cash &amp; Bank Balance</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Amount (in lacs)</th></tr></thead>
+    <tbody>
+      <tr><td>Issue proceeds (10,00,000 × 10)</td><td class="r">100</td></tr>
+      <tr><td>Less: Investments</td><td class="r">(98)</td></tr>
+      <tr><td>Add: Dividends received</td><td class="r">12</td></tr>
+      <tr><td>Add: Interest [8×7% + 5×9% + 5×10%]</td><td class="r">1.51</td></tr>
+      <tr><td>Less: Operating expenses</td><td class="r">(5)</td></tr>
+      <tr class="tot"><td>Cash &amp; Bank Balance</td><td class="r">10.51</td></tr>
+    </tbody>
+  </table>
+  <div class="arrow-note">Part (i): NAV per unit</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Amount (in lacs)</th></tr></thead>
+    <tbody>
+      <tr><td>MV equity shares (50,000 × 175% of 100)</td><td class="r">87.50</td></tr>
+      <tr><td>7% Govt. Securities (at par)</td><td class="r">8.00</td></tr>
+      <tr><td>9% Debentures (unlisted, at par)</td><td class="r">5.00</td></tr>
+      <tr><td>10% Debentures (90% of 5,00,000)</td><td class="r">4.50</td></tr>
+      <tr><td>Cash &amp; Bank Balance</td><td class="r">10.51</td></tr>
+      <tr class="tot"><td>Net Assets</td><td class="r">115.51</td></tr>
+      <tr><td>÷ No. of units (lacs)</td><td class="r">100</td></tr>
+      <tr class="dtot"><td><span class="hl">NAV per unit (i)</span></td><td class="r"><span class="hl">Rs. 11.551</span></td></tr>
+    </tbody>
+  </table>
+  <div class="ans-row"><span style="color:var(--ink-ref);">Part (ii):</span>&nbsp; Revised NAV = 11.551 – 0.80 = <span class="hl" style="margin-left:4px;">Rs. 10.751</span></div>
+  <div class="ans-row">Part (iii): Unreceived interest reduces cash but adds an accrual — net assets unchanged. NAV stays <span class="hl" style="margin-left:4px;">Rs. 11.551</span></div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t4" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Cash balance is not given — construct it from scratch. "Quoted at 175%" means Rs. 175 per Rs. 100 FV. Part (iii) is conceptual: unreceived interest moves from cash to accrued receivable — both are assets, so NAV is unchanged.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p4" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 5 -->
 <div class="page">
-    <h2>4. Adjusting Entries (End-of-Period)</h2>
-    <p>
-        Adjusting entries ensure revenues are recognised when <em>earned</em> and expenses when
-        <em>incurred</em> (accrual basis).
-    </p>
-    <table>
-        <thead>
-            <tr><th>Type</th><th>Situation</th><th>Entry</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Accrued Revenue</td><td>Earned but not yet received</td><td>Dr Receivable / Cr Revenue</td></tr>
-            <tr><td>Accrued Expense</td><td>Incurred but not yet paid</td><td>Dr Expense / Cr Payable</td></tr>
-            <tr><td>Prepaid Expense</td><td>Paid in advance</td><td>Dr Expense / Cr Prepaid (to convert asset → expense)</td></tr>
-            <tr><td>Unearned Revenue</td><td>Cash received before service</td><td>Dr Unearned Revenue / Cr Revenue</td></tr>
-            <tr><td>Depreciation</td><td>Allocation of asset cost</td><td>Dr Depreciation Expense / Cr Accumulated Depreciation</td></tr>
-        </tbody>
-    </table>
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">5</span></div>
+<div class="page-content">
 
-    <h2>5. The Financial Statements</h2>
-    <p>Four inter-linked statements are prepared at period-end:</p>
-    <ol>
-        <li>
-            <strong>Income Statement (Profit &amp; Loss)</strong> —
-            Revenues − Expenses = Net Profit / Loss
-        </li>
-        <li>
-            <strong>Statement of Changes in Equity</strong> —
-            Opening Equity + Net Profit − Drawings = Closing Equity
-        </li>
-        <li>
-            <strong>Balance Sheet (Statement of Financial Position)</strong> —
-            Assets = Liabilities + Equity at a point in time
-        </li>
-        <li>
-            <strong>Cash Flow Statement</strong> —
-            Operating + Investing + Financing activities = Net change in cash
-        </li>
-    </ol>
-
-    <h2>6. Depreciation Methods</h2>
-    <ul>
-        <li>
-            <strong>Straight-Line Method (SLM)</strong> —
-            <code>Depreciation = (Cost − Residual Value) ÷ Useful Life</code>
-        </li>
-        <li>
-            <strong>Diminishing Balance / Written-Down Value (WDV)</strong> —
-            <code>Depreciation = Book Value × Rate %</code>
-        </li>
-        <li>
-            <strong>Units of Production</strong> —
-            <code>Depreciation = (Cost − Residual) ÷ Total Units × Units Produced</code>
-        </li>
-    </ul>
-
-    <hr>
-    <p style="font-size:0.85rem;color:#64748b;font-style:italic;">
-        Nepal uses <em>Nepal Financial Reporting Standards (NFRS)</em> based on IFRS.
-        ICAN exam questions often test the <em>conceptual framework</em> and the distinction between
-        capital and revenue expenditure.
-    </p>
+<div class="qcard">
+  <span class="qcard-label">Question 5</span>
+  <div class="qcard-body">
+    On 1-4-2012 ABC Mutual Fund issued 20 lakh units at 10 per unit. Relevant initial expenses involved were 12 lakhs. It invested the fund so raised in capital market instruments to build a portfolio of 185 lakhs. During the month of April 2012 it disposed off some of the instruments costing 60 lakhs for 63 lakhs and used the proceeds in purchasing securities for 56 lakhs.
+    <br><br>
+    Fund management expenses for the month of April 2012 was 8 lakhs of which 10% was in arrears. In April 2012 the fund earned dividends amounting to 2 lakhs and it distributed 80% of the realized earnings. On 30-4-2012 the market value of the portfolio was 198 lakhs. Compute NAV of the mutual fund as on 30-4-2012.
+  </div>
+  <span class="qans">Ans: Rs. 9.9</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a5',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t5',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p5',this,'Practice')">Show Practice</button>
+  </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     Page 3 — Bank Reconciliation & Errors
-════════════════════════════════════════════════════════════════════════ -->
+<div class="ans-block" id="a5">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Capital gain on sale = 63 – 60 = Rs. 3L &nbsp;&nbsp; Dividends earned = Rs. 2L &nbsp;&nbsp; Total realized = Rs. 5L</div>
+  <div class="ans-row">Distribution = 80% of 5L = Rs. 4L &nbsp;&nbsp; Expenses paid = 90% of 8L = Rs. 7.2L</div>
+  <div class="note-row tutorial">T. Note: Realized retained earning of mutual fund = Dividend received + Capital gain on sold securities. Unrealized earning = MV of portfolio − portfolio at cost. Only realized earnings can be distributed.</div>
+  <div class="arrow-note">W.N. 1: Cash Balance</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Rs. (lakhs)</th></tr></thead>
+    <tbody>
+      <tr><td>Issue proceeds (20 × 10)</td><td class="r">200</td></tr>
+      <tr><td>Less: Portfolio investment</td><td class="r">(185)</td></tr>
+      <tr><td>Less: Initial expenses</td><td class="r">(12)</td></tr>
+      <tr><td>Add: Disposal proceeds</td><td class="r">63</td></tr>
+      <tr><td>Less: Fresh purchase</td><td class="r">(56)</td></tr>
+      <tr><td>Less: Fund mgmt expenses paid (8 × 90%)</td><td class="r">(7.2)</td></tr>
+      <tr><td>Add: Dividends received</td><td class="r">2</td></tr>
+      <tr><td>Less: Distribution paid (80% of 5L)</td><td class="r">(4)</td></tr>
+      <tr class="tot"><td>Cash Balance</td><td class="r">0.8</td></tr>
+    </tbody>
+  </table>
+  <div class="arrow-note">NAV Calculation</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Rs. (lakhs)</th></tr></thead>
+    <tbody>
+      <tr><td>MV of all investments</td><td class="r">198</td></tr>
+      <tr><td>Cash &amp; Bank Balance</td><td class="r">0.8</td></tr>
+      <tr><td>Less: Fund mgmt expense payable (10% of 8L)</td><td class="r">(0.8)</td></tr>
+      <tr class="tot"><td>Net Assets (in lakhs)</td><td class="r">198</td></tr>
+      <tr><td>÷ No. of units (lakhs)</td><td class="r">20</td></tr>
+      <tr class="dtot"><td><span class="hl">NAV per unit</span></td><td class="r"><span class="hl">Rs. 9.9</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t5" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Three new cash items: flotation costs reduce investable amount, intra-period trades affect cash, and expenses split between paid and accrued. Only realized earnings (dividends + actual sale gains) are distributable — unrealized portfolio appreciation is not.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p5" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 6 -->
 <div class="page">
-    <h2>7. Bank Reconciliation Statement (BRS)</h2>
-    <p>
-        The BRS reconciles the <strong>cash book balance</strong> with the <strong>bank statement balance</strong>.
-        Common differences:
-    </p>
-    <ul>
-        <li><strong>Outstanding Cheques</strong> — issued but not yet presented to bank</li>
-        <li><strong>Deposits in Transit</strong> — recorded in cash book but not yet credited by bank</li>
-        <li><strong>Bank Charges / Interest</strong> — charged by bank but not yet entered in cash book</li>
-        <li><strong>Direct Credits / Debits</strong> — ECS, dividends received directly by bank</li>
-    </ul>
-    <blockquote>
-        Adjusted Bank Balance = Adjusted Cash Book Balance = True Cash Balance
-    </blockquote>
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">6</span></div>
+<div class="page-content">
 
-    <h2>8. Types of Errors &amp; Their Effect on Trial Balance</h2>
-    <table>
-        <thead>
-            <tr><th>Error Type</th><th>Affects Trial Balance?</th><th>Example</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Error of Omission</td><td>No (both sides omitted)</td><td>Transaction not recorded at all</td></tr>
-            <tr><td>Error of Commission</td><td>No</td><td>Correct amount, wrong account (same category)</td></tr>
-            <tr><td>Error of Principle</td><td>No</td><td>Capital expenditure treated as revenue</td></tr>
-            <tr><td>Compensating Error</td><td>No</td><td>Two errors cancel each other out</td></tr>
-            <tr><td>Error of Original Entry</td><td>No</td><td>Wrong amount in journal, posted correctly</td></tr>
-            <tr><td>One-Sided Error</td><td>Yes</td><td>Only debit posted, credit omitted</td></tr>
-        </tbody>
+<div class="qcard">
+  <span class="qcard-label">Question 6</span>
+  <div class="qcard-body">
+    On 1st April 2009 Fair Return Mutual Fund has the following assets and prices at 4.00 p.m.
+    <table class="qdata">
+      <tr class="qh"><td>Shares</td><td class="r">No. of Shares</td><td class="r">Market Price Per Share (Rs.)</td></tr>
+      <tr><td>A Ltd.</td><td class="r">10</td><td class="r">19.70</td></tr>
+      <tr><td>B Ltd.</td><td class="r">50</td><td class="r">482.60</td></tr>
+      <tr><td>C Ltd.</td><td class="r">10</td><td class="r">264.40</td></tr>
+      <tr><td>D Ltd.</td><td class="r">100</td><td class="r">674.90</td></tr>
+      <tr><td>E Ltd.</td><td class="r">30</td><td class="r">25.90</td></tr>
     </table>
-
-    <h2>9. Suspense Account</h2>
-    <p>
-        When a trial balance does not agree, the difference is placed in a
-        <strong>Suspense Account</strong> to allow financial statements to be prepared.
-        Each error found later is corrected with a journal entry that clears the suspense account.
-    </p>
-
-    <hr>
-    <p style="font-size:0.85rem;color:#64748b;font-style:italic;">
-        Quick Recall — DEAD CLIC:<br>
-        <strong>D</strong>ebit = <strong>E</strong>xpenses, <strong>A</strong>ssets, <strong>D</strong>rawings &nbsp;|&nbsp;
-        <strong>C</strong>redit = <strong>L</strong>iabilities, <strong>I</strong>ncome, <strong>C</strong>apital
-    </p>
+    No. of units of fund: <strong>800</strong>
+    <div class="qparts">
+      <span><span class="pl">Calculate:</span></span>
+      <span><span class="pl">(i)</span>&nbsp; NAV of the Fund.</span>
+      <span><span class="pl">(ii)</span> Assuming Mr. X, send a cheque of 5,000 to the Fund and Fund Manager purchases 18 shares of C Ltd. and balance is held in bank. Then what will be position of fund.</span>
+      <span><span class="pl">(iii)</span> Now suppose on 2 April 2009 at 4.00 p.m. the market price of shares is as follows: A Ltd. 20.30 | B Ltd. 513.70 | C Ltd. 290.80 | D Ltd. 671.90 | E Ltd. 44.20. Then what will be the new NAV.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) NAV = 119.05 &nbsp; (ii) NAV = 119.05 &nbsp; (iii) NAV = Rs. 122.075</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a6',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t6',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p6',this,'Practice')">Show Practice</button>
+  </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     Page 4 — Inventory, Provisions & Key Ratios
-════════════════════════════════════════════════════════════════════════ -->
+<div class="ans-block" id="a6">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">Part (i)</div>
+  <div class="ans-row">MV = (10×19.7)+(50×482.6)+(10×264.4)+(100×674.9)+(30×25.9) = 95,238</div>
+  <div class="ans-row-fr">NAV = <span class="fr"><span class="num">95,238</span><span class="den">800</span></span> = <span class="hl">Rs. 119.05</span></div>
+  <div class="arrow-note">Part (ii): after Mr. X's investment</div>
+  <div class="ans-row">Additional units issued = 5,000 ÷ 119.05 = <span class="hl">42 units</span> &nbsp;&nbsp; New total units = 842</div>
+  <div class="ans-row">C shares added: 18 × 264.4 = Rs. 4,759.2 &nbsp;&nbsp; Residual cash = 5,000 – 4,759.2 = Rs. 240.8</div>
+  <div class="ans-row-fr">Revised NAV = <span class="fr"><span class="num">95,238 + 4,759.2 + 240.8</span><span class="den">842</span></span> = <span class="hl">Rs. 119.05</span> (unchanged)</div>
+  <div class="arrow-note">Part (iii): 2nd April prices</div>
+  <div class="ans-row">MV = (10×20.3)+(50×513.7)+(28×290.8)+(100×671.9)+(30×44.2) = 1,02,546.4</div>
+  <div class="ans-row-fr">New NAV = <span class="fr"><span class="num">1,02,546.4 + 240.8</span><span class="den">842</span></span> = <span class="hl">Rs. 122.075</span></div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t6" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Open-ended mechanics: new investors get fresh units issued at current NAV — not existing units. Issuing units at the exact NAV never changes NAV for existing holders. Remember in Part (iii): C Ltd. now has 28 shares and residual cash of Rs. 240.8 is still in the fund.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p6" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 7 -->
 <div class="page">
-    <h2>10. Inventory Valuation</h2>
-    <p>
-        Under <strong>NFRS / IAS 2</strong>, inventories are measured at the
-        <em>lower of cost and net realisable value (NRV)</em>.
-    </p>
-    <ul>
-        <li><strong>FIFO</strong> — First In, First Out: oldest stock is sold first</li>
-        <li><strong>Weighted Average Cost (WAC)</strong> — divides total cost by total units</li>
-        <li><em>LIFO is not permitted under NFRS.</em></li>
-    </ul>
-    <p>
-        <strong>NRV</strong> = Expected Selling Price − Estimated Costs of Completion and Sale
-    </p>
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">7</span></div>
+<div class="page-content">
 
-    <h2>11. Provisions, Contingent Liabilities &amp; Assets</h2>
-    <ul>
-        <li>
-            <strong>Provision</strong> — recognised when: (a) present obligation, (b) probable outflow,
-            (c) reliable estimate. Recognise in the Balance Sheet.
-        </li>
-        <li>
-            <strong>Contingent Liability</strong> — possible obligation; only <em>disclosed</em> in notes
-            (unless remote, then ignored).
-        </li>
-        <li>
-            <strong>Contingent Asset</strong> — only disclosed when inflow is probable; recognised when
-            virtually certain.
-        </li>
-    </ul>
-
-    <h2>12. Key Financial Ratios (Quick Reference)</h2>
-    <table>
-        <thead>
-            <tr><th>Ratio</th><th>Formula</th><th>Measures</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Current Ratio</td><td>Current Assets ÷ Current Liabilities</td><td>Short-term liquidity</td></tr>
-            <tr><td>Quick Ratio</td><td>(CA − Inventory) ÷ CL</td><td>Immediate liquidity</td></tr>
-            <tr><td>Gross Profit %</td><td>Gross Profit ÷ Revenue × 100</td><td>Trading profitability</td></tr>
-            <tr><td>Net Profit %</td><td>Net Profit ÷ Revenue × 100</td><td>Overall profitability</td></tr>
-            <tr><td>Return on Equity</td><td>Net Profit ÷ Owner's Equity × 100</td><td>Return to owners</td></tr>
-            <tr><td>Debt to Equity</td><td>Total Liabilities ÷ Owner's Equity</td><td>Financial leverage</td></tr>
-            <tr><td>Inventory Turnover</td><td>COGS ÷ Average Inventory</td><td>Stock efficiency</td></tr>
-            <tr><td>Receivables Days</td><td>(Receivables ÷ Revenue) × 365</td><td>Collection efficiency</td></tr>
-        </tbody>
+<div class="qcard">
+  <span class="qcard-label">Question 7</span>
+  <div class="qcard-body">
+    A Mutual Fund Co. has the following assets under it on the close of business as on:
+    <table class="qdata">
+      <tr class="qh"><td>Company</td><td class="r">No. of Shares</td><td class="r">Market price per share – 1st Feb 2012</td><td class="r">Market price per share – 2nd Feb 2012</td></tr>
+      <tr><td>L Ltd</td><td class="r">20,000</td><td class="r">20.00</td><td class="r">20.50</td></tr>
+      <tr><td>M Ltd</td><td class="r">30,000</td><td class="r">312.40</td><td class="r">360.00</td></tr>
+      <tr><td>N Ltd</td><td class="r">20,000</td><td class="r">361.20</td><td class="r">383.10</td></tr>
+      <tr><td>P Ltd</td><td class="r">60,000</td><td class="r">505.10</td><td class="r">503.90</td></tr>
     </table>
-
-    <hr>
-    <p style="font-size:0.85rem;color:#64748b;font-style:italic;">
-        These notes are a summary reference. For full exam preparation, always study the
-        ICAN study material and past question papers.
-        — <strong>Abhishek Dahal</strong>
-    </p>
+    Total No. of Units: <strong>6,00,000</strong>
+    <div class="qparts">
+      <span><span class="pl">(i)</span> Calculate Net Assets Value (NAV) of the Fund.</span>
+      <span><span class="pl">(ii)</span> Assuming one Mr. A, submits a cheque of Rs.30,00,000 to the Mutual Fund and the Fund manager of this company purchases 8,000 shares of M Ltd; and the balance amount is held in Bank. In such a case, what would be the position of the Fund?</span>
+      <span><span class="pl">(iii)</span> Find new NAV of the Fund as on 2nd February 2012.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) NAV = Rs. 78.84 &nbsp; (ii) NAV = Rs. 78.84 &nbsp; (iii) NAV = Rs. 82.26</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a7',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t7',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p7',this,'Practice')">Show Practice</button>
+  </div>
 </div>
 
-</body>
-</html>
+<div class="ans-block" id="a7">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">Part (i): NAV as on 1st Feb 2012</div>
+  <div class="ans-row">MV = (20,000×20)+(30,000×312.4)+(20,000×361.2)+(60,000×505.1) = 4,73,02,000</div>
+  <div class="ans-row-fr">NAV = <span class="fr"><span class="num">4,73,02,000</span><span class="den">6,00,000</span></span> = <span class="hl">Rs. 78.84</span></div>
+  <div class="arrow-note">Part (ii): after Mr. A</div>
+  <div class="ans-row">New units = 30,00,000 ÷ 78.84 = <span class="hl">38,051.75</span></div>
+  <div class="ans-row">M shares bought: 8,000 × 312.4 = Rs. 24,99,200</div>
+  <div class="ans-row">Residual cash = 30,00,000 – 24,99,200 = <span class="hl" style="margin-left:4px;">5,00,800</span></div>
+  <div class="ans-row-fr">Revised NAV = <span class="fr"><span class="num">4,73,02,000 + 24,99,200 + 5,00,800</span><span class="den">6,38,051.75</span></span> = <span class="hl">Rs. 78.84</span> (unchanged)</div>
+  <div class="arrow-note">Part (iii): NAV as on 2nd Feb 2012</div>
+  <div class="ans-row">MV = (20,000×20.5)+(38,000×360)+(20,000×383.1)+(60,000×503.9) = 5,19,86,000</div>
+  <div class="ans-row-fr">NAV = <span class="fr"><span class="num">5,19,86,000 + 5,00,800</span><span class="den">6,38,051.75</span></span> = <span class="hl">Rs. 82.26</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t7" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Same as Q6 but larger scale. Key: Mr. A's money is only partially deployed — Rs. 5,00,800 stays as cash. In Part (iii) M Ltd. has 38,000 shares (30,000 + 8,000 new) and include the residual cash.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p7" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 8 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">8</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 8</span>
+  <div class="qcard-body">
+    A mutual fund that had a net asset value of Rs. 16 at the beginning of a month, made income and capital gain distribution of Rs. 0.04 and Rs. 0.03 respectively per unit during the month, and then ended the month with a net asset value of Rs. 16.08. Calculate monthly and annual rate of return.
+  </div>
+  <span class="qans">Ans: 0.9375% ; 11.25% p.a.</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a8',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t8',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p8',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a8">
+  <div class="ans-sep"></div>
+  <div class="ans-row-fr">Return (%) = <span class="fr"><span class="num">(NAV₁ – NAV₀) + D₁</span><span class="den">NAV₀</span></span> × 100 = <span class="fr"><span class="num">(16.08 – 16) + 0.04 + 0.03</span><span class="den">16</span></span> × 100 = <span class="hl">0.9375% per month</span></div>
+  <div class="ans-row">Annual return = 0.9375 × 12 = <span class="hl" style="margin-left:4px;">11.25% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t8" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Your first return question. D₁ includes both income and capital gain distributions — both are cash flows to the investor, both go in the numerator. Annualize by multiplying by (12 ÷ months) or (365 ÷ days).</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p8" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">9</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 9</span>
+  <div class="qcard-body">
+    The following information is extracted from Steady Mutual Fund's Scheme:
+    <ul>
+      <li>Asset Value at the beginning of the month – <strong>Rs. 65.78</strong></li>
+      <li>Annualized return – <strong>15%</strong></li>
+      <li>Distributions made in the nature of Income – <strong>Rs.0.50</strong> and <strong>Rs.0.32</strong> as Capital gain (per unit respectively).</li>
+    </ul>
+    <div class="qparts">
+      <span>You are required to:</span>
+      <span><span class="pl">(1)</span> Calculate the month end net asset value of the mutual fund scheme (limit your answers to two decimals).</span>
+      <span><span class="pl">(2)</span> Provide a brief comment on the month end NAV.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (1) Rs. 65.78 &nbsp; (2) No Change</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a9',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t9',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p9',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a9">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Monthly return = 15% ÷ 12 = 1.25%</div>
+  <div class="ans-row">D₁ = 0.50 + 0.32 = 0.82</div>
+  <div class="ans-row">Let NAV₁ = x</div>
+  <div class="ans-row-fr"><span class="fr"><span class="num">(x – 65.78) + 0.82</span><span class="den">65.78</span></span> = 0.0125 &nbsp;→&nbsp; x – 65.78 = 0.8223 – 0.82 = 0.0023 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">NAV₁ = Rs. 65.78</span></div>
+  <div class="ans-row">Comment: There is no change in NAV. The distributions of Rs. 0.82 exactly offset the return earned, leaving NAV flat.</div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t9" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>The formula runs in reverse — NAV₁ is the unknown. Rearrange algebraically before plugging in. The "no change" result is intentional: distributing all earnings keeps the NAV perfectly flat.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p9" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 9 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">10</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 10</span>
+  <div class="qcard-body">
+    The NAV of each unit of a closed-end fund at the beginning of the year was 18. By the end of the year its NAV equals 18.50. At the beginning of the year each unit was selling at a 2% premium to NAV and by the end of the year each unit is selling at 4% discount to NAV.
+    <br><br>
+    If the closed-end fund paid year end distribution of income of Rs. 2.50 on each unit, find the rate of return to the investor in the fund during the year.
+  </div>
+  <span class="qans">Ans: 10.35% p.a.</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a10',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t10',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p10',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a10">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Since this is a close-ended fund, P₀ and P₁ are market prices (not NAV)</div>
+  <div class="ans-row">P₀ = 18 + 2% of 18 = <span class="hl">Rs. 18.36</span></div>
+  <div class="ans-row">P₁ = 18.50 – 4% of 18.50 = <span class="hl">Rs. 17.76</span></div>
+  <div class="ans-row-fr">Return = <span class="fr"><span class="num">(17.76 – 18.36) + 2.50</span><span class="den">18.36</span></span> × 100 = <span class="hl">10.35% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t10" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Close-ended funds trade at market price, not NAV. P₀ and P₁ are calculated from NAV ± premium/discount — using NAV directly is the classic error. Here the NAV rose but the investor's return was modest because sentiment shifted from 2% premium to 4% discount.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p10" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">11</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 11</span>
+  <div class="qcard-body">
+    An investor purchased 300 units of a Mutual Fund at Rs.12.25 per unit on 31st December, 2009. As on 31st December, 2010 he has received Rs.1.25 as dividend and Rs.1.00 as capital gains distribution per unit.
+    <div class="qparts">
+      <span><span class="pl">Required:</span></span>
+      <span><span class="pl">(i)</span> The return on the investment if the NAV as on 31st December, 2010 is Rs.13.00.</span>
+      <span><span class="pl">(ii)</span> The return on the investment as on 31st December, 2010 if all dividends and capital gains distributions are reinvested into additional units of the fund at Rs.12.50 per unit.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) 24.49% &nbsp; (ii) 25.22%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a11',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t11',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p11',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a11">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">Part (i): Cash payout</div>
+  <div class="ans-row-fr">Return = <span class="fr"><span class="num">(13 – 12.25) + 1.25 + 1.00</span><span class="den">12.25</span></span> × 100 = <span class="hl">24.49% p.a.</span></div>
+  <div class="arrow-note">Part (ii): Reinvestment plan</div>
+  <div class="ans-row">Total distribution = 300 × 2.25 = Rs. 675 &nbsp;→&nbsp; Additional units = 675 ÷ 12.50 = <span class="hl" style="margin-left:4px;">54 units</span></div>
+  <div class="ans-row">Total units = 300 + 54 = 354</div>
+  <div class="ans-row-fr">Return = <span class="fr"><span class="num">(354 × 13) – (300 × 12.25)</span><span class="den">300 × 12.25</span></span> × 100 = <span class="hl">25.22% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t11" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Reinvestment plan gives units instead of cash. Since those units were bought at Rs. 12.50 (below year-end NAV of Rs. 13), return is slightly higher than the cash payout. For Part (ii), unit counts differ — use total basis: (354 × 13) vs (300 × 12.25). No D₁ term — it's already in units.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p11" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 10 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">12</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 12</span>
+  <div class="qcard-body">
+    A has invested in three Mutual Fund Schemes as per details below:
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">MF A</td><td class="r">MF B</td><td class="r">MF C</td></tr>
+      <tr><td>Date of investment</td><td class="r">01.12.2009</td><td class="r">01.01.2010</td><td class="r">01.03.2010</td></tr>
+      <tr><td>Amount of investment</td><td class="r">Rs.50,000</td><td class="r">Rs.1,00,000</td><td class="r">Rs.50,000</td></tr>
+      <tr><td>Net Asset Value (NAV) at entry date</td><td class="r">Rs.10.50</td><td class="r">Rs.10</td><td class="r">Rs.10</td></tr>
+      <tr><td>Dividend received up to 31.03.2010</td><td class="r">Rs.950</td><td class="r">Rs.1,500</td><td class="r">Nil</td></tr>
+      <tr><td>NAV as at 31.03.2010</td><td class="r">Rs.10.40</td><td class="r">Rs.10.10</td><td class="r">Rs.9.80</td></tr>
+    </table>
+    <div class="qparts">
+      <span><span class="pl">Required:</span> What is the effective yield on per annum basis in respect of each of the three schemes to Mr. A up to 31.03.2010?</span>
+    </div>
+  </div>
+  <span class="qans">Ans: A = 2.858% &nbsp; B = 10.139% &nbsp; C = –23.548%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a12',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t12',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p12',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a12">
+  <div class="ans-sep"></div>
+  <div class="ans-row">MF A: units = 50,000÷10.50 = 4,761.9 | held 121 days (Dec1→Mar31) | D = 950</div>
+  <div class="ans-row-fr">Return A = <span class="fr"><span class="num">(4761.9×10.40 + 950) – 50,000</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">365</span><span class="den">121</span></span> × 100 = <span class="hl">2.858% p.a.</span></div>
+  <div class="ans-row">MF B: units = 10,000 | held 90 days (Jan1→Mar31) | D = 1,500</div>
+  <div class="ans-row-fr">Return B = <span class="fr"><span class="num">(10,000×10.10 + 1,500) – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">365</span><span class="den">90</span></span> × 100 = <span class="hl">10.139% p.a.</span></div>
+  <div class="ans-row">MF C: units = 5,000 | held 31 days (Mar1→Mar31) | D = 0</div>
+  <div class="ans-row-fr">Return C = <span class="fr"><span class="num">(5,000×9.80) – 50,000</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">365</span><span class="den">31</span></span> × 100 = <span class="hl-r">–23.548% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t12" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Three funds, three entry dates, common exit. Count holding days exactly (Dec 1 → Mar 31 = 121 days). Use total basis formula since investment amounts differ. MF C's large negative result is a small 2% NAV drop annualized over just 31 days.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p12" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 11 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">13</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 13</span>
+  <div class="qcard-body">
+    Mr. Y has invested in the three mutual funds (MF) as per the following details:
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">MF 'X'</td><td class="r">MF 'Y'</td><td class="r">MF 'Z'</td></tr>
+      <tr><td>Amount of Investment (Rs.)</td><td class="r">2,00,000</td><td class="r">4,00,000</td><td class="r">2,00,000</td></tr>
+      <tr><td>Net Assets Value (NAV) at the time of purchase (Rs.)</td><td class="r">10.30</td><td class="r">10.10</td><td class="r">10</td></tr>
+      <tr><td>Dividend Received up to 31.03.2018 (Rs.)</td><td class="r">6,000</td><td class="r">0</td><td class="r">5,000</td></tr>
+      <tr><td>NAV as on 31.03.2018 (Rs.)</td><td class="r">10.25</td><td class="r">10</td><td class="r">10.20</td></tr>
+      <tr><td>Effective Yield per annum as on 31.03.2018 (%)</td><td class="r">9.66</td><td class="r">-11.66</td><td class="r">24.15</td></tr>
+    </table>
+    Assume 1 Year = 365 days. Mr. Y has misplaced the documents of his investment. Help him in finding the date of his original investment after ascertaining the following:
+    <div class="qparts">
+      <span><span class="pl">(i)</span> Number of units in each scheme;</span>
+      <span><span class="pl">(ii)</span> Total NAV</span>
+      <span><span class="pl">(iii)</span> Total Yield; and</span>
+      <span><span class="pl">(iv)</span> Number of days investment held.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) 19,417.48; 39,603.96; 20,000 &nbsp; (ii) Rs.7,99,068.77 &nbsp; (iii) Rs.10,068.77 &nbsp; (iv) 95; 31; 68 days</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a13',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t13',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p13',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a13">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">Part (i): Units</div>
+  <div class="ans-row">X = 2,00,000 ÷ 10.30 = <span class="hl">19,417.48 units</span></div>
+  <div class="ans-row">Y = 4,00,000 ÷ 10.10 = <span class="hl">39,603.96 units</span></div>
+  <div class="ans-row">Z = 2,00,000 ÷ 10 = <span class="hl">20,000 units</span></div>
+  <div class="arrow-note">Part (ii): Total NAV on 31.03.2018</div>
+  <div class="ans-row">X: 19,417.48 × 10.25 = Rs. 1,99,029.17</div>
+  <div class="ans-row">Y: 39,603.96 × 10 = Rs. 3,96,039.6 &nbsp;&nbsp; Z: 20,000 × 10.20 = Rs. 2,04,000</div>
+  <div class="ans-row"><span class="hl">Total NAV = Rs. 7,99,068.77</span></div>
+  <div class="arrow-note">Part (iii): Total Yield</div>
+  <table class="ntable">
+    <thead><tr><th>Scheme</th><th class="r">Capital Gain</th><th class="r">Dividend</th><th class="r">Total Yield</th></tr></thead>
+    <tbody>
+      <tr><td>X</td><td class="r">(1,99,029.17–2,00,000) = –970.83</td><td class="r">6,000</td><td class="r">5,029.17</td></tr>
+      <tr><td>Y</td><td class="r">(3,96,039.6–4,00,000) = –3,960.4</td><td class="r">0</td><td class="r">–3,960.4</td></tr>
+      <tr><td>Z</td><td class="r">(2,04,000–2,00,000) = 4,000</td><td class="r">5,000</td><td class="r">9,000</td></tr>
+      <tr class="dtot"><td>Total</td><td class="r">—</td><td class="r">—</td><td class="r"><span class="hl">Rs. 10,068.77</span></td></tr>
+    </tbody>
+  </table>
+  <div class="arrow-note">Part (iv): Days held (rearrange: n = Yield ÷ (Investment × yield rate%) × 365)</div>
+  <div class="ans-row">X: n = 5,029.17 × 365 ÷ (2,00,000 × 9.66%) = <span class="hl">95 days</span></div>
+  <div class="ans-row">Y: n = 3,960.4 × 365 ÷ (4,00,000 × 11.66%) = <span class="hl">31 days</span></div>
+  <div class="ans-row">Z: n = 9,000 × 365 ÷ (2,00,000 × 24.15%) = <span class="hl">68 days</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t13" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Everything in reverse — yield is given, find days held. Compute total yield amount first, then: n = (Total Yield ÷ Investment) × (365 ÷ yield rate%). "Total NAV" simply means units × current NAV per unit, summed across schemes.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p13" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 12 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">14</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 14</span>
+  <div class="qcard-body">
+    The following particulars relate to a mutual fund scheme:
+    <ul>
+      <li>Investment in Shares (at cost in Rs. million): IT and ITES = Rs. 280 | Infrastructure = Rs. 150 | Aviation, Transport and Logistics = Rs. 70 | Automotive = Rs. 320 | Banking/Financial Services = Rs. 80</li>
+      <li>Cash and Other Assets in Hand (even throughout the fund period) – Rs. 20 million</li>
+      <li>Investment in Fixed Income Bearing Bonds: Listed Bonds [10,000 numbers of 10.50% Bonds of Rs. 10,000 each] = Rs.100 | Unlisted Bonds = Rs. 80</li>
+      <li>Expenses payables as on closing date – Rs. 10 million</li>
+      <li>Market expectation on listed bonds – <strong>8.40%</strong></li>
+      <li>No. of units outstanding – <strong>55 million</strong></li>
+    </ul>
+    The particulars relating to sectoral index are as follows:
+    <table class="qdata">
+      <tr class="qh"><td>Sector</td><td class="r">Index on date of purchase</td><td class="r">Index on the Valuation Date</td></tr>
+      <tr><td>IT and ITES</td><td class="r">1750</td><td class="r">2950</td></tr>
+      <tr><td>Infrastructure</td><td class="r">1375</td><td class="r">2475</td></tr>
+      <tr><td>Aviation, Transport &amp; Logistics</td><td class="r">1540</td><td class="r">2570</td></tr>
+      <tr><td>Automotive</td><td class="r">1760</td><td class="r">2860</td></tr>
+      <tr><td>Banking / Financial</td><td class="r">1600</td><td class="r">2300</td></tr>
+    </table>
+    <div class="qparts">
+      <span>You are required to compute:</span>
+      <span><span class="pl">(i)</span> Net asset value of the fund</span>
+      <span><span class="pl">(ii)</span> Net asset value per unit</span>
+      <span><span class="pl">(iii)</span> If the period under consideration is 2 years, and the fund has distributed Rs. 2 per unit per year as cash dividend, ascertain the net return (annualized).</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) 1,708.82 &nbsp; (ii) Rs.31.07 &nbsp; (iii) 37.68%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a14',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t14',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p14',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a14">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">W.N. 1: Revalue sectors &amp; price listed bonds</div>
+  <table class="ntable">
+    <thead><tr><th>Asset</th><th class="r">MV (Rs. Million)</th></tr></thead>
+    <tbody>
+      <tr><td>IT &amp; ITES: 280 × (2950÷1750)</td><td class="r">472</td></tr>
+      <tr><td>Infrastructure: 150 × (2475÷1375)</td><td class="r">270</td></tr>
+      <tr><td>Aviation: 70 × (2570÷1540)</td><td class="r">117</td></tr>
+      <tr><td>Automotive: 320 × (2860÷1760)</td><td class="r">520</td></tr>
+      <tr><td>Banking: 80 × (2300÷1600)</td><td class="r">115</td></tr>
+      <tr><td>Listed bonds: (10,000×10,000×10.5%)÷8.4% = 12,500 per bond × 10,000</td><td class="r">125</td></tr>
+      <tr><td>Unlisted bonds (at cost)</td><td class="r">80</td></tr>
+      <tr><td>Cash &amp; other assets</td><td class="r">20</td></tr>
+      <tr><td>Less: Expenses payable</td><td class="r">(10)</td></tr>
+      <tr class="tot"><td><span class="hl">(i) NAV Total</span></td><td class="r"><span class="hl">Rs. 1,709 million</span></td></tr>
+    </tbody>
+  </table>
+  <div class="ans-row-fr">(ii) NAV per unit = <span class="fr"><span class="num">1,709</span><span class="den">55</span></span> = <span class="hl">Rs. 31.07</span></div>
+  <div class="ans-row">(iii) Opening NAV assumed = Rs. 20 (cost = MV at purchase, i.e. 2 years ago)</div>
+  <div class="ans-row-fr">(iii) Return = <span class="fr"><span class="num">(31.07 – 20) + (2+2)</span><span class="den">20</span></span> × <span class="fr"><span class="num">1</span><span class="den">2</span></span> × 100 = <span class="hl">37.68% p.a.</span></div>
+  <div class="note-row">Assumption: It has been assumed that all investments were purchased exactly two years ago so that cost price at that time would be prevailing market price for determining NAV₀.</div>
+  <div class="note-row">W.N. 1: Calculation of expected MP of listed bonds — since current MP of listed bonds isn't available, we use "expected / fair market value" as substitute. Fair MP = PV of perpetuity = A/Y = (Rs. 10,000 × 10.5%) ÷ 8.4% = Rs. 12,500 per bond.</div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t14" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Opening NAV is missing — assume cost = MV at purchase, so opening NAV = Rs. 20. Listed bonds use the perpetuity formula: MV = coupon ÷ required yield = (10,000 × 10.5%) ÷ 8.4% = Rs. 12,500 per bond. Total dividend for Part (iii) = Rs. 2 × 2 years = Rs. 4.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p14" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 13 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">15</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 15</span>
+  <div class="qcard-body">
+    Mr. X on 1.7.2007, during the initial offer of some Mutual Fund invested in 10,000 units having face value of Rs.10 for each unit. On 31.3.2008, the dividend operated by the M.F. was 10% and Mr. X found that his annualized yield was 153.33%. On 31.12.2009, 20% dividend was given. On 31.3.2010, Mr. X redeemed all his balance of 11,296.11 units when his annualized yield was 73.52%. What are the NAVs as on 31.3.2008, 31.12.2009 and 31.3.2010?
+  </div>
+  <span class="qans">Ans: NAV as on 31.3.08 = 20.50; as on 31.12.09 = 25.95; as on 31.3.10 = 26.75</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a15',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t15',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p15',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a15">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Units grew 10,000 → 11,296.11 with no fresh purchase → reinvestment plan throughout.</div>
+  <div class="note-row">Mr. X has invested 10,000 units during initial offer. But at the time of disposal, he has 11,296.11 units. As no information regarding purchase of additional unit is given in question, Mr. X must have chosen "Reinvestment plan." Otherwise, there is no way that number of units in mutual fund can increase.</div>
+  <div class="arrow-note">W.N. A: NAV on 31.3.2008 (let = x), held 9 months</div>
+  <div class="ans-row">Dividend = 10,000 × 10 × 10% = Rs. 10,000</div>
+  <div class="ans-row">Additional units = 10,000 ÷ x</div>
+  <div class="ans-row-fr"><span class="fr"><span class="num">[(10,000 + 10,000/x)×x – 1,00,000]</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">9</span></span> = 1.5333 &nbsp;→&nbsp; 10,000x + 10,000 – 1,00,000 = 45,000</div>
+  <div class="ans-row"><span class="hl">x = NAV = Rs. 20.50</span></div>
+  <div class="arrow-note">W.N. B: NAV on 31.12.2009 (let = y)</div>
+  <div class="ans-row">Units on 31.3.2008 = 10,000 + 10,000÷20.50 = 10,487.8</div>
+  <div class="ans-row">Additional units from 20% dividend = 11,296.11 – 10,487.8 = 808.31</div>
+  <div class="ans-row">Dividend amount = 10,487.8 × 10 × 20% = Rs. 20,975.6</div>
+  <div class="ans-row-fr">y = <span class="fr"><span class="num">20,975.6</span><span class="den">808.31</span></span> = <span class="hl">Rs. 25.95</span></div>
+  <div class="arrow-note">W.N. C: NAV on 31.3.2010 (let = z), held 33 months total</div>
+  <div class="ans-row-fr"><span class="fr"><span class="num">11,296.11×z – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">33</span></span> = 0.7352 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">z = Rs. 26.75</span></div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t15" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>All three NAVs missing — solve sequentially. Units grew without fresh purchase → reinvestment plan. In Step B: the 20% dividend is on 10,487.8 units; the gap to 11,296.11 gives the additional units, from which you derive the NAV. Step C uses the full 33-month holding from day one.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p15" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 14 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">16</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 16</span>
+  <div class="qcard-body">
+    On 01-07-2010, Mr. X Invested Rs.50,000/- at initial offer in Mutual Funds at a face value of Rs.10 each per unit. On 31-03-2011, a dividend was paid @ 10% and annualized yield was 120%. On 31-03-2012, 20% dividend and capital gain of Rs.0.60 per unit was given. Mr. X redeemed all his 6,271.98 units when his annualized yield was 71.50% over the period of holding. Calculate NAV as on 31-03-2011, 31-03-2012 and 31-03-2013. For calculations consider a year of 12 months.
+  </div>
+  <span class="qans">Ans: NAV = Rs. 18.00, Rs. 13.80, Rs. 23.65</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a16',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t16',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p16',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a16">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Opening units = 50,000÷10 = 5,000. Final units = 6,271.98 → reinvestment plan. Redemption = 31.3.2013 (inferred).</div>
+  <div class="note-row tutorial">T. Note: Please note that both capital gain distribution and dividend distribution will be reinvested in the reinvestment plan.</div>
+  <div class="note-row tutorial">T. Note: Date of redemption/disposal of 6,271.98 units is not given in question. But, the question has asked for NAV as on 31st March 2013. As there are no other events in this date, we understand that it must be the date of redemption of units.</div>
+  <div class="arrow-note">W.N. A: NAV on 31.03.2011 (let = x), held 9 months</div>
+  <div class="ans-row">Dividend = 5,000 × 10 × 10% = Rs. 5,000</div>
+  <div class="ans-row">Additional units = 5,000 ÷ x</div>
+  <div class="ans-row-fr"><span class="fr"><span class="num">[(5,000 + 5,000/x)×x – 50,000]</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">9</span></span> = 1.20 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">NAV = Rs. 18.00</span></div>
+  <div class="arrow-note">W.N. B: NAV on 31.03.2012 (let = y)</div>
+  <div class="ans-row">Units at 31.3.2011 = 5,000 + 5,000÷18 = 5,277.78</div>
+  <div class="ans-row">Units added at 31.3.2012 = 6,271.98 – 5,277.78 = 994.20</div>
+  <div class="ans-row">Total distribution = (5,277.78 × 10 × 20%) + (5,277.78 × 0.60) = 10,555.56 + 3,166.67 = Rs. 13,722.23</div>
+  <div class="ans-row-fr">y = <span class="fr"><span class="num">13,722.23</span><span class="den">994.20</span></span> = <span class="hl">Rs. 13.80</span></div>
+  <div class="arrow-note">W.N. C: NAV on 31.03.2013 (let = z), held 33 months total</div>
+  <div class="ans-row-fr"><span class="fr"><span class="num">6,271.98×z – 50,000</span><span class="den">50,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">33</span></span> = 0.7150 &nbsp;→&nbsp; <span class="hl" style="margin-left:6px;">NAV = Rs. 23.65</span></div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t16" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Same as Q15 but capital gain is also reinvested — add both dividend and CG distributions before dividing by NAV to get additional units. Redemption date (31.3.2013) must be inferred from the 33-month total holding period starting 1.7.2010.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p16" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 15 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">17</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 17</span>
+  <div class="qcard-body">
+    Sun Moon Mutual Fund (Approved Mutual Fund) sponsored open-ended equity oriented scheme "Chanakya Opportunity Fund". There were three plans viz. 'A' – Dividend Re-investment Plan, 'B' – Bonus Plan &amp; 'C' – Growth Plan.
+    <br><br>
+    At the time of Initial Public Offer on 1.4.1999, Mr. Anand, Mr. Bacchan &amp; Mrs. Charu, three investors invested Rs.1,00,000 each &amp; chosen 'B', 'C' &amp; 'A' Plan respectively.
+    <br>The History of the Fund is as follows:
+    <table class="qdata">
+      <tr class="qh"><td>Date</td><td class="r">Dividend %</td><td class="r">Bonus Ratio</td><td class="r">NAV-A</td><td class="r">NAV-B</td><td class="r">NAV-C</td></tr>
+      <tr><td>28.07.2003</td><td class="r">20</td><td class="r">—</td><td class="r">30.70</td><td class="r">31.40</td><td class="r">33.42</td></tr>
+      <tr><td>31.03.2004</td><td class="r">70</td><td class="r">5 : 4</td><td class="r">58.42</td><td class="r">31.05</td><td class="r">70.05</td></tr>
+      <tr><td>31.10.2007</td><td class="r">40</td><td class="r">—</td><td class="r">42.18</td><td class="r">25.02</td><td class="r">56.15</td></tr>
+      <tr><td>15.03.2008</td><td class="r">25</td><td class="r">—</td><td class="r">46.45</td><td class="r">29.10</td><td class="r">64.28</td></tr>
+      <tr><td>31.03.2008</td><td class="r">—</td><td class="r">1 : 3</td><td class="r">42.18</td><td class="r">20.05</td><td class="r">60.12</td></tr>
+      <tr><td>24.03.2009</td><td class="r">40</td><td class="r">1 : 4</td><td class="r">48.10</td><td class="r">19.95</td><td class="r">72.40</td></tr>
+      <tr><td>31.07.2009</td><td class="r">—</td><td class="r">—</td><td class="r">53.75</td><td class="r">22.98</td><td class="r">82.07</td></tr>
+    </table>
+    On 31st July 2009, all three investors redeemed all the balance units. Calculate annual rate of return to each of the investors. Consider:
+    <ul>
+      <li>Long-term Capital Gain is exempt from Income tax.</li>
+      <li>Short-term Capital Gain is subject to 10% Income tax.</li>
+      <li>Security Transaction Tax 0.2 per cent only on sale/redemption of units.</li>
+    </ul>
+  </div>
+  <span class="qans">Ans: A – 67.64%, B – 73.33%, C – 69.59%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a17',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t17',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p17',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a17">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Opening units all plans = 1,00,000÷10 = 10,000. Holding = 1.4.1999 to 31.7.2009 = 124 months.</div>
+  <div class="note-row">Notes/Assumptions: (1) Period from 1st Aug 2008 to 31.7.2009 (1 year time frame) from disposal date has been considered as short date. (2) Purchase rate (cost) for bonus units for tax calculation purpose has been assumed as prevailing NAV at the date of issue of bonus unit. [logic: "Best relief for mutual fund investor."] Alternatively, cost of Rs.10 (FV) or Rs.0 (no cost for bonus) etc can also be considered. But not recommended for exam purpose.</div>
+  <div class="arrow-note">Plan A: Mrs. Charu (Dividend Reinvestment)</div>
+  <table class="ntable">
+    <thead><tr><th>Date</th><th class="r">Open</th><th class="r">Div/unit</th><th class="r">Addl Units</th><th class="r">Close</th></tr></thead>
+    <tbody>
+      <tr><td>28.07.03</td><td class="r">10,000</td><td class="r">2</td><td class="r">651.47</td><td class="r">10,651.47</td></tr>
+      <tr><td>31.03.04</td><td class="r">10,651.47</td><td class="r">7</td><td class="r">1,276.28</td><td class="r">11,927.75</td></tr>
+      <tr><td>31.10.07</td><td class="r">11,927.75</td><td class="r">4</td><td class="r">1,131.13</td><td class="r">13,058.88</td></tr>
+      <tr><td>15.03.08</td><td class="r">13,058.88</td><td class="r">2.50</td><td class="r">702.85</td><td class="r">13,761.73</td></tr>
+      <tr><td>24.03.09</td><td class="r">13,761.73</td><td class="r">4</td><td class="r">1,144.43</td><td class="r">14,906.16</td></tr>
+    </tbody>
+  </table>
+  <div class="ans-row">Net realization after STT &amp; STCG (1,144.43 units within 1yr) ≈ Rs. 7,98,969</div>
+  <div class="ans-row-fr">Return A = <span class="fr"><span class="num">7,98,969 – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">124</span></span> × 100 = <span class="hl">67.64% p.a.</span></div>
+  <div class="arrow-note">Plan B: Mr. Anand (Bonus)</div>
+  <div class="ans-row">31.3.04 (5:4) → 22,500 | 31.3.08 (1:3) → 30,000 | 24.3.09 (1:4) → 37,500 units</div>
+  <div class="ans-row">Net realization after STT &amp; STCG (7,500 units within 1yr) ≈ Rs. 8,57,788</div>
+  <div class="ans-row-fr">Return B = <span class="fr"><span class="num">8,57,788 – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">124</span></span> × 100 = <span class="hl">73.33% p.a.</span></div>
+  <div class="arrow-note">Plan C: Mr. Bacchan (Growth)</div>
+  <div class="ans-row">Units unchanged = 10,000. Realization = 10,000 × 82.07 × (1–0.2%) ≈ Rs. 8,19,058. No STCG (held &gt;1yr).</div>
+  <div class="ans-row-fr">Return C = <span class="fr"><span class="num">8,19,058 – 1,00,000</span><span class="den">1,00,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">124</span></span> × 100 = <span class="hl">69.59% p.a.</span></div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t17" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Three plan mechanics plus tax in one question — build each unit table separately first. Bonus unit cost for tax = NAV on date of issue. STCG applies to units acquired within 1 year of 31.7.2009. STT 0.2% is on redemption amount, not gain.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p17" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 16 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">18</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 18</span>
+  <div class="qcard-body">
+    A mutual fund company introduces two schemes i.e. Dividend plan (Plan-D) and Bonus plan (Plan-B). The face value of the unit is Rs.10. On 1-4-2005 Mr. K invested Rs.2,00,000 each in Plan-D and Plan-B when the NAV was Rs.38.20 and Rs.35.60 respectively. Both the plans matured on 31-3-2010.
+    <br>Particulars of dividend and bonus declared over the period are as follows:
+    <table class="qdata">
+      <tr class="qh"><td>Date</td><td class="r">Dividend %</td><td class="r">Bonus Ratio</td><td class="r">NAV-Plan D</td><td class="r">NAV-Plan B</td></tr>
+      <tr><td>30-09-2005</td><td class="r">10</td><td class="r">—</td><td class="r">39.10</td><td class="r">35.60</td></tr>
+      <tr><td>30-06-2006</td><td class="r">—</td><td class="r">1:5</td><td class="r">41.15</td><td class="r">36.25</td></tr>
+      <tr><td>31-03-2007</td><td class="r">15</td><td class="r">—</td><td class="r">44.20</td><td class="r">33.10</td></tr>
+      <tr><td>15-09-2008</td><td class="r">13</td><td class="r">—</td><td class="r">45.05</td><td class="r">37.25</td></tr>
+      <tr><td>30-10-2008</td><td class="r">—</td><td class="r">1:8</td><td class="r">42.70</td><td class="r">38.30</td></tr>
+      <tr><td>27-03-2009</td><td class="r">16</td><td class="r">—</td><td class="r">44.80</td><td class="r">39.10</td></tr>
+      <tr><td>11-04-2009</td><td class="r">—</td><td class="r">1:10</td><td class="r">40.25</td><td class="r">38.90</td></tr>
+      <tr><td>31-03-2010</td><td class="r">—</td><td class="r">—</td><td class="r">40.40</td><td class="r">39.70</td></tr>
+    </table>
+    What is the effective yield per annum in respect of the above two plans?
+  </div>
+  <span class="qans">Ans: D – 3.9%, B – 13.12%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a18',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t18',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p18',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+
+<div class="ans-block" id="a18">
+  <div class="ans-sep"></div>
+  <div class="note-row">Assumption: Dividend plan is assumed to be Dividend Reinvestment Plan.</div>
+  <div class="note-row">Don't repeat mistake — opening unit ≠ Rs. 2,00,000. Plan D = 2,00,000 / 38.2 = 5,235.60 units. Plan B = 2,00,000 / 35.6 = 5,617.98 units.</div>
+  <div class="arrow-note">Plan D: Opening units = 2,00,000 ÷ 38.20 = 5,235.60</div>
+  <table class="ntable">
+    <thead><tr><th>Date</th><th class="r">Open Units</th><th class="r">Div/unit</th><th class="r">Addl. Units</th><th class="r">Close</th></tr></thead>
+    <tbody>
+      <tr><td>30.09.05</td><td class="r">5,235.60</td><td class="r">1.00</td><td class="r">133.90</td><td class="r">5,369.50</td></tr>
+      <tr><td>31.03.07</td><td class="r">5,369.50</td><td class="r">1.50</td><td class="r">182.22</td><td class="r">5,551.72</td></tr>
+      <tr><td>15.09.08</td><td class="r">5,551.72</td><td class="r">1.30</td><td class="r">160.21</td><td class="r">5,711.93</td></tr>
+      <tr><td>27.03.09</td><td class="r">5,711.93</td><td class="r">1.60</td><td class="r">204.00</td><td class="r">5,915.93</td></tr>
+    </tbody>
+  </table>
+  <div class="ans-row-fr">Return D = <span class="fr"><span class="num">(5,915.93 × 40.40) – 2,00,000</span><span class="den">2,00,000</span></span> × <span class="fr"><span class="num">1</span><span class="den">5</span></span> × 100 = <span class="hl">3.90% p.a.</span></div>
+  <div class="arrow-note">Plan B: Opening units = 2,00,000 ÷ 35.60 = 5,617.98</div>
+  <div class="ans-row">30.06.06 (1:5): +1,123.60 → 6,741.58</div>
+  <div class="ans-row">30.10.08 (1:8): +842.70 → 7,584.28 &nbsp;&nbsp; 11.04.09 (1:10): +758.43 → 8,342.71</div>
+  <div class="ans-row-fr">Return B = <span class="fr"><span class="num">(8,342.71 × 39.70) – 2,00,000</span><span class="den">2,00,000</span></span> × <span class="fr"><span class="num">1</span><span class="den">5</span></span> × 100 = <span class="hl">13.12% p.a.</span></div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t18" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Cleaner than Q17 — no tax. Bonus outperforms reinvestment nearly 3.4× because bonus units are issued at zero cost; any positive NAV on redemption is pure gain.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p18" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 17 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">19</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 19</span>
+  <div class="qcard-body">
+    The unit price of Equity Linked Savings Scheme (ELSS) of a mutual fund is Rs.10/-. The public offer price (POP) of the unit is Rs.10.204 and the redemption price is Rs.9.80.
+    <div class="qparts">
+      <span>Calculate:</span>
+      <span><span class="pl">(i)</span>&nbsp; Front-end Load</span>
+      <span><span class="pl">(ii)</span>&nbsp; Back end Load</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) 2.04% &nbsp; (ii) 2%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a19',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t19',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p19',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a19">
+  <div class="ans-sep"></div>
+  <div class="ans-row-fr">Front-end Load = <span class="fr"><span class="num">POP – NAV</span><span class="den">NAV</span></span> × 100 = <span class="fr"><span class="num">10.204 – 10</span><span class="den">10</span></span> × 100 = <span class="hl">2.04%</span></div>
+  <div class="ans-row-fr">Back-end Load = <span class="fr"><span class="num">NAV – Redemption Price</span><span class="den">NAV</span></span> × 100 = <span class="fr"><span class="num">10 – 9.80</span><span class="den">10</span></span> × 100 = <span class="hl">2.00%</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t19" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Entry load is added to NAV → Public Offer Price. Exit load is deducted from NAV → Redemption Price. Both expressed as % of NAV, not of the offer or redemption price.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p19" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">20</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 20</span>
+  <div class="qcard-body">
+    An investor invests Rs. 1,000 in a mutual fund the entry load of which is 2.25%. He got 50 units. His investment time horizon is 6 months. The mutual fund charges exit load of 0.50% if the redemption is done on or after the 6 months but on or before 1 year.
+    <div class="qparts">
+      <span>You are required to compute</span>
+      <span><span class="pl">(i)</span> Net Asset Value (NAV) at the time of investment</span>
+      <span><span class="pl">(ii)</span> Annualized return to the investor if he gets his investment redeemed on expiry of 6 months assuming that NAV at that time is Rs. 25 per unit.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) Rs. 19.56 &nbsp; (ii) 48.75%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a20',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t20',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p20',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a20">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Purchase rate = 1,000 ÷ 50 = Rs. 20</div>
+  <div class="ans-row">NAV × 1.0225 = 20 &nbsp;→&nbsp; <span class="hl">NAV = Rs. 19.56</span></div>
+  <div class="ans-row">Selling rate = 25 – 0.5% of 25 = Rs. 24.875</div>
+  <div class="ans-row-fr">Return = <span class="fr"><span class="num">24.875 – 20</span><span class="den">20</span></span> × <span class="fr"><span class="num">12</span><span class="den">6</span></span> × 100 = <span class="hl">48.75% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t20" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>NAV is not given — derive it from units allotted. Purchase rate (Rs. 20) is NAV + entry load, so NAV = 20 ÷ 1.0225. Return is calculated from purchase rate to selling rate, not NAV to NAV.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p20" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 18 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">21</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 21</span>
+  <div class="qcard-body">
+    Shiva invested Rs. 50,000 in debt-oriented fund when the NAV was 16.10, and sold the units allotted when the NAV was 17.10 after one year. Assume that there existed an entry load of 2% and exit load is applicable as follows:
+    <table class="qdata">
+      <tr class="qh"><td>Holding Period</td><td class="r">Exit Load</td></tr>
+      <tr><td>Up to 6 months</td><td class="r">2%</td></tr>
+      <tr><td>Above 6 months up to 2 years</td><td class="r">1%</td></tr>
+      <tr><td>Above 2 years</td><td class="r">No exit load</td></tr>
+    </table>
+    He received 2 per unit as dividend which is taxable at 30% during the year. Ignore capital gains tax. What is the after tax rupee return from this investment?
+  </div>
+  <span class="qans">Ans: 11.61% p.a.</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a21',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t21',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p21',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a21">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Purchase rate = 16.10 × (1 + 2%) = 16.10 × 1.02 = <span class="hl" style="margin-left:4px;">Rs. 16.422</span></div>
+  <div class="ans-row">Selling rate = 17.10 × (1 – 1%) = 17.10 × 0.99 = <span class="hl" style="margin-left:4px;">Rs. 16.929</span> &nbsp;<em>(1yr holding → 1% exit)</em></div>
+  <div class="ans-row">Dividend net of tax = 2 × (1 – 30%) = <span class="hl" style="margin-left:4px;">Rs. 1.40 per unit</span></div>
+  <div class="ans-row-fr">Return = <span class="fr"><span class="num">(16.929 – 16.422) + 1.40</span><span class="den">16.422</span></span> × 100 = <span class="hl">11.61% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t21" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Three adjustments at once: entry load inflates cost, exit load reduces selling price, dividend tax reduces D₁. Return uses purchase rate → selling rate on a per-unit basis. Number of units held is irrelevant.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p21" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">22</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 22</span>
+  <div class="qcard-body">
+    During the year 2017 an investor invested in a mutual fund. The capital gain and dividend for the year was Rs. 3.00 per unit, which were re-invested at the year end NAV of Rs. 23.75. The investor had total units of 26,750 as at the end of the year. The NAV had appreciated by 18.75% during the year and there was an entry load of Rs. 0.05 at the time when the investment was made.
+    <br><br>
+    The investor lost his records and wants to find out the amount of investment made and the entry load in the mutual fund.
+  </div>
+  <span class="qans">Ans: Investment = Rs. 4,76,187.50; Entry Load = Rs. 1,187.50</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a22',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t22',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p22',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a22">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Year-end NAV = 23.75. NAV grew 18.75% → Opening NAV = 23.75 ÷ 1.1875 = <span class="hl" style="margin-left:4px;">Rs. 20</span></div>
+  <div class="ans-row">Let original units = y. Reinvestment units = 3y ÷ 23.75 = 0.1263y</div>
+  <div class="ans-row">y + 0.1263y = 26,750 &nbsp;→&nbsp; y = <span class="hl" style="margin-left:4px;">23,750 units</span></div>
+  <div class="ans-row">Purchase rate = 20 + 0.05 = Rs. 20.05 &nbsp;→&nbsp; Investment = 23,750 × 20.05 = <span class="hl" style="margin-left:4px;">Rs. 4,76,187.50</span></div>
+  <div class="ans-row">Entry load = 23,750 × 0.05 = <span class="hl">Rs. 1,187.50</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t22" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Work backwards: NAV grew 18.75% → opening NAV = 23.75 ÷ 1.1875 = Rs. 20. Set up: original units + reinvestment units = 26,750, where reinvestment units = (3 × original units) ÷ 23.75. Solve for original units, then get investment and entry load.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p22" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 19 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">23</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 23</span>
+  <div class="qcard-body">
+    Kamana Mutual Fund had opening NAV of Rs. 15 as on 1st Shrawan 2077. It's NAV as on 32nd Sharawan 2077 stood at Rs. 18. During the month, the fund incurred the following expenses:
+    <table class="qdata">
+      <tr><td>Consultancy and Management fees</td><td class="r">48 Lakhs</td></tr>
+      <tr><td>Office Expenses</td><td class="r">15 Lakhs</td></tr>
+      <tr><td>Advertisement Expenses</td><td class="r">3.8 Lakhs</td></tr>
+    </table>
+    You are also given that:
+    <table class="qdata">
+      <tr class="qh"><td>Date</td><td class="r">No. of Units Outstanding</td></tr>
+      <tr><td>1st Shrawan 2077</td><td class="r">800 Lakhs</td></tr>
+      <tr><td>32nd Shrawan 2077</td><td class="r">1000 Lakhs</td></tr>
+    </table>
+    Find the expense ratio of the mutual fund.
+  </div>
+  <span class="qans">Ans: 5.34% p.a.</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a23',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t23',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p23',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a23">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Opening net assets = 15 × 800 = Rs. 12,000L</div>
+  <div class="ans-row">Closing net assets = 18 × 1,000 = Rs. 18,000L</div>
+  <div class="ans-row">Average net assets = (12,000 + 18,000) ÷ 2 = <span class="hl" style="margin-left:4px;">Rs. 15,000 Lakhs</span></div>
+  <div class="ans-row">Total operating expense = 48 + 15 + 3.8 = Rs. 66.8 Lakhs (for 1 month)</div>
+  <div class="ans-row-fr">Expense Ratio = <span class="fr"><span class="num">66.8</span><span class="den">15,000</span></span> × <span class="fr"><span class="num">12</span><span class="den">1</span></span> × 100 = <span class="hl">5.34% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t23" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Expense ratio = (Total operating expense ÷ Average net assets) annualized. Data is for one month — multiply by 12. Average net assets = (opening + closing) ÷ 2.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p23" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">24</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 24</span>
+  <div class="qcard-body">
+    A mutual fund has invested in assets that yield 20% p.a. If its annual recurring operating expenses are 5% p.a., find the return that will be available to the investors of the mutual fund. Also, if the fund spends on an average 10% for meeting its non-recurring expenses, compute the return that will be available to the investors.
+  </div>
+  <span class="qans">Ans: 13.5%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a24',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t24',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p24',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a24">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Formula: Net Return = (u – v) × (1 – i) &nbsp;where u = gross return, v = recurring expense %, i = initial expense %</div>
+  <div class="ans-row">Without initial expenses: Net return = (20% – 5%) × (1 – 0) = <span class="hl" style="margin-left:4px;">15% p.a.</span></div>
+  <div class="ans-row">With 10% non-recurring: Net return = (20% – 5%) × (1 – 10%) = 15% × 0.90 = <span class="hl" style="margin-left:4px;">13.5% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t24" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Net Return = (u – v) × (1 – i). Recurring expenses (v) reduce gross return annually. Initial expenses (i) reduce the investable base — a one-time cost that drags all future returns.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p24" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 20 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">25</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 25</span>
+  <div class="qcard-body">
+    Mr. A can earn a return of 16 per cent by investing in equity shares on his own. Now he is considering a recently announced equity based mutual fund scheme in which initial expenses are 5.5 per cent and annual recurring expenses are 1.5 per cent. How much should the mutual fund earn to provide Mr. A return of 16 per cent?
+  </div>
+  <span class="qans">Ans: 18.43%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a25',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t25',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p25',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a25">
+  <div class="ans-sep"></div>
+  <div class="ans-row">16% = (u – 1.5%) × (1 – 5.5%) &nbsp;→&nbsp; (u – 0.015) = 0.16 ÷ 0.945 = 0.1693</div>
+  <div class="ans-row">u = 0.1693 + 0.015 = <span class="hl">18.43% p.a.</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t25" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Run the expense formula in reverse — u is the unknown. Rearrange to: u = (Net Return ÷ (1 – i)) + v. The fund must earn well above 16% just to deliver 16% to the investor.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p25" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">26</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 26</span>
+  <div class="qcard-body">
+    Mr. Alex, a practicing Chartered Accountant, can earn a return of 15 percent by investing in equity shares on his own. He is considering a recently announced equity based mutual fund scheme in which initial expenses are 6 percent and annual recurring expenses are 2 percent.
+    <div class="qparts">
+      <span><span class="pl">(i)</span> How much should the mutual fund earn to provide Mr. Alex a return of 15 percent per annum?</span>
+      <span><span class="pl">(ii)</span> Mr. Alex's current Annual Professional Income is Rs. 40 Lakhs. His portfolio value is Rs.50 Lakhs and now he is spending 10% of his time to manage his portfolio. If he spends this time on profession, his professional income will go up in same proportion. He is thinking to invest his entire portfolio into a Multicap Fund, assuming the fund's NAV will grow at 13% per annum (including dividend). You are requested to advise Mr. Alex, whether he can invest the portfolio into Multicap Funds? If so, what is the net financial benefit?</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) 17.96% &nbsp; (ii) Net Financial Benefit = Rs. 300,000</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a26',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t26',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p26',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a26">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Part (i): 15% = (u – 2%) × (1 – 6%) &nbsp;→&nbsp; u = (0.15 ÷ 0.94) + 0.02 = <span class="hl" style="margin-left:4px;">17.96% p.a.</span></div>
+  <div class="arrow-note">Part (ii): Compare scenarios</div>
+  <table class="ntable">
+    <thead><tr><th>Scenario</th><th class="r">Professional</th><th class="r">Portfolio</th><th class="r">Total</th></tr></thead>
+    <tbody>
+      <tr><td>Self-manage (current)</td><td class="r">Rs. 40L</td><td class="r">50L × 15% = 7.5L</td><td class="r">47.5L</td></tr>
+      <tr><td>Delegate to MF</td><td class="r">40L × 110% = 44L</td><td class="r">50L × 13% = 6.5L</td><td class="r">50.5L</td></tr>
+      <tr class="dtot"><td>Net Financial Benefit</td><td class="r">—</td><td class="r">—</td><td class="r"><span class="hl">Rs. 3 Lakhs</span></td></tr>
+    </tbody>
+  </table>
+  <div class="ans-row">Yes, Mr. Alex should invest in the Multicap Fund.</div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t26" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Part (ii) is a financial advice question. The 10% freed time adds 4L to professional income but loses only 1L in lower portfolio return. Net gain = Rs. 3L. Opportunity cost of time is a real financial number.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p26" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 21 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">27</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 27</span>
+  <div class="qcard-body">
+    An open ended mutual fund scheme computes and publishes its NAV every month. It's NAV as on 1st Shrawan stood at Rs. 15 per unit for 100,000 units outstanding. In four weeks of Shrawan, its income was as follows:
+    <table class="qdata">
+      <tr class="qh"><td>Week</td><td class="r">Income (NPR)</td></tr>
+      <tr><td>1st</td><td class="r">50,000</td></tr>
+      <tr><td>2nd</td><td class="r">1,00,000</td></tr>
+      <tr><td>3rd</td><td class="r">1,50,000</td></tr>
+      <tr><td>4th</td><td class="r">2,00,000</td></tr>
+    </table>
+    <div class="qparts">
+      <span><span class="pl">Required:</span></span>
+      <span><span class="pl">(i)</span> Mr. A had bought 10,000 units of the fund at the end of 1st week. How much did he pay per unit?</span>
+      <span><span class="pl">(ii)</span> Mr. B had sold 20,000 units of the fund at the end of 2nd week. How much did he receive per unit?</span>
+      <span><span class="pl">(iii)</span> Mr. A had sold his 10,000 units at the end of 3rd week. How much did he receive per unit?</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) Rs. 15.5 &nbsp; (ii) Rs. 16.41 &nbsp; (iii) Rs. 18.08</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a27',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t27',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p27',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a27">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Div Eq. Adj. = Earnings during period ÷ O/S units during period. Price = Opening NAV + cumulative adjustments.</div>
+  <div class="arrow-note">Part (i): Mr. A buys at end of Week 1</div>
+  <div class="ans-row">Wk1 adj = 50,000 ÷ 1,00,000 = Rs. 0.50</div>
+  <div class="ans-row">Price paid = 15 + 0.50 = <span class="hl">Rs. 15.50</span></div>
+  <div class="arrow-note">Part (ii): Mr. B sells at end of Week 2</div>
+  <div class="ans-row">Units in Wk2 = 1,00,000 + 10,000 = 1,10,000</div>
+  <div class="ans-row">Wk2 adj = 1,00,000 ÷ 1,10,000 = Rs. 0.909</div>
+  <div class="ans-row">Price = 15 + 0.50 + 0.909 = <span class="hl">Rs. 16.41</span></div>
+  <div class="arrow-note">Part (iii): Mr. A sells at end of Week 3</div>
+  <div class="ans-row">Units in Wk3 = 1,10,000 – 20,000 = 90,000</div>
+  <div class="ans-row">Wk3 adj = 1,50,000 ÷ 90,000 = Rs. 1.667</div>
+  <div class="ans-row">Price = 15 + 0.50 + 0.909 + 1.667 = <span class="hl">Rs. 18.08</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t27" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Dividend equalization ensures fairness when NAV isn't published daily. Adjustments accumulate week by week — sum them all up to the transaction date. Unit count changes with each buy/sell, so use the correct count for each week's calculation.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p27" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 22 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">28</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 28</span>
+  <div class="qcard-body">
+    On 1st April, an open ended scheme of mutual fund had 300 lakh units outstanding with Net Assets Value (NAV) of Rs.18.75. At the end of April, it issued 6 lakh units at opening NAV plus 2% load, adjusted for dividend equalization. At the end of May, 3 Lakh units were repurchased at opening NAV less 2% exit load adjusted for dividend equalization. At the end of June, 70% of its available income was distributed.
+    <br><br>
+    In respect of April-June quarter, the following additional information are available:
+    <table class="qdata">
+      <tr class="qh"><td>Particulars</td><td class="r">Rs. In Lakhs</td></tr>
+      <tr><td>Portfolio value appreciation</td><td class="r">425.47</td></tr>
+      <tr><td>Income of April</td><td class="r">22.950</td></tr>
+      <tr><td>Income for May</td><td class="r">34.425</td></tr>
+      <tr><td>Income for June</td><td class="r">45.450</td></tr>
+    </table>
+    <div class="qparts">
+      <span>You are required to calculate</span>
+      <span><span class="pl">(i)</span> Issue price at the end of April;</span>
+      <span><span class="pl">(ii)</span> Repurchase price at the end of May;</span>
+      <span><span class="pl">(iii)</span> Income available for distribution and</span>
+      <span><span class="pl">(iv)</span> Net asset value (NAV) as on 30th June.</span>
+    </div>
+  </div>
+  <span class="qans">Ans: (i) Rs. 19.2015 &nbsp; (ii) Rs.18.564 &nbsp; (iii) Rs.102.717 Lakhs &nbsp; (iv) Rs.20.267</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a28',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t28',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p28',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a28">
+  <div class="ans-sep"></div>
+  <div class="arrow-note">Part (i): Issue price end of April</div>
+  <div class="ans-row">Div eq. adj. April = 22.95 ÷ 300 = 0.0765</div>
+  <div class="ans-row">Price = 18.75 + (18.75 × 2%) + 0.0765 = <span class="hl">Rs. 19.2015</span></div>
+  <div class="arrow-note">Part (ii): Repurchase price end of May</div>
+  <div class="ans-row">Units in May = 306L. Div eq. adj. May = 34.425 ÷ 306 = 0.1125</div>
+  <div class="ans-row">Price = 18.75 – (18.75 × 2%) + 0.0765 + 0.1125 = <span class="hl">Rs. 18.564</span></div>
+  <div class="arrow-note">Part (iii): Income available for distribution</div>
+  <table class="ntable">
+    <thead><tr><th>Item</th><th class="r">Rs. (Lakhs)</th></tr></thead>
+    <tbody>
+      <tr><td>Income April + May + June</td><td class="r">102.825</td></tr>
+      <tr><td>Add: Div eq. collected [22.95÷300 × 6L]</td><td class="r">0.459</td></tr>
+      <tr><td>Less: Div eq. paid [(0.0765 + 0.1125) × 3L]</td><td class="r">(0.567)</td></tr>
+      <tr class="dtot"><td><span class="hl">Income available for distribution</span></td><td class="r"><span class="hl">Rs. 102.717 Lakhs</span></td></tr>
+    </tbody>
+  </table>
+  <div class="arrow-note">Part (iv): NAV on 30th June</div>
+  <table class="ntable">
+    <thead><tr><th>Particulars</th><th class="r">Rs. (Lakhs)</th></tr></thead>
+    <tbody>
+      <tr><td>Opening net assets (18.75 × 300)</td><td class="r">5,625.00</td></tr>
+      <tr><td>Add: Portfolio appreciation</td><td class="r">425.47</td></tr>
+      <tr><td>Add: Income realized (22.95+34.425+45.45)</td><td class="r">102.825</td></tr>
+      <tr><td>Add: Cash received on issue (6L × 19.2015)</td><td class="r">115.209</td></tr>
+      <tr><td>Less: Cash paid on repurchase (3L × 18.564)</td><td class="r">(55.692)</td></tr>
+      <tr><td>Less: Dividend paid (102.717 × 70%)</td><td class="r">(71.902)</td></tr>
+      <tr class="tot"><td>Net Assets</td><td class="r">6,140.91</td></tr>
+      <tr><td>÷ Units (300 + 6 – 3 = 303 Lakhs)</td><td class="r">303</td></tr>
+      <tr class="dtot"><td><span class="hl">NAV on 30th June</span></td><td class="r"><span class="hl">Rs. 20.267</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note-row">(1) Entry &amp; exit load collected is assumed to be non-distributable income.</div>
+  <div class="note-row">(2) Portfolio value appreciation of 425.47 lakh is unrealized earning &amp; can't be distributed.</div>
+</div>
+
+<div class="breath"></div>
+<div class="tip-block" id="t28" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>The most comprehensive dividend equalization question — marked "most revise before exam." Entry/exit loads and portfolio appreciation are non-distributable. For Part (iv) NAV, track every cash flow entering and leaving the fund across the whole quarter.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p28" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+<!-- PAGE 23 -->
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">29</span></div>
+<div class="page-content">
+
+<div class="qcard">
+  <span class="qcard-label">Question 29</span>
+  <div class="qcard-body">
+    Calculate tracking error of the mutual fund from the following data:
+    <table class="qdata">
+      <tr class="qh"><td>Return from Mutual Fund</td><td class="r">Return from Index</td></tr>
+      <tr><td>11%</td><td class="r">12%</td></tr>
+      <tr><td>3%</td><td class="r">5%</td></tr>
+      <tr><td>12%</td><td class="r">13%</td></tr>
+      <tr><td>14%</td><td class="r">9%</td></tr>
+      <tr><td>8%</td><td class="r">7%</td></tr>
+    </table>
+  </div>
+  <span class="qans">Ans: 2.79%</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a29',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t29',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p29',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a29">
+  <div class="ans-sep"></div>
+  <table class="ntable">
+    <thead><tr><th>MF%</th><th class="r">Index%</th><th class="r">d = (b–a)</th><th class="r">d – d̄</th><th class="r">(d–d̄)²</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td class="r">12</td><td class="r">–1</td><td class="r">–1.4</td><td class="r">1.96</td></tr>
+      <tr><td>3</td><td class="r">5</td><td class="r">–2</td><td class="r">–2.4</td><td class="r">5.76</td></tr>
+      <tr><td>12</td><td class="r">13</td><td class="r">–1</td><td class="r">–1.4</td><td class="r">1.96</td></tr>
+      <tr><td>14</td><td class="r">9</td><td class="r">+5</td><td class="r">+4.6</td><td class="r">21.16</td></tr>
+      <tr><td>8</td><td class="r">7</td><td class="r">+1</td><td class="r">+0.6</td><td class="r">0.36</td></tr>
+      <tr class="tot"><td>—</td><td class="r">—</td><td class="r">Σd = 2</td><td class="r">—</td><td class="r">Σ(d–d̄)² = 31.2</td></tr>
+    </tbody>
+  </table>
+  <div class="ans-row">d̄ = 2 ÷ 5 = 0.4</div>
+  <div class="ans-row-fr">TE (sample) = √<span class="fr"><span class="num">31.2</span><span class="den">n–1 = 4</span></span> = √7.8 = <span class="hl">2.79%</span> &nbsp;&nbsp; TE (population) = √<span class="fr"><span class="num">31.2</span><span class="den">5</span></span> = <span class="hl">2.50%</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t29" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Tracking error = standard deviation of the differences between MF and index returns — not of the returns themselves. Sample formula (÷ n–1) gives 2.79%; population formula (÷ n) gives 2.50%. Both acceptable. Lower TE = closer tracking of benchmark.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p29" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+
+</div></div>
+
+<div class="page">
+<div class="sep-line"></div><div class="chapter-tab">Ch. 1</div>
+<div class="page-header"><span class="pg-tag">30</span></div>
+<div class="page-content">
+<div class="qcard">
+  <span class="qcard-label">Question 30</span>
+  <div class="qcard-body">
+    ANP Plan, a hedge fund currently has assets of 20 crore. CA. X, the manager of fund charges fee of 0.10% of portfolio asset. In addition to it he charges incentive fee of 2%. The incentive will be linked to gross return each year in excess of the portfolio maximum value since the inception of fund. The maximum value the fund achieved so far since inception of fund about one and half year ago was 21 crores.
+    <br><br>
+    You are required to compute the fee payable to CA. X, if return on the fund this year turns out to be (a) 29%, (b) 4.5%, (c) -1.8%
+  </div>
+  <span class="qans">Ans: (a) Rs.11,60,000 &nbsp; (b) Rs. 2,00,000 &nbsp; (c) Rs. 2,00,000</span>
+  <div class="toggle-row">
+    <button class="tbtn tbtn-ans tbtn-on" onclick="tog('a30',this,'Answer')">Hide Answer</button>
+    <button class="tbtn tbtn-tip" onclick="tog('t30',this,'Special')">Show Special</button>
+    <button class="tbtn tbtn-prac" onclick="tog('p30',this,'Practice')">Show Practice</button>
+  </div>
+</div>
+<div class="ans-block" id="a30">
+  <div class="ans-sep"></div>
+  <div class="ans-row">Base fee (always) = 0.10% × 20 crore = <span class="hl" style="margin-left:4px;">Rs. 2,00,000</span></div>
+  <div class="ans-row">Case (a): 29% return</div>
+  <div class="ans-row">Year-end = 20 + 29% of 20 = Rs. 25.8 crore. Exceeds high-water mark of Rs. 21 crore.</div>
+  <div class="ans-row">Incentive = 2% × (25.8 – 21) crore = Rs. 9,60,000</div>
+  <div class="ans-row">Total = 2,00,000 + 9,60,000 = <span class="hl">Rs. 11,60,000</span></div>
+  <div class="ans-row">Case (b): 4.5% return</div>
+  <div class="ans-row">Year-end = Rs. 20.90 crore. Below high-water mark (21 crore) → no incentive fee.</div>
+  <div class="ans-row">Total = <span class="hl">Rs. 2,00,000</span></div>
+  <div class="ans-row">Case (c): –1.8% return</div>
+  <div class="ans-row">Year-end = Rs. 19.64 crore. Negative return, far below high-water mark → no incentive fee.</div>
+  <div class="ans-row">Total = <span class="hl">Rs. 2,00,000</span></div>
+</div>
+<div class="breath"></div>
+<div class="tip-block" id="t30" style="display:none;">
+  <span class="tip-label">✦ What makes this question special</span>
+  <div class="tip-body"><p>Hedge fund structure: base fee always charged, incentive fee only when fund beats its all-time peak (high-water mark = Rs. 21 crore). In cases (b) and (c), even though (b) is positive, neither crosses Rs. 21 crore so no incentive is paid.</p></div>
+</div>
+<div class="breath"></div>
+<div class="prac-block" id="p30" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+
+</div></div>
+
+
+<script>
+function snapToGrid() {
+  var lhStr = getComputedStyle(document.documentElement).getPropertyValue('--lh').trim();
+  var lh = parseInt(lhStr);
+  if (!lh) return;
+  document.querySelectorAll('.page').forEach(function(page) {
+    var headerEl = page.querySelector('.page-header');
+    var headerH = headerEl ? headerEl.offsetHeight : lh * 3;
+    var contentTop = page.offsetTop + headerH;
+    page.querySelectorAll('.ans-block').forEach(function(block) {
+      block.style.paddingTop = '';
+      var blockOffset = block.offsetTop - contentTop;
+      var rem = ((blockOffset % lh) + lh) % lh;
+      if (rem > 1 && rem < lh - 1) {
+        var snap = lh - rem;
+      if (snap < lh) block.style.paddingTop = snap + 'px';
+      }
+    });
+  });
+}
+function tog(id, btn, label) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var hidden = el.style.display === 'none' || el.style.display === '';
+  el.style.display = hidden ? 'block' : 'none';
+  btn.textContent = (hidden ? 'Hide ' : 'Show ') + label;
+  btn.className = 'tbtn';
+  btn.classList.add(id.startsWith('a') ? 'tbtn-ans' : id.startsWith('t') ? 'tbtn-tip' : 'tbtn-prac');
+  if (!hidden) btn.classList.remove('tbtn-on');
+  else btn.classList.add('tbtn-on');
+  setTimeout(snapToGrid, 60);
+}
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(snapToGrid);
+} else {
+  window.addEventListener('load', snapToGrid);
+}
+window.addEventListener('resize', snapToGrid);
+</script>
+</body></html>
