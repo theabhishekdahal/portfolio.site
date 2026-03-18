@@ -6,7 +6,6 @@
     <title>Notes Library · Abhishek Dahal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --bg-navy: #0a192f;
@@ -15,20 +14,42 @@
             --slate: #8892b0;
             --white: #edeef7;
         }
-        body { 
-            background-color: #1e2a3a; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            color: var(--white); 
+        body { background-color: #1e2a3a; font-family: 'Inter', sans-serif; margin: 0; color: var(--white); }
+        
+        #library-container { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; }
+
+        /* ── SEARCH & FILTER ── */
+        #search-bar {
+            background: var(--light-navy);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        #search-bar:focus { border-color: var(--primary-teal); }
+
+        .filter-pill {
+            background: rgba(100, 255, 218, 0.05);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--slate);
+            white-space: nowrap;
+        }
+        .filter-pill.active {
+            background: var(--primary-teal);
+            color: var(--bg-navy);
+            border-color: var(--primary-teal);
         }
 
-        #library-container { 
-            max-width: 1000px; 
-            margin: 6rem auto; 
-            padding: 0 1.5rem; 
-        }
-
-        /* ── NOTE CARD STYLES ── */
+        /* ── CARDS ── */
         .note-card { 
             background: var(--light-navy); 
             border: 1px solid rgba(100, 255, 218, 0.1); 
@@ -38,129 +59,122 @@
             text-decoration: none;
             display: flex; 
             flex-direction: column; 
-            gap: 0.5rem;
+            gap: 0.4rem;
             box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
         }
-
-        .note-card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--primary-teal); 
-            background: rgba(100, 255, 218, 0.03); 
-            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
-        }
-
-        .note-card h3 { 
-            color: var(--white); 
-            font-weight: 700; 
-            font-size: 1.15rem; 
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .note-card .tag { 
-            color: var(--primary-teal); 
-            font-size: 0.7rem; 
-            font-weight: 800;
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-        }
-
-        .note-card .file-info {
-            color: var(--slate);
-            font-size: 0.75rem;
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+        .note-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); background: rgba(100, 255, 218, 0.03); }
+        .note-card h3 { color: var(--white); font-weight: 700; font-size: 1.1rem; margin: 0; line-height: 1.4; }
+        .note-card .subject-tag { color: var(--primary-teal); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; }
     </style>
 </head>
 <body>
 
     <div id="library-container">
-        <header class="mb-12">
-            <h1 class="text-5xl font-extrabold text-white mb-4 tracking-tight">Notes</h1>
-            <p class="text-slate-400 text-lg">A collection of academic and personal notes, automatically synced from the repository.</p>
+        <header class="mb-8">
+            <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">Academic Notes</h1>
+            <p class="text-slate-400 text-sm mb-8">Browse notes by subject or search by chapter name.</p>
+            
+            <!-- Search Bar -->
+            <input type="text" id="search-bar" placeholder="Search chapters (e.g. Mutual Fund)..." class="mb-6">
+            
+            <!-- Categories Container -->
+            <div id="categories-container" class="flex flex-wrap gap-2 mb-4">
+                <button class="filter-pill active" data-subject="all">All Subjects</button>
+                <!-- Dynamic subjects will be injected here -->
+            </div>
         </header>
 
-        <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Loading State -->
-            <div class="col-span-full text-center py-20">
-                <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-cyan-400 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-                <p class="mt-4 text-slate-500 font-medium">Scanning notes folder...</p>
-            </div>
+        <div id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="col-span-full text-center py-20 text-slate-500 animate-pulse font-bold text-sm">LOADING REPOSITORY...</div>
         </div>
-
-        <footer class="mt-20 py-8 border-t border-white/5 text-center">
-            <p class="text-slate-500 text-sm">© Abhishek Dahal · Powered by GitHub API</p>
-        </footer>
     </div>
 
     <script>
-        // ── CONFIGURATION ──
-        const REPO_OWNER = "theabhishekdahal"; // Your GitHub username
-        const REPO_NAME = "portfolio.site";    // Your Repository name
-        const NOTES_PATH = "notes";            // The folder containing your .html files
+        const REPO_OWNER = "theabhishekdahal";
+        const REPO_NAME = "portfolio.site";
+        const NOTES_FOLDER = "notes"; 
+
+        let allNotes = []; // Stores the parsed file data
+        let currentSubject = 'all';
 
         async function fetchNotes() {
             const grid = document.getElementById('notes-grid');
-            
             try {
-                // Fetch list of files in the 'notes' directory via GitHub API
-                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${NOTES_PATH}`);
-                
-                if (!response.ok) throw new Error("Could not fetch notes");
-
+                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${NOTES_FOLDER}`);
                 const files = await response.json();
                 
-                // Clear the loading spinner
-                grid.innerHTML = '';
+                // 1. Parse files into data objects
+                allNotes = files
+                    .filter(f => f.name.endsWith('.html') && f.name.toLowerCase() !== 'index.html')
+                    .map(file => {
+                        const parts = file.name.replace('.html', '').split('_');
+                        return {
+                            fileName: file.name,
+                            subject: parts[0] || 'General',
+                            chapter: (parts[1] || parts[0]).replace(/-/g, ' '),
+                            url: file.name
+                        };
+                    });
 
-                // Filter for .html files and generate cards
-                const htmlFiles = files.filter(file => file.name.endsWith('.html'));
-
-                if (htmlFiles.length === 0) {
-                    grid.innerHTML = `<div class="col-span-full text-center text-slate-500">No HTML notes found in /${NOTES_PATH}</div>`;
-                    return;
-                }
-
-                htmlFiles.forEach(file => {
-                    // Create title from filename (mutual-funds.html -> Mutual Funds)
-                    const title = file.name
-                        .replace('.html', '')
-                        .replace(/-/g, ' ')
-                        .split(' ')
-                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                        .join(' ');
-
-                    const card = document.createElement('a');
-                    card.href = `${NOTES_PATH}/${file.name}`; // Direct path to the file
-                    card.className = 'note-card';
-                    
-                    card.innerHTML = `
-                        <div class="tag">HTML Document</div>
-                        <h3>${title}</h3>
-                        <div class="file-info">
-                            <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                                ${file.name}
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
+                // 2. Generate unique Subject buttons
+                const subjects = [...new Set(allNotes.map(n => n.subject))];
+                const catContainer = document.getElementById('categories-container');
+                subjects.forEach(sub => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-pill';
+                    btn.textContent = sub.toUpperCase();
+                    btn.dataset.subject = sub;
+                    btn.onclick = () => filterBySubject(sub, btn);
+                    catContainer.appendChild(btn);
                 });
 
+                renderNotes();
+
             } catch (error) {
-                console.error(error);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-10">
-                        <p class="text-red-400 font-bold">Failed to load notes library.</p>
-                        <p class="text-slate-500 text-sm mt-2">Check if the repository is public and the folder path is correct.</p>
-                    </div>
-                `;
+                grid.innerHTML = `<div class="col-span-full text-center text-red-400 text-sm">Error: Unable to connect to GitHub.</div>`;
             }
         }
 
-        // Initialize
+        function renderNotes() {
+            const grid = document.getElementById('notes-grid');
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            
+            grid.innerHTML = '';
+
+            const filtered = allNotes.filter(note => {
+                const matchesSearch = note.chapter.toLowerCase().includes(searchTerm) || 
+                                    note.subject.toLowerCase().includes(searchTerm);
+                const matchesSubject = currentSubject === 'all' || note.subject === currentSubject;
+                return matchesSearch && matchesSubject;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500 text-sm">No notes found.</div>`;
+                return;
+            }
+
+            filtered.forEach(note => {
+                const card = document.createElement('a');
+                card.href = note.url;
+                card.className = 'note-card';
+                card.innerHTML = `
+                    <div class="subject-tag">${note.subject}</div>
+                    <h3>${note.chapter.replace(/\b\w/g, l => l.toUpperCase())}</h3>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterBySubject(subject, btn) {
+            currentSubject = subject;
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            renderNotes();
+        }
+
+        // Live Search Listener
+        document.getElementById('search-bar').oninput = renderNotes;
+
         fetchNotes();
     </script>
 </body>
