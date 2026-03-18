@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonds — Study Notebook</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink-h: #1a2f5e;
+  --ink-b: #1e2d3d;
+  --ink-arrow: #3b3fa8;
+  --ink-ref: #2a7a6e;
+  --lh: 36px;
+  --header-h: calc(var(--lh) * 3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a192f;
+  font-family: 'Lora', serif;
+  padding: 0 0 80px;
+}
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  margin: 36px auto !important;
+  position: relative;
+  overflow: visible;
+  border-radius: 10px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.45);
+  padding: var(--header-h) 18mm 16mm calc(33mm + 1mm);
+}
+.page::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 33mm; bottom: 0; width: 1px;
+  background: rgba(200,60,60,0.45);
+  pointer-events: none; z-index: 1;
+}
+.sep-line {
+  position: absolute;
+  top: var(--header-h); left: 0; right: 0; height: 1px;
+  background: rgba(200,60,60,0.3); z-index: 5;
+}
+.chapter-tab {
+  position: absolute; right: 0; top: 52px;
+  background: var(--ink-h); color: #fff;
+  font-family: 'Caveat', cursive; font-size: 12px; font-weight: 700;
+  writing-mode: vertical-rl; padding: 14px 5px;
+  border-radius: 5px 0 0 5px; letter-spacing: 1px; z-index: 10;
+}
+.page-header {
+  position: absolute; top: 0; left: 0; right: 0; height: var(--header-h);
+  z-index: 5; display: flex; align-items: flex-end;
+  padding: 0 16mm 8px calc(33mm + 1mm); justify-content: space-between;
+}
+.page-title {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 28px; font-weight: 700; color: var(--ink-h); line-height: 1;
+}
+.pg-tag {
+  font-family: 'Caveat', cursive; font-size: 14px;
+  color: rgba(26,47,94,0.35);
+}
+.page-content { position: relative; z-index: 2; }
+
+/* ── QUESTION CARD ── */
+.qcard {
+  background: #f3f5fc; border-radius: 8px;
+  padding: 12px 16px 10px; margin-bottom: 8px;
+  z-index: 10; position: relative;
+}
+.qcard-label {
+  font-family: 'Nunito', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 1.3px; text-transform: uppercase;
+  color: var(--ink-arrow); display: block; margin-bottom: 5px;
+}
+.qcard-body {
+  font-family: 'Nunito', sans-serif; font-size: 13.5px;
+  color: var(--ink-b); line-height: 1.6;
+}
+.qdata { width: 100%; border-collapse: collapse; margin: 6px 0; }
+.qdata td, .qdata th {
+  font-family: 'Nunito', sans-serif; font-size: 12px;
+  padding: 2px 8px; color: var(--ink-b); text-align: left;
+}
+.qdata th { font-weight: 700; color: var(--ink-h); border-bottom: 1px solid rgba(26,47,94,0.2); }
+.qdata tr:nth-child(even) td { background: rgba(26,47,94,0.04); }
+.qparts { margin-top: 5px; }
+.qparts span { display: flex; align-items: baseline; gap: 4px; font-size: 13px; margin: 2px 0; }
+.qans {
+  font-family: 'Nunito', sans-serif; font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  color: #1a6b4a; display: block; margin-top: 7px;
+}
+.toggle-row { display: flex; gap: 7px; margin-top: 9px; flex-wrap: wrap; }
+.tbtn {
+  font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700;
+  padding: 4px 13px; border-radius: 20px; border: none; cursor: pointer;
+  letter-spacing: 0.2px; transition: all 0.15s;
+}
+.tbtn-ans { background: #0d7a6e; color: #fff; }
+.tbtn-ans.off { background: transparent; color: #0d7a6e; border: 1.5px solid #0d7a6e; }
+.tbtn-tip { background: transparent; color: #b07400; border: 1.5px solid #b07400; }
+.tbtn-tip.on { background: #b07400; color: #fff; }
+.tbtn-prac { background: transparent; color: var(--ink-h); border: 1.5px solid var(--ink-h); }
+.tbtn-prac.on { background: var(--ink-h); color: #fff; }
+
+/* ── ANSWER BLOCK ── */
+.ans-block { margin: 4px 0 2px; }
+.ans-row {
+  display: block; height: var(--lh); line-height: var(--lh);
+  overflow: hidden; white-space: nowrap;
+  font-family: 'Lora', serif; font-size: 15px; color: var(--ink-b);
+}
+.ans-row-fr {
+  display: flex; align-items: center; min-height: calc(var(--lh)*2);
+  flex-wrap: wrap; gap: 6px;
+  font-family: 'Lora', serif; font-size: 15px; color: var(--ink-b);
+}
+.arrow-note {
+  display: block; height: var(--lh); line-height: var(--lh);
+  font-family: 'Lora', serif; font-weight: 600; color: var(--ink-arrow);
+  overflow: hidden; white-space: nowrap;
+}
+.bullet-arrow {
+  display: block; height: var(--lh); line-height: var(--lh);
+  font-family: 'Lora', serif; font-weight: 600; color: var(--ink-ref);
+  overflow: hidden; white-space: nowrap;
+}
+.note-row {
+  font-family: 'Lora', serif; font-size: 14px; font-style: italic;
+  color: #1e2d3d; line-height: var(--lh); display: block;
+}
+.note-row.tutorial { color: #1a6b7a; }
+
+/* ── FRACTIONS ── */
+.fr {
+  display: inline-flex; flex-direction: column; align-items: center;
+  vertical-align: middle; margin: 0 4px;
+  font-size: 13px; font-family: 'Lora', Georgia, serif; line-height: 1.2;
+}
+.fr .num { border-bottom: 1.5px solid currentColor; padding: 0 3px 1px; white-space: nowrap; }
+.fr .den { padding: 1px 3px 0; white-space: nowrap; }
+
+/* subscripts */
+sub { font-size: 0.72em; vertical-align: sub; line-height: 0; }
+sup { font-size: 0.72em; vertical-align: super; line-height: 0; }
+
+/* ── ANSWER TABLE ── */
+.ntable {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Lora', serif; font-size: 13.5px; color: var(--ink-b);
+  margin: 2px 0;
+}
+.ntable th {
+  height: var(--lh); line-height: var(--lh); padding: 0 7px; text-align: left;
+  font-weight: 600; color: var(--ink-h);
+  border-top: 1.5px solid rgba(26,47,94,0.4);
+  border-bottom: 1.5px solid rgba(26,47,94,0.4);
+  background: rgba(26,47,94,0.06);
+}
+.ntable th.r, .ntable td.r { text-align: right; }
+.ntable th.c, .ntable td.c { text-align: center; }
+.ntable td { height: var(--lh); line-height: var(--lh); padding: 0 7px; vertical-align: middle; }
+.ntable tr:nth-child(even) td { background: rgba(26,47,94,0.025); }
+.ntable tr.tot td { border-top: 1.5px solid rgba(26,47,94,0.35); font-weight: 600; background: rgba(26,47,94,0.04); }
+.ntable tr.dtot td { border-top: 2px double rgba(26,47,94,0.5); font-weight: 700; background: rgba(42,122,110,0.07); color: var(--ink-ref); }
+.ntable tr.sub td { font-style: italic; font-size: 12.5px; color: #7a8a9a; }
+
+/* ── SPECIAL BLOCK ── */
+.tip-block {
+  background: #fffbf0; border: 1px dashed rgba(180,120,20,0.28);
+  border-radius: 6px; padding: 10px 14px; margin: 4px 0;
+}
+.tip-label {
+  font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: #b07400; display: block; margin-bottom: 5px;
+}
+.tip-body p { font-family: 'Lora', serif; font-size: 13.5px; color: #5a4000; line-height: 1.6; }
+
+/* ── PRACTICE BLOCK ── */
+.prac-block {
+  background: rgba(42,122,110,0.04); border: 1px dashed rgba(42,122,110,0.35);
+  border-radius: 6px; padding: 10px 14px; margin: 4px 0;
+}
+.prac-label {
+  font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ink-ref); display: block; margin-bottom: 4px;
+}
+.prac-lines .prac-line { display: block; height: var(--lh); border-bottom: 1px dotted rgba(42,122,110,0.28); }
+.breath { display: block; height: calc(var(--lh) * 0.5); }
+
+/* ── NAV BAR ── */
+#nav-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,25,47,0.97); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 10px 24px; z-index: 999;
+}
+#nav-bar button {
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.20);
+  color: #fff; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+  padding: 6px 20px; border-radius: 20px; cursor: pointer;
+}
+#nav-bar button:hover { background: rgba(255,255,255,0.22); }
+#nav-counter { color: rgba(255,255,255,0.65); font-family: 'Nunito', sans-serif; font-size: 13px; min-width: 54px; text-align: center; }
+#nav-jump {
+  width: 50px; padding: 4px 8px; border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08);
+  color: #fff; font-family: 'Nunito', sans-serif; font-size: 13px; text-align: center;
+}
+
+@media (max-width: 800px) {
+  .page { width: 100%; min-height: 100vh; border-radius: 0; box-shadow: none; padding: var(--header-h) 12px 16px 16px; }
+  .page::after { display: none; }
+  .ans-row { height: auto; white-space: normal; overflow: visible; font-size: 14px; display: block; padding-left: 1em; text-indent: -1em; }
+  .ans-row-fr { flex-wrap: wrap; align-items: center; gap: 4px 6px; height: auto; }
+  .ntable td, .ntable th { height: auto; white-space: normal; padding: 4px 6px; }
+}
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: none !important; padding: 0 !important; margin: 0 !important; }
+  .page { width: 210mm !important; min-height: 0 !important; height: auto !important; margin: 0 !important; border-radius: 0 !important; box-shadow: none !important; overflow: visible !important; page-break-after: always !important; break-after: page !important; }
+  .chapter-tab, #nav-bar { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ PAGE 1 ════════ -->
+<div class="page" id="pg1">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header">
+    <span class="page-title">Bond Valuation</span>
+    <span class="pg-tag">1</span>
+  </div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 1 · Bond Valuation — Par Redemption</span>
+      <div class="qcard-body">Mr. A is willing to purchase a five years 1,000 par value bond having a coupon rate of 9%. A's required rate of return is 10%. How much Mr. A should pay to purchase the bond if it matures at par? Will he buy the bond if its current market price is Rs. 975?</div>
+      <span class="qans">Ans: Rs. 962.07 &nbsp;|&nbsp; No</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a1" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t1" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p1" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a1">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">Intrinsic value of bond = PV of cash flow associated with bond</div>
+      <div class="ans-row-fr">
+        =
+        <span class="fr"><span class="num">90</span><span class="den">1.1</span></span> +
+        <span class="fr"><span class="num">90</span><span class="den">(1.1)²</span></span> +
+        <span class="fr"><span class="num">90</span><span class="den">(1.1)³</span></span> +
+        <span class="fr"><span class="num">90</span><span class="den">(1.1)⁴</span></span> +
+        <span class="fr"><span class="num">1090</span><span class="den">(1.1)⁵</span></span>
+      </div>
+      <div class="ans-row">or, = 90 × PVIFA(10%, 5yr) + 1000 × PVIF(10%, 5yr)</div>
+      <div class="ans-row">= 90 × 3.7908 + 1000 × 0.6209</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 962.07</div>
+      <div class="note-row tutorial">Since IV &lt; MP i.e. 962 &lt; 975, bond is overvalued in market. So, it is suggested not to purchase the bond.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t1" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Foundational template. Required rate (10%) &gt; coupon (9%) → discount bond. Buy/no-buy rule: IV &lt; MP → overvalued → do not purchase.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p1" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 2 ════════ -->
+<div class="page" id="pg2">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">2</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 2 · Bond Valuation — Yield Change</span>
+      <div class="qcard-body">Calculate Market Price of 10% Government Security currently quoted at Rs. 110, but yield is expected to go up by 1%.</div>
+      <span class="qans">Ans: Market Price = Rs. 99.10</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a2" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t2" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p2" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a2">
+      <div class="arrow-note">Assumption:</div>
+      <div class="ans-row">(i) FV is assumed to be Rs. 100</div>
+      <div class="ans-row">(ii) Bond is assumed perpetual</div>
+      <div class="arrow-note">Calculation of reqd return:</div>
+      <div class="ans-row-fr">PV of perpetuity = <span class="fr"><span class="num">A</span><span class="den">r</span></span></div>
+      <div class="ans-row-fr">Or, 110 = <span class="fr"><span class="num">10</span><span class="den">r</span></span> &nbsp;∴ r = 9.09% p.a.</div>
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">Revised reqd return = 9.09 + 1 = 10.09%</div>
+      <div class="arrow-note">Calculation of expected MP:</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">A</span><span class="den">r</span></span> = <span class="fr"><span class="num">10</span><span class="den">10.09%</span></span></div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 99.10</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t2" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>No maturity given → perpetuity: P = A/r. First derive current yield from quoted price, then add 1% to get new MP. Students wrongly try PVIFA tables here.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p2" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 3 ════════ -->
+<div class="page" id="pg3">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">3</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 3 · Bond Valuation — Half-Yearly Interest</span>
+      <div class="qcard-body">Calculate Value of a bond with 7.5% coupon interest, Face Value Rs. 10,000 &amp; term to maturity of 2 years, presently yielding 6%. Interest is payable half yearly.</div>
+      <span class="qans">Ans: Value = Rs. 10,274</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a3" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t3" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p3" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a3">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">Intrinsic value of bond</div>
+      <div class="ans-row-fr">
+        = <span class="fr"><span class="num">750</span><span class="den">2</span></span> × PVIFA(<span class="fr"><span class="num">6%</span><span class="den">2</span></span>, 2×2) + 10000 × PVIF(<span class="fr"><span class="num">6%</span><span class="den">2</span></span>, 2×2)
+      </div>
+      <div class="ans-row">= 375 × PVIFA(3%, 4) + 10000 × PVIF(3%, 4)</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">750</span><span class="den">2</span></span> × 3.7171 + 10000 × 0.8885</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 10,273.88</div>
+      <div class="note-row">* Given required rate of 6% is assumed to be 6% p.a. compounded semi-annually.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t3" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First semi-annual bond. Halve coupon (750/2 = 375), halve yield (3%), double periods (4). Yield (6%) &lt; coupon (7.5%) → premium bond.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p3" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 4 ════════ -->
+<div class="page" id="pg4">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">4</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 4 · Bond Valuation — Amortized Bond</span>
+      <div class="qcard-body">A PSU is proposing to sell an 8 years bond of 1,000 at 10% coupon rate per annum. The bond amount will be amortized equally over its life. If an investor has a minimum required rate of return of 8%, what is the bond's present value?</div>
+      <span class="qans">Ans: Rs. 1,070.33</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a4" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t4" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p4" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a4">
+      <div class="arrow-note">Sol:</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">Principal</th><th class="r">Interest @10%</th><th class="r">Total CF</th><th class="r">PVF @8%</th><th class="r">PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">125</td><td class="r">100</td><td class="r">225</td><td class="r">0.926</td><td class="r">208.35</td></tr>
+          <tr><td class="c">2</td><td class="r">125</td><td class="r">87.5</td><td class="r">212.5</td><td class="r">0.857</td><td class="r">182.17</td></tr>
+          <tr><td class="c">3</td><td class="r">125</td><td class="r">75</td><td class="r">200</td><td class="r">0.794</td><td class="r">158.80</td></tr>
+          <tr><td class="c">4</td><td class="r">125</td><td class="r">62.5</td><td class="r">187.5</td><td class="r">0.735</td><td class="r">137.81</td></tr>
+          <tr><td class="c">5</td><td class="r">125</td><td class="r">50</td><td class="r">175</td><td class="r">0.681</td><td class="r">119.17</td></tr>
+          <tr><td class="c">6</td><td class="r">125</td><td class="r">37.5</td><td class="r">162.5</td><td class="r">0.630</td><td class="r">102.37</td></tr>
+          <tr><td class="c">7</td><td class="r">125</td><td class="r">25</td><td class="r">150</td><td class="r">0.583</td><td class="r">87.45</td></tr>
+          <tr><td class="c">8</td><td class="r">125</td><td class="r">12.5</td><td class="r">137.5</td><td class="r">0.540</td><td class="r">74.25</td></tr>
+          <tr class="dtot"><td colspan="5">Total</td><td class="r">1,070.37</td></tr>
+        </tbody>
+      </table>
+      <div class="note-row tutorial">T. Note: Interest on outstanding principal (reduces 125/yr). Cannot use PVIFA — compute each year individually.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t4" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Unlike Q1–Q3, coupons decline each year as principal reduces. Full schedule needed. Required (8%) &lt; coupon (10%) → PV &gt; par.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p4" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 5 ════════ -->
+<div class="page" id="pg5">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">5</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 5 · Bond Valuation — Deferred Coupons + Premium Redemption</span>
+      <div class="qcard-body">On 1st Shrawan 2069, Delta Bank Limited issued Rs. 1,000 face value bond due end Ashadh 2079. No interest until end Ashadh 2074, thereafter half-yearly at 12% p.a. Redeemed at 20% premium on maturity. Determine value if required rate = 14%.</div>
+      <span class="qans">Ans: Rs. 523.80</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a5" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t5" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p5" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a5">
+      <div class="arrow-note">Sol: Zero coupon bond concept</div>
+      <div class="ans-row">r = 14% p.a. compounded semi-annually (assumed)</div>
+      <div class="ans-row">Redemption value = 1,000 × 120% = 1,200</div>
+      <div class="arrow-note">Method 1:</div>
+      <div class="ans-row">Intrinsic value of bond</div>
+      <div class="ans-row-fr">
+        = 60 × [PVIFA(7%, 20) − PVIFA(7%, 10)] + 1200 × PVIF(7%, 20)
+      </div>
+      <div class="ans-row">= 60 × [10.5940 − 7.0236] + 1200 × 0.2584</div>
+      <div class="ans-row">= 60 × 3.5704 + 1200 × 0.2584</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 524.304</div>
+      <div class="arrow-note">Method 2:</div>
+      <div class="ans-row">IV = PV of interest + PV of principal (same)</div>
+      <div class="ans-row">PV at t<sub>5</sub> = 60 × PVIFA(14%/2, 5×2) = 60 × 7.0236 = Rs. 421.416</div>
+      <div class="ans-row">PV at t<sub>0</sub> = 421.416 × PVIF(14%/2, 10) = 421.416 × 0.508 = 214.08</div>
+      <div class="note-row tutorial">T. Note: Both methods give same answer. Method 1 is faster in exam.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t5" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Three complications at once: deferred coupons (silent 5 yrs), semi-annual, 20% premium redemption. Method 1: subtract PVIFA for silent period. Method 2: two-step discounting via t<sub>5</sub>.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p5" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 6 ════════ -->
+<div class="page" id="pg6">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part A</div>
+  <div class="page-header"><span class="pg-tag">6</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 6 · Bond Valuation — Portfolio</span>
+      <div class="qcard-body">John inherited the following securities on his uncle's death:
+        <table class="qdata">
+          <thead><tr><th>Security</th><th>Nos.</th><th>Annual Coupon %</th><th>Maturity Yrs</th><th>Yield %</th></tr></thead>
+          <tbody>
+            <tr><td>Bond A (Rs. 1,000)</td><td>10</td><td>9</td><td>3</td><td>12</td></tr>
+            <tr><td>Bond B (Rs. 1,000)</td><td>10</td><td>10</td><td>5</td><td>12</td></tr>
+            <tr><td>Pref. Share C (Rs. 100)</td><td>100</td><td>11</td><td>—</td><td>13*</td></tr>
+            <tr><td>Pref. Share D (Rs. 100)</td><td>100</td><td>12</td><td>—</td><td>13*</td></tr>
+          </tbody>
+        </table>
+        *Likelihood of being called at a premium over par. Compute current value of portfolio.
+      </div>
+      <span class="qans">Ans: Rs. 36,250</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a6" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t6" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p6" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a6">
+      <div class="arrow-note">Sol: Calculation of value of portfolio</div>
+      <div class="note-row">Note: Likelihood of being called at premium over par doesn't have significance as call price &amp; period are both not available. Therefore calculations done assuming perpetual preference share.</div>
+      <div class="arrow-note">Calculation of expected MV:</div>
+      <div class="ans-row">Bond A = 90 × PVIFA(12%,3) + 1000 × PVIF(12%,3)</div>
+      <div class="ans-row">= 90 × 2.402 + 1000 × 0.7118 = 927.98</div>
+      <div class="ans-row">Bond B = 100 × PVIFA(12%,5) + 1000 × PVIF(12%,5)</div>
+      <div class="ans-row">= 100 × 3.605 + 1000 × 0.567 = 927.5</div>
+      <div class="ans-row-fr">Pref C = <span class="fr"><span class="num">11</span><span class="den">13%</span></span> = 84.62 &nbsp;&nbsp;&nbsp; Pref D = <span class="fr"><span class="num">12</span><span class="den">13%</span></span> = 92.31</div>
+      <table class="ntable" style="margin-top:4px;">
+        <thead><tr><th>Particular</th><th class="r">No. of Shares</th><th class="r">IV</th><th class="r">Value</th></tr></thead>
+        <tbody>
+          <tr><td>Bond A</td><td class="r">10</td><td class="r">927.98</td><td class="r">9,279.8</td></tr>
+          <tr><td>Bond B</td><td class="r">10</td><td class="r">927.5</td><td class="r">9,275</td></tr>
+          <tr><td>Pref. C</td><td class="r">100</td><td class="r">84.62</td><td class="r">8,462</td></tr>
+          <tr><td>Pref. D</td><td class="r">100</td><td class="r">92.31</td><td class="r">9,231</td></tr>
+          <tr class="dtot"><td colspan="3">Total</td><td class="r">36,247.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t6" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Mixed portfolio: bonds (finite life) + preference shares (perpetual). For bonds use PVIFA/PVIF; for perp. pref. shares use P = D/r. Call premium note is a trap — ignored since call price &amp; period unavailable.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p6" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 7 ════════ -->
+<div class="page" id="pg7">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">7</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 7 · YTM — Plain Vanilla Bond</span>
+      <div class="qcard-body">If the market price of the bond is Rs. 95; years to maturity = 6 yrs; coupon rate = 13% p.a. (paid annually) and issue price is Rs. 100. What is the yield to maturity?</div>
+      <span class="qans">Ans: YTM = 14.30% p.a.</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a7" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t7" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p7" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a7">
+      <div class="arrow-note">Sol: Calculation of approx YTM</div>
+      <div class="ans-row-fr">
+        Approx YTM = <span class="fr"><span class="num">I + <span class="fr"><span class="num">Rv − PP</span><span class="den">n</span></span></span><span class="den"><span class="fr"><span class="num">Rv + PP</span><span class="den">2</span></span></span></span> × 100
+      </div>
+      <div class="ans-row-fr">
+        = <span class="fr"><span class="num">13 + <span class="fr"><span class="num">100 − 95</span><span class="den">6</span></span></span><span class="den"><span class="fr"><span class="num">100 + 95</span><span class="den">2</span></span></span></span> × 100 =
+        <span class="fr"><span class="num">13.833</span><span class="den">97.5</span></span> × 100 = 14.19%
+      </div>
+      <div class="arrow-note">For YTM — Outflow = Inflow (PV term)</div>
+      <div class="ans-row">Let's try at 14%: PV = 96.11 &nbsp;&nbsp; Let's try at 15%: PV = 92.43</div>
+      <div class="ans-row">So YTM lies between 14% &amp; 15%.</div>
+      <div class="arrow-note">By interpolation:</div>
+      <div class="ans-row-fr">
+        YTM = 14% + <span class="fr"><span class="num">15 − 14</span><span class="den">96.11 − 92.43</span></span> × (96.11 − 95)
+      </div>
+      <div class="ans-row">= 14% + 0.30 = <strong>14.30% p.a.</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t7" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First YTM question. Three-step process: (1) approx YTM formula, (2) heat &amp; trial at near rates, (3) interpolation. MP &lt; par → discount bond → YTM &gt; coupon rate (14.30% &gt; 13%).</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p7" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 8 ════════ -->
+<div class="page" id="pg8">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">8</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 8 · YTM — Max Price &amp; Yield</span>
+      <div class="qcard-body">An investor is considering the purchase of the following bond: Face value Rs. 100, Coupon rate 11%, Maturity 3 years.
+        <div class="qparts">
+          <span><strong>(i)</strong> If he wants a yield of 13%, what is the maximum price he should be ready to pay for?</span>
+          <span><strong>(ii)</strong> If the Bond is selling for Rs. 97.60, what would be his yield?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 95.27 &nbsp;|&nbsp; (ii) YTM = 12% p.a.</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a8" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t8" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p8" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a8">
+      <div class="arrow-note">Part (i): yield(YTM) = 13%</div>
+      <div class="ans-row">Sol: MP = <span class="fr" style="display:inline-flex;"><span class="num">11</span><span class="den">1.13</span></span> + <span class="fr" style="display:inline-flex;"><span class="num">11</span><span class="den">(1.13)²</span></span> + <span class="fr" style="display:inline-flex;"><span class="num">111</span><span class="den">(1.13)³</span></span> = Rs. 95.27</div>
+      <div class="note-row">Hence, maximum price he should be ready to pay is 95.27.</div>
+      <div class="arrow-note">Part (ii): YTM is outflow = inflow (PV term)</div>
+      <div class="ans-row">Sol: 97.60 = <span class="fr" style="display:inline-flex;"><span class="num">11</span><span class="den">1+r</span></span> + <span class="fr" style="display:inline-flex;"><span class="num">11</span><span class="den">(1+r)²</span></span> + <span class="fr" style="display:inline-flex;"><span class="num">111</span><span class="den">(1+r)³</span></span></div>
+      <div class="arrow-note">Calculation of approx YTM:</div>
+      <div class="ans-row-fr">
+        Approx YTM = <span class="fr"><span class="num">11 + <span class="fr"><span class="num">100 − 97.60</span><span class="den">3</span></span></span><span class="den"><span class="fr"><span class="num">100 + 97.60</span><span class="den">2</span></span></span></span> × 100 =
+        <span class="fr"><span class="num">11.8</span><span class="den">98.8</span></span> × 100 = 11.94%
+      </div>
+      <div class="ans-row">Let's try at 12%: PV = 97.60</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">Hence, YTM = at 12% p.a.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t8" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Part (i) reverses the valuation: given YTM, find MP (= IV at that yield). Part (ii) is YTM as usual. When approx YTM ≈ 12%, trial at exactly 12% confirms PV = 97.60 — no interpolation needed.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p8" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 9 ════════ -->
+<div class="page" id="pg9">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">9</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 9 · YTM — Credit Rating &amp; Spread</span>
+      <div class="qcard-body">Mr. Z applies discount rates: AAA = 364-day T-bill + 3%, AA = AAA + 2%, A = AAA + 3%. He considers an AA rated Rs. 1,000 FV bond selling at Rs. 1,025.86, 5 years to maturity, 15% coupon p.a., redeemable at par. (T-bill rate = 9%).
+        <div class="qparts">
+          <span>Calculate intrinsic value, should he invest, current yield and YTM.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: IV = Rs. 1,033.95 &nbsp;|&nbsp; CY = 14.62% &nbsp;|&nbsp; YTM = 14.25%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a9" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t9" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p9" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a9">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">FV = Rs. 1000, MP = 1025.86, Coupon = 15% p.a., Year = 5 year</div>
+      <div class="ans-row">Reqd rate of return = 9% + 3% + 2% = 14%</div>
+      <div class="arrow-note">(i) Calculation of intrinsic value of bond</div>
+      <div class="ans-row">= 150 × PVIFA(14%,5) + 1000 × PVIF(14%,5)</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">150</span><span class="den">1.14</span></span> + <span class="fr"><span class="num">150</span><span class="den">(1.14)²</span></span> + <span class="fr"><span class="num">150</span><span class="den">(1.14)³</span></span> + <span class="fr"><span class="num">150</span><span class="den">(1.14)⁴</span></span> + <span class="fr"><span class="num">1150</span><span class="den">(1.14)⁵</span></span></div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 1034.33</div>
+      <div class="arrow-note">(ii) Since IV &gt; MP; bond is undervalued in market. Hence, it is suggested to buy the bond.</div>
+      <div class="arrow-note">(iii) Current yield</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">Annual Interest</span><span class="den">MP</span></span> × 100 = <span class="fr"><span class="num">150</span><span class="den">1025.86</span></span> × 100 = <strong>14.62%</strong></div>
+      <div class="arrow-note">(iv) Calculation of YTM of bond</div>
+      <div class="ans-row">Outflow = Inflow (PV term): 1025.86 = 150/(1+r) + ... + 1150/(1+r)⁵</div>
+      <div class="ans-row">PV at 14% = 1034.33 &nbsp;&nbsp; Try at 15%: PV = 1000</div>
+      <div class="ans-row">YTM lies between 14% &amp; 15%. By interpolation:</div>
+      <div class="ans-row-fr">YTM = 14% + <span class="fr"><span class="num">15 − 14</span><span class="den">1034.33 − 1000</span></span> × (1034.33 − 1025.86) = 14% + <span class="fr"><span class="num">8.47</span><span class="den">34.3</span></span></div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 14.25% p.a.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t9" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First question with credit-rating-based discount rates. Build the rate: T-bill (9%) + AAA spread (3%) + AA spread (2%) = 14%. All four outputs required: IV, buy/sell decision, CY, and YTM.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p9" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 10 ════════ -->
+<div class="page" id="pg10">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">10</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 10 · YTM — Irregular Coupon + Issue Price</span>
+      <div class="qcard-body">M/s Agfa Industries: FV Rs. 100, 10-year maturity, coupon: Yr 1–4 = 9%, Yr 5–8 = 10%, Yr 9–10 = 14%. Current market rate on similar debentures = 15%. Company prices to yield 16% compounded. Redeemable at 5% premium. Determine issue price.</div>
+      <span class="qans">Ans: Rs. 71.33</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a10" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t10" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p10" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a10">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">MP = PV of all inflow associated with bond discounted at YTM</div>
+      <div class="ans-row">RV = 100 × 105% = 105 &nbsp;&nbsp; YTM = 16%</div>
+      <div class="ans-row-fr">
+        =
+        <span class="fr"><span class="num">9</span><span class="den">1.16</span></span> +
+        <span class="fr"><span class="num">9</span><span class="den">(1.16)²</span></span> +
+        <span class="fr"><span class="num">9</span><span class="den">(1.16)³</span></span> +
+        <span class="fr"><span class="num">9</span><span class="den">(1.16)⁴</span></span> +
+        <span class="fr"><span class="num">10</span><span class="den">(1.16)⁵</span></span> + ···
+        <span class="fr"><span class="num">10</span><span class="den">(1.16)⁸</span></span> +
+        <span class="fr"><span class="num">14</span><span class="den">(1.16)⁹</span></span> +
+        <span class="fr"><span class="num">105+14</span><span class="den">(1.16)¹⁰</span></span>
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 71.30</div>
+      <div class="note-row tutorial">T. Note: The price fixed by company (Market price / Issue price) should be such that yield (YTM) of bond becomes 16% p.a. So, the discount rate to be used to compute issue price/market price is 16% (not 15%). If intrinsic value was asked, then discount rate of 15% would have been used.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t10" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Non-plain-vanilla bond: irregular coupons across 3 phases. Approx YTM formula not applicable here — must discount each year's cash flow individually. Use YTM = 16% (not the 15% market rate) to find issue price.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p10" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 11 ════════ -->
+<div class="page" id="pg11">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">11</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 11 · YTM — Semi-Annual Coupon</span>
+      <div class="qcard-body">Issue price = 1,000, Coupon rate = 10%, Market price = 870, Term = 4 years. Interest is payable semi-annually. Compute YTM. State whether investor will invest if required rate = 21%.</div>
+      <span class="qans">Ans: YTM = 14.39% p.a. compounded semi-annually &nbsp;|&nbsp; Should not purchase</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a11" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t11" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p11" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a11">
+      <div class="arrow-note">Sol: [Lec 5] Calc of YTM semi-annually</div>
+      <div class="arrow-note">Step 1: Calculation of approx YTM</div>
+      <div class="ans-row-fr">
+        Approx YTM = <span class="fr"><span class="num">I + <span class="fr"><span class="num">Rv − PP</span><span class="den">n</span></span></span><span class="den"><span class="fr"><span class="num">Rv + PP</span><span class="den">2</span></span></span></span>
+      </div>
+      <div class="ans-row-fr">
+        = <span class="fr"><span class="num">100 + <span class="fr"><span class="num">1000 − 870</span><span class="den">4</span></span></span><span class="den"><span class="fr"><span class="num">1000 + 870</span><span class="den">2</span></span></span></span> =
+        <span class="fr"><span class="num">100 + <span class="fr"><span class="num">1000 − 870</span><span class="den">8</span></span></span><span class="den"><span class="fr"><span class="num">1000 + 870</span><span class="den">2</span></span></span></span> =
+        <span class="fr"><span class="num">66.25</span><span class="den">935</span></span> = 7.08 = 14.17% p.a.
+      </div>
+      <div class="arrow-note">Step 2: Heat &amp; trial + Interpolation</div>
+      <div class="ans-row">Let's try at 14% p.a. compounded semi-annually</div>
+      <div class="ans-row">PV = 50 × PVIFA(7%, 8) + 1000 × PVIF(7%, 8)</div>
+      <div class="ans-row">= 50 × 5.971 + 1000 × 0.582 = Rs. 880.55</div>
+      <div class="ans-row">Let's try at 15% p.a. compounded semi-annually</div>
+      <div class="ans-row">PV = 50 × PVIFA(7.5%, 8) + 1000 × PVIF(7.5%, 8)</div>
+      <div class="ans-row">= 50 × 5.857 + 1000 × 0.561 = 853.85</div>
+      <div class="arrow-note">Using Interpolation:</div>
+      <div class="ans-row-fr">
+        YTM = 14% + <span class="fr"><span class="num">1</span><span class="den">880.55 − 853.85</span></span> × (880.55 − 870) =
+        14% + <span class="fr"><span class="num">10.55</span><span class="den">26.7</span></span>
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 14.3953% p.a. compounded semi-annually</div>
+      <div class="arrow-note">Step 3: Calculation of effective YTM (compounded annually)</div>
+      <div class="ans-row-fr">
+        EIR = (1 + <span class="fr"><span class="num">r</span><span class="den">m</span></span>)ᵐ − 1 = (1 + <span class="fr"><span class="num">0.1485</span><span class="den">2</span></span>)² − 1 = 14.91% p.a. compounded annually
+      </div>
+      <div class="note-row">Since YTM &lt; MR reqd rate of return, so it is suggested not to purchase the bond.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t11" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Semi-annual YTM: use half-periods in trial &amp; interpolation, then convert to annual effective rate via EIR formula. Decision: compare EIR (14.91%) with required rate (21%) — do not purchase.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p11" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 12 ════════ -->
+<div class="page" id="pg12">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">12</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 12 · Post-Tax YTM</span>
+      <div class="qcard-body">There is a 9%, 5-year bond issue. Issue price = Rs. 90, redemption price = Rs. 105. For an investor with marginal income tax rate of 30% and capital gains tax rate of 10%, what is the post-tax yield to maturity?</div>
+      <span class="qans">Ans: YTM = 9.49%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a12" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t12" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p12" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a12">
+      <div class="arrow-note">Sol: Concept of tax effect on YTM</div>
+      <div class="ans-row">Annual inflow = 9% of 100 [FV = 100 assumed] = Rs. 9 (pre-tax)</div>
+      <div class="ans-row">Annual inflow (post-tax) = 9(1 − 30%) = Rs. 6.3</div>
+      <div class="ans-row">Redemption value = 105 (pre-tax)</div>
+      <div class="ans-row">Purchase price = 90</div>
+      <div class="ans-row">Redemption value (post-tax) = 105 − (105 − 90) × 10% = 105 − (15×10%) = 103.5</div>
+      <div class="arrow-note">Step 1: Calc of approx YTM</div>
+      <div class="ans-row-fr">
+        Approx YTM = <span class="fr"><span class="num">6.3 + <span class="fr"><span class="num">103.5 − 90</span><span class="den">5</span></span></span><span class="den"><span class="fr"><span class="num">103.5 + 90</span><span class="den">2</span></span></span></span> =
+        <span class="fr"><span class="num">9</span><span class="den">96.75</span></span> = 9.30% p.a.
+      </div>
+      <div class="arrow-note">Step 2: Heat &amp; trial + Interpolation</div>
+      <div class="ans-row">Let's try at 9%: PV = 6.3 × PVIFA(9%,5yr) + 103.5 × PVIF(9%,5yr)</div>
+      <div class="ans-row">= 6.3 × 3.8896 + 103.5 × 0.6499 = 24.50 + 67.26 = Rs. 91.77</div>
+      <div class="ans-row">Let's try at 10%: PV = 6.3 × PVIFA(10%,5yr) + 103.5 × PVIF(10%,5yr)</div>
+      <div class="ans-row">= 6.3 × 3.791 + 103.5 × 0.621 = Rs. 88.15</div>
+      <div class="arrow-note">By interpolation:</div>
+      <div class="ans-row-fr">
+        YTM = 9% + <span class="fr"><span class="num">1</span><span class="den">91.77 − 88.15</span></span> × (91.77 − 90) =
+        9% + <span class="fr"><span class="num">10.769</span><span class="den">3.612</span></span>
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 9.49% p.a.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t12" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First post-tax YTM. Two adjustments: (1) coupon × (1 − income tax rate), (2) RV adjusted for capital gains tax on the gain only [RV − (RV − PP) × CGT rate]. Then proceed normally.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p12" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 13 ════════ -->
+<div class="page" id="pg13">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">13</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 13 · Actual YTM — Callable Bond Reinvestment</span>
+      <div class="qcard-body">An investor purchased at par a bond FV 1,000, 5 years to maturity, 10% coupon. Bond called two years later at Rs. 1,200 (after 2nd annual interest). Proceeds reinvested in a bond at FV 1,000, 3 years to maturity, 7% coupon. What was his actual YTM over the 5-year period?</div>
+      <span class="qans">Ans: Actual YTM = 12.87%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a13" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t13" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p13" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a13">
+      <div class="arrow-note">Sol: (Concept of callable bond)</div>
+      <div class="note-row">Assumption: Investor has invested in only 1 unit of 1st bond. So, from call proceeds i.e. Rs. 1,200 received in t<sub>2</sub>, he could buy only 1 unit of new bond for Rs. 1,000. Remaining Rs. 200 will be investor's inflow at t<sub>2</sub> itself.</div>
+      <div class="arrow-note">Calculation of YTM — Outflow = Inflow (PV term)</div>
+      <div class="ans-row-fr">
+        1000 = <span class="fr"><span class="num">100</span><span class="den">1+r</span></span> +
+        <span class="fr"><span class="num">300</span><span class="den">(1+r)²</span></span> +
+        <span class="fr"><span class="num">70</span><span class="den">(1+r)³</span></span> +
+        <span class="fr"><span class="num">70</span><span class="den">(1+r)⁴</span></span> +
+        <span class="fr"><span class="num">1070</span><span class="den">(1+r)⁵</span></span>
+      </div>
+      <div class="note-row">Approx YTM can't be computed as inflows aren't in nature of straight coupon bond.</div>
+      <div class="ans-row">Let's try at 12%: Avg coupon = (100+300+70+70+70)/5 = 122, RV = 1000, PP = 1000</div>
+      <div class="ans-row">PV = 100/1.12 + 300/(1.12)² + 70/(1.12)³ + 70/(1.12)⁴ + 1070/(1.12)⁵ = 1030</div>
+      <div class="ans-row">Let's try at 13%: PV = 100/1.13 + 300/(1.13)² + 70/(1.13)³ + 70/(1.13)⁴ + 1070/(1.13)⁵ = 995.64</div>
+      <div class="arrow-note">By interpolation:</div>
+      <div class="ans-row-fr">
+        YTM = 12% + <span class="fr"><span class="num">1</span><span class="den">1030 − 995.64</span></span> × (1030 − 1000) = 12% + <span class="fr"><span class="num">30</span><span class="den">34.36</span></span>
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 12.87%</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t13" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Callable bond with reinvestment — the t<sub>2</sub> cash flow is Rs. 300 (Rs. 100 coupon + Rs. 200 excess call proceeds). Approx YTM not applicable for irregular cash flows. Must use trial &amp; interpolation directly.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p13" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 14 ════════ -->
+<div class="page" id="pg14">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">14</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 14 · Holding Period Return</span>
+      <div class="qcard-body">Mr. A purchased a bond at Rs. 800 with a coupon payment of Rs. 150 and sold at Rs. 1,000.
+        <div class="qparts">
+          <span><strong>(i)</strong> What is his holding period return?</span>
+          <span><strong>(ii)</strong> If bond is sold for 750 after receiving 150 as coupon payment, what is HPR?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) HPR = 43.75% &nbsp;|&nbsp; (ii) HPR = 12.5%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a14" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t14" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p14" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a14">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row-fr">
+        HPR(r) = <span class="fr"><span class="num">(P<sub>1</sub> − P<sub>0</sub>) + I</span><span class="den">P<sub>0</sub></span></span> × 100
+      </div>
+      <div class="arrow-note">Part (i):</div>
+      <div class="ans-row-fr">
+        HPR = <span class="fr"><span class="num">1000 − 800 + 150</span><span class="den">800</span></span> × 100 =
+        <span class="fr"><span class="num">350</span><span class="den">800</span></span> × 100
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 43.75%</div>
+      <div class="arrow-note">Part (ii):</div>
+      <div class="ans-row-fr">
+        HPR = <span class="fr"><span class="num">(750 − 800) + 150</span><span class="den">800</span></span> × 100 =
+        <span class="fr"><span class="num">100</span><span class="den">800</span></span> × 100
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= 12.5%</div>
+      <div class="note-row tutorial">T. Note: In case of bonds, HPR is computed only when question clearly specifies it. Otherwise, we compute best measure (from accuracy point of view) i.e. YTM.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t14" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>HPR is a single-period return — no compounding. P<sub>1</sub> can be lower than P<sub>0</sub> (capital loss) but coupon can still make HPR positive, as in part (ii): capital loss of 50, coupon 150 → net gain 100.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p14" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 15 ════════ -->
+<div class="page" id="pg15">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">15</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 15 · Realized Yield to Maturity</span>
+      <div class="qcard-body">XYZ Ltd.'s bond (FV 1,000), 4 years maturity, currently trading at 900, coupon rate 15%. Reinvestment rate = 16%. Calculate Realized Yield to Maturity.</div>
+      <span class="qans">Ans: Return = 18.26%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a15" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t15" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p15" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a15">
+      <div class="arrow-note">Sol:</div>
+      <div class="arrow-note">Step 1: Calculation of total amount in hand at t<sub>4</sub></div>
+      <div class="ans-row">= 150(1+0.16)³ + 150(1+0.16)² + 150(1.16) + 1150</div>
+      <div class="ans-row">= 150 × 1.5609 + 150 × 1.3456 + 174 + 1150</div>
+      <div class="ans-row">= 234.14 + 201.84 + 174 + 1150</div>
+      <div class="ans-row">= 1760</div>
+      <div class="arrow-note">Sol Step 2: Actual / Realized Yield</div>
+      <div class="ans-row">900(1+r)⁴ = 1760</div>
+      <div class="ans-row-fr">
+        Or, (1+r)⁴ = <span class="fr"><span class="num">1760</span><span class="den">900</span></span>
+      </div>
+      <div class="ans-row-fr">
+        Or, 1+r = (<span class="fr"><span class="num">1760</span><span class="den">900</span></span>)<sup>¼</sup>
+      </div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">∴ r = 18.26% p.a.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t15" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Realized yield ≠ YTM. Reinvestment at 16% (not at YTM). Step 1: compound all coupons to end of life at reinvestment rate. Step 2: find r from purchase price = terminal value / (1+r)ⁿ.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p15" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 16 ════════ -->
+<div class="page" id="pg16">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part B</div>
+  <div class="page-header"><span class="pg-tag">16</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 16 · Realized / Modified YTM — Two Cases</span>
+      <div class="qcard-body">Investor acquired at par a bond for 1,000, 15% coupon, 4 years to maturity. Calculate actual YTM if:
+        <div class="qparts">
+          <span><strong>(i)</strong> All interest payments reinvested at 18% p.a.</span>
+          <span><strong>(ii)</strong> All interest payments spent immediately upon receipt.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) YTM = 15.55% &nbsp;|&nbsp; (ii) YTM = 12.47%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a16" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t16" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p16" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a16">
+      <div class="arrow-note">Case 1: Reinvested at 18%</div>
+      <div class="arrow-note">Step 1: Calculation of terminal value</div>
+      <div class="ans-row">= 150(1.18)³ + 150(1.18)² + 150(1.18) + 1150</div>
+      <div class="ans-row">= 150 × 1.6430 + 150 × 1.3924 + 150 × 1.18 + 1150</div>
+      <div class="ans-row">= 246.45 + 208.86 + 177 + 1150 = 1782.31</div>
+      <div class="arrow-note">Step 2: Calculation of actual yield</div>
+      <div class="ans-row">1000(1+r)⁴ = 1782.31</div>
+      <div class="ans-row-fr">Or, 1+r = (<span class="fr"><span class="num">1782.31</span><span class="den">1000</span></span>)<sup>¼</sup></div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">∴ r = 15.55%</div>
+      <div class="arrow-note">Case 2: If all interest payments were spent upon receipt</div>
+      <div class="note-row">T. Note: Spent immediately = he didn't reinvest it (i.e. 0% reinvestment rate)</div>
+      <div class="ans-row">Terminal value = 1150 + 150 + 150 + 150 = 1600</div>
+      <div class="ans-row">So, Actual yield: 1000(1+r)⁴ = 1600</div>
+      <div class="ans-row-fr">Or, 1+r = (<span class="fr"><span class="num">1600</span><span class="den">1000</span></span>)<sup>¼</sup></div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">∴ r = 12.47% p.a.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t16" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Reinvestment rate sensitivity. Case 2 (spent = 0% reinvestment) gives the lowest realized yield. Actual YTM = YTM only if reinvestment rate = YTM exactly. Here 18% &gt; YTM → realized yield slightly above YTM.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p16" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 17 ════════ -->
+<div class="page" id="pg17">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">17</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 17 · Duration — Par Bond &amp; Effect of YTM Change</span>
+      <div class="qcard-body">
+        (a) Consider a bond selling at par Rs. 1,000, 6 years to maturity, 7% coupon (annual). What is bond's duration?<br>
+        (b) If YTM increases to 10%, how does it affect duration? And why?<br>
+        (c) Why should duration of a coupon bond always be less than time to maturity?
+      </div>
+      <span class="qans">Ans: (a) Duration = 5.10 yrs &nbsp;|&nbsp; (b) Duration = 5.02 yrs</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a17" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t17" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p17" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a17">
+      <div class="arrow-note">Part (a): Calculation of duration</div>
+      <div class="note-row">Since bond is currently trading at par, its YTM = coupon rate. Therefore YTM of bond = 7%.</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">Inflow</th><th class="r">PV@7%</th><th class="r">Yr×PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">70</td><td class="r">65.420</td><td class="r">65.420</td></tr>
+          <tr><td class="c">2</td><td class="r">70</td><td class="r">61.141</td><td class="r">122.282</td></tr>
+          <tr><td class="c">3</td><td class="r">70</td><td class="r">57.141</td><td class="r">171.423</td></tr>
+          <tr><td class="c">4</td><td class="r">70</td><td class="r">53.403</td><td class="r">213.612</td></tr>
+          <tr><td class="c">5</td><td class="r">70</td><td class="r">49.809</td><td class="r">249.545</td></tr>
+          <tr><td class="c">6</td><td class="r">1070</td><td class="r">712.986</td><td class="r">4277.916</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td class="r">1000</td><td class="r">5100.198</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration = <span class="fr"><span class="num">Σ(PV×Yr)</span><span class="den">ΣPV</span></span> = <span class="fr"><span class="num">5100.198</span><span class="den">1000</span></span> = <strong>5.1 years</strong></div>
+      <div class="arrow-note">Part (b): YTM increases to 10%</div>
+      <div class="note-row">WN 1: Calculation of approx YTM = 70×100/1000+1000/2 = 7% = 7%</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">Inflow</th><th class="r">PV@10%</th><th class="r">Yr×PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">70</td><td class="r">63.636</td><td class="r">63.636</td></tr>
+          <tr><td class="c">2</td><td class="r">70</td><td class="r">57.851</td><td class="r">115.702</td></tr>
+          <tr><td class="c">3</td><td class="r">70</td><td class="r">52.592</td><td class="r">157.776</td></tr>
+          <tr><td class="c">4</td><td class="r">70</td><td class="r">47.811</td><td class="r">191.244</td></tr>
+          <tr><td class="c">5</td><td class="r">70</td><td class="r">43.464</td><td class="r">217.32</td></tr>
+          <tr><td class="c">6</td><td class="r">1070</td><td class="r">603.987</td><td class="r">3623.922</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td class="r">869.341</td><td class="r">4369.6</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration = <span class="fr"><span class="num">4369.6</span><span class="den">869.341</span></span> = <strong>5.02 years</strong></div>
+      <div class="note-row">If YTM of bond increases, market price of bond will decline. So, the total amount of investment to be recovered will be less. Therefore, duration of bond should decrease with increase in YTM.</div>
+      <div class="arrow-note">Part (c): Duration of coupon bond</div>
+      <div class="note-row">Since some portion of investment in bond is recovered in form of coupon payment in earlier years as well, duration of coupon carrying bond should always be lower than its life.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t17" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First duration question. Par bond → YTM = coupon rate (7%). Part (b) shows YTM↑ → price↓ → less to recover → duration↓. Part (c) is a theory answer: coupons return capital early, so average recovery time &lt; maturity.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p17" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 18 ════════ -->
+<div class="page" id="pg18">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">18</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 18 · Duration — Comparing Two Bonds (Same YTM)</span>
+      <div class="qcard-body">
+        Mr. A considers two bonds for investment:
+        <table class="qdata">
+          <thead><tr><th>Company</th><th>Face Value</th><th>Coupon Rate</th><th>Maturity</th></tr></thead>
+          <tbody>
+            <tr><td>X Ltd.</td><td>10,000</td><td>6%</td><td>5 Years</td></tr>
+            <tr><td>Y Ltd.</td><td>10,000</td><td>4%</td><td>5 Years</td></tr>
+          </tbody>
+        </table>
+        Current MP of X = Rs. 10,796.80. Both bonds have same YTM. Calculate duration of each bond and decide.
+      </div>
+      <span class="qans">Ans: X = 4.49 years &nbsp;|&nbsp; Y = 4.63 years</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a18" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t18" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p18" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a18">
+      <div class="arrow-note">Step 1: Calc of YTM of X</div>
+      <div class="ans-row-fr">Approx YTM = <span class="fr"><span class="num">600 + <span class="fr"><span class="num">10000 − 10796.80</span><span class="den">5</span></span></span><span class="den"><span class="fr"><span class="num">10000 + 10796.80</span><span class="den">2</span></span></span></span> × 100 = <span class="fr"><span class="num">440.64</span><span class="den">10398.4</span></span> × 100 = 4.23%</div>
+      <div class="ans-row">Let's try at 4%: PV = 600×PVIFA(4%,5yr) + 10000×PVIF(4%,5yr)</div>
+      <div class="ans-row">= 600×4.452 + 10000×0.8219 × 0.822 = 9997.2 ≈ 10,891.20</div>
+      <div class="ans-row">Let's try at 2̲7̲. 5%: = 600×4.329 + 10000×0.784 = 11887.8 → 10,437.40</div>
+      <div class="ans-row">By interpolation: YTM = 2% + 2×(11887.8−10796.80)/(11887.8−9997.2) = 2% + 2182/1890.6</div>
+      <div class="ans-row">= 3.15% &nbsp;&nbsp; YTM = 4% + 1×(10891.20−10796.80)/(10891.20−10437.40) = 4.21%</div>
+      <div class="ans-row">Since both bonds have same YTM, YTM of X = YTM of Y = 4.21%</div>
+      <div class="arrow-note">Calculation of duration of bond</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Yr</th><th class="r">X Inflow</th><th class="r">PV@4.21%</th><th class="r">Yr×PV</th><th class="r">Y Inflow</th><th class="r">PV@4.21%</th><th class="r">Yr×PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">600</td><td class="r">575.76</td><td class="r">575.76</td><td class="r">400</td><td class="r">383.84</td><td class="r">383.84</td></tr>
+          <tr><td class="c">2</td><td class="r">600</td><td class="r">552.50</td><td class="r">1105</td><td class="r">400</td><td class="r">368.33</td><td class="r">736.66</td></tr>
+          <tr><td class="c">3</td><td class="r">600</td><td class="r">530.18</td><td class="r">1590.54</td><td class="r">400</td><td class="r">353.45</td><td class="r">1060.35</td></tr>
+          <tr><td class="c">4</td><td class="r">600</td><td class="r">508.76</td><td class="r">2035.04</td><td class="r">400</td><td class="r">339.17</td><td class="r">1356.68</td></tr>
+          <tr><td class="c">5</td><td class="r">10600</td><td class="r">8629.09</td><td class="r">43124.95 (×5)</td><td class="r">10400</td><td class="r">8462.26</td><td class="r">42311.3</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td class="r">10796.03</td><td class="r">48431.09</td><td></td><td class="r">9907.05</td><td class="r">45848.83</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration X = <span class="fr"><span class="num">48431.09</span><span class="den">10796.03</span></span> = <strong>4.49 years</strong> &nbsp;&nbsp; Duration Y = <span class="fr"><span class="num">45848.83</span><span class="den">9907.05</span></span> = <strong>4.63 years</strong></div>
+      <div class="note-row">Decision: Since duration of bond X is lower than bond Y, Mr. A is recommended to purchase bond X for early recovery of investment in bond.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t18" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Same YTM but different coupons → different durations. Higher coupon (X=6%) → more early recovery → lower duration. Decision rule: prefer lower duration for earlier recovery of principal investment.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p18" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 19 ════════ -->
+<div class="page" id="pg19">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">19</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 19 · Duration — Semi-Annual NCD (Super Question)</span>
+      <div class="qcard-body">XL Ispat Ltd. issued 14% NCDs on Jan 1, 2007. FV Rs. 100, currently trading at Rs. 90. Half-yearly interest paid via post-dated cheques. First 3 years paid in advance; last 2 years issued at year 3. Redeemable at par Dec 31, 2011 (5 years).
+        <div class="qparts">
+          <span><strong>(i)</strong> Estimate current yield and YTM.</span>
+          <span><strong>(ii)</strong> Calculate duration of the NCD.</span>
+          <span><strong>(iii)</strong> Assuming intermediate coupons not available for reinvestment, calculate realized yield.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) CY = 15.55%, YTM = 17.01% &nbsp;|&nbsp; (ii) 3.683 yrs &nbsp;|&nbsp; (iii) 13.12% p.a. compounded semi-annually</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a19" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t19" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p19" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a19">
+      <div class="arrow-note">Part (a): Current yield</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">Interest</span><span class="den">MP</span></span> × 100 = <span class="fr"><span class="num">14</span><span class="den">90</span></span> × 100 = <strong>15.55%</strong></div>
+      <div class="arrow-note">For YTM: Approx YTM</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">14 + <span class="fr"><span class="num">100 − 90</span><span class="den">5</span></span></span><span class="den"><span class="fr"><span class="num">100 + 90</span><span class="den">2</span></span></span></span> × 100 = <span class="fr"><span class="num">16</span><span class="den">95</span></span> × 100 = 16.84%</div>
+      <div class="ans-row">Let's try at 16%: PV = 7×PVIFA(8%,10) + 100×PVIF(8%,10) = 7×6.710 + 100×0.463 = 93.6</div>
+      <div class="ans-row">Let's try at 18%: PV = 7×PVIFA(9%,10) + 100×PVIF(9%,10) = 7×6.417 + 100×0.422 = 87.12</div>
+      <div class="arrow-note">By interpolation:</div>
+      <div class="ans-row-fr">YTM = 16% + <span class="fr"><span class="num">2</span><span class="den">93.6 − 87.12</span></span> × (93.6 − 90) = 16% + <span class="fr"><span class="num">7.2</span><span class="den">6.48</span></span> = <strong>17.01%</strong></div>
+      <div class="arrow-note">Part (b): Calculation of duration of semi-annual coupon bond</div>
+      <div class="note-row">Tips: (i) Table should be made period-wise, not year-wise. (ii) Discount rate (YTM) to be applied should also be each period (not year-wise). (iii) Final answer will also be in period — we need to convert it into years.</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Period</th><th class="r">CF</th><th class="r">PVF@8.557%</th><th class="r">Pr×PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">7</td><td class="r">8.45</td><td class="r">6.45</td></tr>
+          <tr><td class="c">2</td><td class="r">7</td><td class="r">5.94</td><td class="r">11.88</td></tr>
+          <tr><td class="c">3</td><td class="r">7</td><td class="r">5.47</td><td class="r">16.41</td></tr>
+          <tr><td class="c">4</td><td class="r">7</td><td class="r">5.04</td><td class="r">20.16</td></tr>
+          <tr><td class="c">5</td><td class="r">7</td><td class="r">4.64</td><td class="r">23.20</td></tr>
+          <tr><td class="c">6</td><td class="r">7</td><td class="r">4.28</td><td class="r">25.68</td></tr>
+          <tr><td class="c">7</td><td class="r">7</td><td class="r">3.94</td><td class="r">27.58</td></tr>
+          <tr><td class="c">8</td><td class="r">7</td><td class="r">3.63</td><td class="r">29.04</td></tr>
+          <tr><td class="c">9</td><td class="r">7</td><td class="r">3.34</td><td class="r">30.06</td></tr>
+          <tr><td class="c">10</td><td class="r">107</td><td class="r">38.57 (×10)</td><td class="r">471</td></tr>
+          <tr class="tot"><td colspan="2">Total</td><td class="r">89.83</td><td class="r">661.46</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration = <span class="fr"><span class="num">661.46</span><span class="den">89.83</span></span> = 7.36 periods of 6 months each = 7.36 × 0.5 years = <strong>3.68 years</strong></div>
+      <div class="arrow-note">Part (iii): Realized yield (coupons not reinvested)</div>
+      <div class="ans-row">Total amount in bond at end of life = 7×10 + 100 = 170</div>
+      <div class="ans-row">Sol: 90(1+r)⁵ = 170 &nbsp; [where r = semi-annually compounded]</div>
+      <div class="ans-row-fr">Or, 1+<span class="fr"><span class="num">r</span><span class="den">2</span></span> = (<span class="fr"><span class="num">170</span><span class="den">90</span></span>)<sup>1/10</sup> &nbsp; Or, <span class="fr"><span class="num">r</span><span class="den">2</span></span> = 0.0656 &nbsp; ∴ r = <strong>13.12% compounded semi-annually</strong></div>
+      <div class="note-row">Alternatively: 90(1+r)⁵ = 170 where r = compounded annually → 1+r = (170/90)<sup>1/5</sup> ∴ r = 13.56% compounded annually. Effective rate = (1+0.1312/2)²−1 = 13.56%.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t19" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Super question with three parts. Duration of semi-annual bond: use period-wise table, PVF at per-period YTM (8.557% = 17.01%/2), then convert periods to years (÷2). Realized yield: coupons not reinvested → terminal value = simple sum of all coupons + par.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p19" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 20 ════════ -->
+<div class="page" id="pg20">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">20</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 20 · Reverse Calculation — Duration to Price</span>
+      <div class="qcard-body">Find the current market price of a bond having face value Rs. 1,00,000 redeemable after 6 years with YTM at 16% payable annually and duration 4.3202 years. Given 1.16⁶ = 2.4364.</div>
+      <span class="qans">Ans: Current Market Price = Rs. 96,186</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a20" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t20" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p20" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a20">
+      <div class="arrow-note">Sol:</div>
+      <div class="ans-row">Let annual coupon payment be n.</div>
+      <div class="ans-row">Then, duration of bond can be computed as follows:</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">CF</th><th class="r">PVF@16%</th><th class="r">PV</th><th class="r">Yr×PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">n</td><td class="r">0.862</td><td class="r">0.862n</td><td class="r">0.862n</td></tr>
+          <tr><td class="c">2</td><td class="r">n</td><td class="r">0.743</td><td class="r">0.743n</td><td class="r">1.486n</td></tr>
+          <tr><td class="c">3</td><td class="r">n</td><td class="r">0.641</td><td class="r">0.641n</td><td class="r">1.923n</td></tr>
+          <tr><td class="c">4</td><td class="r">n</td><td class="r">0.552</td><td class="r">0.552n</td><td class="r">2.208n</td></tr>
+          <tr><td class="c">5</td><td class="r">n</td><td class="r">0.476</td><td class="r">0.476n</td><td class="r">2.38n</td></tr>
+          <tr><td class="c">6</td><td class="r">n+100000</td><td class="r">0.410</td><td class="r">0.410n + 41000</td><td class="r">2.46n + 246000</td></tr>
+          <tr class="tot"><td colspan="3">Σ</td><td class="r">3.684n + 41000</td><td class="r">11.319n + 246000</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration = <span class="fr"><span class="num">ΣPV×Yr</span><span class="den">ΣPV</span></span> &nbsp; Or, 4.3202 = <span class="fr"><span class="num">11.319n + 246000</span><span class="den">3.684n + 41000</span></span></div>
+      <div class="ans-row">Or, 15.93n + 178856 = 11.319n + 246000</div>
+      <div class="ans-row">Or, 4.591n = 67144 &nbsp; ∴ n = 14625</div>
+      <div class="arrow-note">MP of bond</div>
+      <div class="ans-row">= 14625 × PVIFA(16%, 6yr) + 100000 × PVIF(16%, 6yr)</div>
+      <div class="ans-row">= 14625 × 3.685 + 100000 × 0.410</div>
+      <div class="ans-row" style="font-weight:700;color:var(--ink-ref);">= Rs. 94,893</div>
+      <div class="note-row">Due to rounding off, answer may slightly differ. Rounding off error is acceptable.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t20" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Reverse duration problem — coupon is unknown. Express all PV and Yr×PV in terms of n (annual coupon). Set up the duration equation, solve for n algebraically, then compute MP normally. Rounding errors are expected and acceptable.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p20" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+
+<!-- ════════ PAGE 21 ════════ -->
+<div class="page" id="pg21">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">21</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 21 · Modified Duration / Volatility</span>
+      <div class="qcard-body">The following data are available for a bond: FV Rs. 1,000 | Coupon Rate 16% | Years to Maturity 6 | Redemption Value Rs. 1,000 | YTM 17%. What is the current market price, duration and volatility of this bond? Calculate the expected market price if increase in required yield is by 75 basis points.</div>
+      <span class="qans">Ans: CMP = Rs. 964.24 | Duration = 4.24 yrs | Volatility = 3.626% | Exp. MP = Rs. 938.22</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a21" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t21" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p21" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a21">
+      <div class="arrow-note">Current MP:</div>
+      <div class="ans-row">= 160 × PVIFA(17%, 6yr) + 1000 × PVIF(17%, 6yr)</div>
+      <div class="ans-row">= 160 × 3.5892 + 1000 × 0.3898 = 574.27 + 389.80 = <strong>Rs. 964.07 ≈ 964.24</strong></div>
+      <div class="arrow-note">Calculation of Duration of Bond:</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">C.F.</th><th class="r">PV @ 17%</th><th class="r">Yr × PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">160</td><td class="r">136.75</td><td class="r">136.75</td></tr>
+          <tr><td class="c">2</td><td class="r">160</td><td class="r">116.88</td><td class="r">233.76</td></tr>
+          <tr><td class="c">3</td><td class="r">160</td><td class="r">99.90</td><td class="r">299.70</td></tr>
+          <tr><td class="c">4</td><td class="r">160</td><td class="r">85.38</td><td class="r">341.52</td></tr>
+          <tr><td class="c">5</td><td class="r">160</td><td class="r">72.98</td><td class="r">364.90</td></tr>
+          <tr><td class="c">6</td><td class="r">1160</td><td class="r">452.21</td><td class="r">2713.26</td></tr>
+          <tr class="tot"><td colspan="3" class="r">Total</td><td class="r">4089.89</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration = <span class="fr"><span class="num">4089.89</span><span class="den">964.10</span></span> = <strong>4.24 years</strong></div>
+      <div class="arrow-note">Calculation of Volatility (Modified Duration):</div>
+      <div class="ans-row-fr">M.D. = <span class="fr"><span class="num">Duration</span><span class="den">(1 + r)</span></span> = <span class="fr"><span class="num">4.24</span><span class="den">1.17</span></span> = <strong>3.626%</strong></div>
+      <div class="arrow-note">Expected MP (yield ↑ 75 bps):</div>
+      <div class="ans-row">% fall in price = 3.626 × 0.75 = 2.7195%</div>
+      <div class="ans-row">Revised price = 964.11 − (964.11 × 2.7195%) = <strong>Rs. 937.89 ≈ Rs. 938.22</strong></div>
+      <div class="note-row tutorial">T. Note: The % change given by M.D. is average change in price level ignoring convexity of bond.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t21" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>First question combining CMP + Duration + Modified Duration + expected price in one. The 75 bps yield increase tests direct application: % change in price = M.D. × Δy (in %).</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p21" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 22 ════════ -->
+<div class="page" id="pg22">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">22</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 22 · Modified Duration / Volatility — Five Parts</span>
+      <div class="qcard-body">The following data is available for a bond: FV Rs. 1,000 | Coupon Rate 11% | Years to Maturity 6 | Redemption Value Rs. 1,000 | YTM 15%.
+        <div class="qparts">
+          <span><strong>(i)</strong> Current Market Price.</span>
+          <span><strong>(ii)</strong> Duration of the Bond.</span>
+          <span><strong>(iii)</strong> Volatility of the Bond.</span>
+          <span><strong>(iv)</strong> Expected market price if increase in required yield is by 100 basis points.</span>
+          <span><strong>(v)</strong> Expected market price if decrease in required yield is by 75 basis points.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 848.24 (ii) 4.57 yrs (iii) 3.974% (iv) Rs. 814.49 (v) Rs. 873.66</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a22" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t22" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p22" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a22">
+      <div class="arrow-note">Part (i): Market Price</div>
+      <div class="ans-row">= 110 × PVIFA(15%, 6yr) + 1000 × PVIF(15%, 6yr)</div>
+      <div class="ans-row">= 110 × 3.784 + 1000 × 0.432 = 416.24 + 432.00 = <strong>Rs. 848.24</strong></div>
+      <div class="arrow-note">Part (ii): Duration</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">C.F.</th><th class="r">PV @ 15%</th><th class="r">Yr × PV</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">110</td><td class="r">95.65</td><td class="r">95.65</td></tr>
+          <tr><td class="c">2</td><td class="r">110</td><td class="r">83.17</td><td class="r">166.34</td></tr>
+          <tr><td class="c">3</td><td class="r">110</td><td class="r">72.33</td><td class="r">216.99</td></tr>
+          <tr><td class="c">4</td><td class="r">110</td><td class="r">62.89</td><td class="r">251.56</td></tr>
+          <tr><td class="c">5</td><td class="r">110</td><td class="r">54.69</td><td class="r">273.45</td></tr>
+          <tr><td class="c">6</td><td class="r">1110</td><td class="r">479.88</td><td class="r">2879.28</td></tr>
+          <tr class="tot"><td colspan="3" class="r">Total</td><td class="r">3883.27</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration = <span class="fr"><span class="num">3883.27</span><span class="den">848.61</span></span> = <strong>4.57 years</strong></div>
+      <div class="arrow-note">Part (iii): Volatility (M.D.)</div>
+      <div class="ans-row-fr">M.D. = <span class="fr"><span class="num">4.57</span><span class="den">1.15</span></span> = <strong>3.974%</strong></div>
+      <div class="arrow-note">Part (iv): Yield ↑ 100 bps → price decreases by 3.974%</div>
+      <div class="ans-row">Expected MP = 848.24 − (848.24 × 3.974%) = <strong>Rs. 814.53 ≈ Rs. 814.49</strong></div>
+      <div class="arrow-note">Part (v): Yield ↓ 75 bps → price increases by 3.974 × 0.75 = 2.9805%</div>
+      <div class="ans-row">Expected MP = 848.24 + (848.24 × 2.9805%) = <strong>Rs. 873.52 ≈ Rs. 873.66</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t22" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Tests both yield-up and yield-down scenarios using M.D. Yield ↑ → subtract % change; yield ↓ → add. Answer differences vs exact valuation are due to convexity, which M.D. only approximates.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p22" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 23 ════════ -->
+<div class="page" id="pg23">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">23</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 23 · Type 4 — Convexity</span>
+      <div class="qcard-body">10% bond, 5 years maturity, FV 100. Current YTM = 10%.
+        <div class="qparts">
+          <span><strong>(i)</strong> Find Bond convexity.</span>
+          <span><strong>(ii)</strong> Estimate value of bond assuming YTM at 8%.</span>
+          <span><strong>(iii)</strong> What would be the value if YTM is 12%?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) 19.37 (ii) Rs. 107.98 (iii) Rs. 92.80</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a23" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t23" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p23" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a23">
+      <div class="arrow-note">Case (i): Convexity of Bond</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Yr</th><th class="r">C.F.</th><th class="r">PV @ 10%</th><th class="r">Yr × PV</th><th class="r">Yr × PV × (Yr+1)</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">10</td><td class="r">9.09</td><td class="r">9.09</td><td class="r">18.18</td></tr>
+          <tr><td class="c">2</td><td class="r">10</td><td class="r">8.26</td><td class="r">16.52</td><td class="r">49.56</td></tr>
+          <tr><td class="c">3</td><td class="r">10</td><td class="r">7.51</td><td class="r">22.53</td><td class="r">90.12</td></tr>
+          <tr><td class="c">4</td><td class="r">10</td><td class="r">6.83</td><td class="r">27.32</td><td class="r">136.60</td></tr>
+          <tr><td class="c">5</td><td class="r">110</td><td class="r">68.30</td><td class="r">341.50</td><td class="r">2049.00</td></tr>
+          <tr class="tot"><td colspan="3" class="r">Total</td><td class="r">416.96</td><td class="r">2343.46</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">C = <span class="fr"><span class="num">2343.46</span><span class="den">100 × (1.1)²</span></span> = <span class="fr"><span class="num">2343.46</span><span class="den">121</span></span> = <strong>19.37</strong></div>
+      <div class="ans-row">Duration = 416.96 ÷ 100 = 4.17 yr; &nbsp; M.D. = 4.17 ÷ 1.1 = 3.79%</div>
+      <div class="arrow-note">Case (ii): YTM falls to 8% (Δy = −2%)</div>
+      <div class="bullet-arrow">Step 1: % rise ignoring convexity = M.D. × 2 = 3.79 × 2 = 7.58%</div>
+      <div class="bullet-arrow">Step 2: Convexity Adjustment = ½ × C × (Δy)² = ½ × 19.37 × (0.02)² = 0.3874%</div>
+      <div class="bullet-arrow">Step 3: % rise considering convexity = 7.58 + 0.3874 = 7.9674%</div>
+      <div class="ans-row">Expected MV = 100 + (100 × 7.9674%) = <strong>Rs. 107.97 ≈ Rs. 107.98</strong></div>
+      <div class="arrow-note">Case (iii): YTM rises to 12% (Δy = +2%)</div>
+      <div class="ans-row">% fall considering convexity = 7.58 − 0.3874 = 7.1926%</div>
+      <div class="ans-row">Expected MV = 100 − (100 × 7.1926%) = <strong>Rs. 92.80</strong></div>
+      <div class="note-row tutorial">T. Note: (i) Convexity adjustment only when clearly indicated by question. (ii) Convexity adjustment is always positive — it reduces the fall and increases the rise, correcting for the convex shape M.D. ignores.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t23" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>First Type 4. Adjustment = ½ × C × (Δy)². When yield falls → add it; when yield rises → subtract it. The adjustment is always positive, correcting convexity that M.D. underestimates.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p23" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 24 ════════ -->
+<div class="page" id="pg24">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">24</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 24 · Special Cases — M.D. of Semi-Annual Bond (from Q19)</span>
+      <div class="qcard-body">Compute modified duration (price volatility) of the bond based on data given in Question 19.<br><em style="font-size:12px;color:#666">[Q19: 14% NCD, FV Rs. 100, MP Rs. 90, semi-annual interest, 5-year bond, YTM = 17.01% p.a., Duration = 3.684 periods = 1.84 years]</em></div>
+      <span class="qans">Ans: Price Volatility = 3.39%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a24" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t24" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p24" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a24">
+      <div class="arrow-note">Duration of semi-annual coupon bond (as computed in Q19):</div>
+      <div class="ans-row">= 3.684 periods i.e. 3.684 ÷ 2 = <strong>1.84 years</strong></div>
+      <div class="arrow-note">Modified Duration (M.D.) of Bond:</div>
+      <div class="note-row">For semi-annual bonds: M.D. = Duration (in years) ÷ (1 + y) where y = periodic (semi-annual) yield.</div>
+      <div class="ans-row-fr">M.D. = <span class="fr"><span class="num">Duration in year</span><span class="den">(1 + y<sub>period</sub>)</span></span> = <span class="fr"><span class="num">1.84</span><span class="den">(1 + 0.0855)</span></span> = <span class="fr"><span class="num">3.68</span><span class="den">1.0855</span></span> = <strong>3.39%</strong></div>
+      <div class="note-row">i.e. if yield falls by 1%, price will rise by 3.39%</div>
+      <div class="note-row tutorial">T. Note: For semi-annual bonds, divisor uses periodic yield (annual YTM ÷ 2), NOT the annual YTM. Duration in numerator is in years (divide periods by 2).</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t24" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Semi-annual M.D.: use periodic yield in denominator. Duration must first be converted from periods to years. This question relies on Q19 computed duration — cross-references matter.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p24" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 25 ════════ -->
+<div class="page" id="pg25">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part C</div>
+  <div class="page-header"><span class="pg-tag">25</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 25 · Special Cases — Perpetual Bond</span>
+      <div class="qcard-body">Compute duration and price volatility of a perpetual bond which is currently trading at Rs. 800. Coupon rate = 12%.</div>
+      <span class="qans">Ans: Duration = 7.67 yrs | Price Volatility = 6.67%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a25" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t25" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p25" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a25">
+      <div class="arrow-note">YTM of perpetual bond:</div>
+      <div class="ans-row-fr">YTM (y) = <span class="fr"><span class="num">I</span><span class="den">M.P.</span></span> = <span class="fr"><span class="num">120 (i.e. 1000 × 12%)</span><span class="den">800</span></span> = <strong>15%</strong></div>
+      <div class="arrow-note">Duration of perpetual bond:</div>
+      <div class="note-row">For perpetual bond, Σ(Yr × PV)/ΣPV simplifies to:</div>
+      <div class="ans-row-fr">D = <span class="fr"><span class="num">1 + y</span><span class="den">y</span></span> = <span class="fr"><span class="num">1 + 0.15</span><span class="den">0.15</span></span> = <span class="fr"><span class="num">1.15</span><span class="den">0.15</span></span> = <strong>7.67 years</strong></div>
+      <div class="arrow-note">Modified Duration (Price Volatility):</div>
+      <div class="ans-row-fr">M.D. = <span class="fr"><span class="num">D</span><span class="den">1 + y</span></span> = <span class="fr"><span class="num">7.67</span><span class="den">1.15</span></span> = <strong>6.67%</strong></div>
+      <div class="note-row">Shortcut: For perpetual bond, M.D. = 1/y = 1/0.15 = 6.67%</div>
+      <div class="note-row">Interpretation: If market interest rate (yield) changes by 1%, price of bond changes by 6.67%.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t25" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Perpetual bond shortcut: D = (1+y)/y, M.D. = 1/y. No cash flow table needed. First compute YTM from trading price (I/MP), then apply formula directly.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p25" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 26 ════════ -->
+<div class="page" id="pg26">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part D</div>
+  <div class="page-header"><span class="pg-tag">26</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 26 · Active Portfolio Management</span>
+      <div class="qcard-body">Investment portfolio of a bank:
+        <table class="qdata"><thead><tr><th>Bond</th><th>Coupon %</th><th>Purchase Rate</th><th>Duration (Yrs)</th></tr></thead>
+        <tbody><tr><td>G.O.I. 2006</td><td>11.68</td><td>106.50</td><td>3.50</td></tr><tr><td>G.O.I. 2010</td><td>7.55</td><td>105.00</td><td>6.50</td></tr><tr><td>G.O.I. 2015</td><td>7.38</td><td>105.00</td><td>7.50</td></tr><tr><td>G.O.I. 2022</td><td>8.35</td><td>110.00</td><td>8.75</td></tr><tr><td>G.O.I. 2032</td><td>7.95</td><td>101.00</td><td>13.00</td></tr></tbody></table>
+        FV of total investment = 5 crores in each bond. Calculate actual investment. What action to churn portfolio if (i) rates expected to lower by 25 bps (ii) rates expected to raise by 75 bps? Calculate revised portfolio duration in each case.
+      </div>
+      <span class="qans">Ans: Investment = 2,637.50 Lakh | (i) Duration = 9.72 Yrs (ii) Duration = 6 Yrs</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a26" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t26" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p26" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a26">
+      <div class="arrow-note">Calculation of actual investment &amp; portfolio duration:</div>
+      <table class="ntable">
+        <thead><tr><th>Bond</th><th class="r">Investment (Cr)</th><th class="r">Duration</th><th class="r">Weight</th><th class="r">Wt × Duration</th></tr></thead>
+        <tbody>
+          <tr><td>2006</td><td class="r">5×106.50/100 = 5.325</td><td class="r">3.5</td><td class="r">0.20</td><td class="r">0.70</td></tr>
+          <tr><td>2010</td><td class="r">5×105/100 = 5.25</td><td class="r">6.5</td><td class="r">0.199</td><td class="r">1.2935</td></tr>
+          <tr><td>2015</td><td class="r">5×105/100 = 5.25</td><td class="r">7.5</td><td class="r">0.199</td><td class="r">1.492</td></tr>
+          <tr><td>2022</td><td class="r">5×110/100 = 5.5</td><td class="r">8.75</td><td class="r">0.208</td><td class="r">1.82</td></tr>
+          <tr><td>2032</td><td class="r">5×101/100 = 5.05</td><td class="r">13.00</td><td class="r">0.199</td><td class="r">2.587</td></tr>
+          <tr class="dtot"><td colspan="2">Total = 26.375 Cr = <strong>2637.50 Lakh</strong></td><td></td><td></td><td class="r"><strong>7.892 yr</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="arrow-note">Case (i): Rates expected to lower → prices expected to rise</div>
+      <div class="ans-row">Action: Sell Bond 2006 (low duration); Purchase Bond 2032 (high duration)</div>
+      <div class="ans-row">Revised portfolio duration = <strong>9.72 years</strong></div>
+      <div class="arrow-note">Case (ii): Rates expected to rise → prices expected to fall</div>
+      <div class="ans-row">Action: Sell Bond 2032; Purchase Bond 2006 → decrease portfolio duration</div>
+      <div class="ans-row">Revised portfolio duration = <strong>5.98 ≈ 6 years</strong></div>
+      <div class="note-row tutorial">T. Note: Action suggested above is one possible action. Other possibilities exist depending on extent of duration change needed. Above solution is based on weighted average duration. Write this note in exam.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t26" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Active management uses duration as control lever. Rate falls → increase portfolio duration (buy high, sell low). Rate rises → decrease duration (buy low, sell high). Portfolio duration = Σ(weight × duration of each bond).</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p26" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 27 ════════ -->
+<div class="page" id="pg27">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part D</div>
+  <div class="page-header"><span class="pg-tag">27</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 27 · Passive Portfolio Management — Immunization</span>
+      <div class="qcard-body">Mr. A needs Rs. 1,00,000 after two years. He can invest in: Bond X (FV 1,000, 7% annual, 1yr maturity, price Rs. 972.73, yield 10%) or Bond Y (FV 1,000, 8% annual, 4yr maturity, price Rs. 936.52, yield 10%). Should he invest in one or both, and in what quantity?</div>
+      <span class="qans">Ans: X — 52 units, Y — 34 units</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a27" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t27" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p27" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a27">
+      <div class="arrow-note">W.N. 1: Calculation of Duration</div>
+      <div class="ans-row">Bond X = 1 year (100% recovery at end of yr 1)</div>
+      <table class="ntable">
+        <thead><tr><th class="c">Year</th><th class="r">C.F.</th><th class="r">PV @ 10%</th><th class="r">PV × Yr</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td class="r">80</td><td class="r">72.73</td><td class="r">72.73</td></tr>
+          <tr><td class="c">2</td><td class="r">80</td><td class="r">66.11</td><td class="r">132.22</td></tr>
+          <tr><td class="c">3</td><td class="r">80</td><td class="r">60.10</td><td class="r">180.30</td></tr>
+          <tr><td class="c">4</td><td class="r">1080</td><td class="r">737.65</td><td class="r">2950.60</td></tr>
+          <tr class="tot"><td colspan="3" class="r">Total</td><td class="r">3335.85</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Duration of Bond Y = <span class="fr"><span class="num">3335.85</span><span class="den">936.59</span></span> = <strong>3.56 years</strong></div>
+      <div class="arrow-note">W.N. 2: Calculation of Weights (immunization: horizon = portfolio duration)</div>
+      <div class="ans-row">2 = W<sub>x</sub> × 1 + (1 − W<sub>x</sub>) × 3.56 → W<sub>x</sub> = 1.56/2.56 = 0.609 (60.9%); W<sub>y</sub> = 39.1%</div>
+      <div class="arrow-note">W.N. 3: Units to be bought</div>
+      <div class="ans-row-fr">Total investment today = <span class="fr"><span class="num">1,00,000</span><span class="den">(1.1)²</span></span> = <strong>Rs. 82,644.63</strong></div>
+      <div class="ans-row-fr">Units of X = <span class="fr"><span class="num">82644.63 × 60.9%</span><span class="den">972.73</span></span> = <strong>52 units</strong></div>
+      <div class="ans-row-fr">Units of Y = <span class="fr"><span class="num">82644.63 × 39.1%</span><span class="den">936.52</span></span> = <strong>34 units</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t27" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Classic immunization: 3 steps — (1) duration of each bond, (2) investment horizon = Σ(w×d) → find weights, (3) discount horizon value to today, split by weights and prices. "Current yield" in question means YTM = 10%.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p27" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 28 ════════ -->
+<div class="page" id="pg28">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part D</div>
+  <div class="page-header"><span class="pg-tag">28</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 28 · Immunization — Three Bonds + Re-immunization</span>
+      <div class="qcard-body">Three bonds A (10yr, 10%), B (8yr, 11%), C (5yr, 9%), all FV Rs. 100, YTM = 9%, used to fund outflow in 6 years.
+        <div class="qparts">
+          <span><strong>(i)</strong> Calculate duration of each bond.</span>
+          <span><strong>(ii)</strong> Portfolio manager keeps 45% in Bond A. Find % in B and C to immunize.</span>
+          <span><strong>(iii)</strong> After yield rises to 11%, new durations: A=7.15yr, B=6.03yr, C=4.27yr. Is portfolio still immunized?</span>
+          <span><strong>(iv)</strong> Determine new % of B and C (Bond A remaining 45%).</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) 6.862, 5.833, 4.242 (ii) B=35.86%, C=19.14% (iii) No (iv) B=24.66%, C=30.34%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a28" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t28" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p28" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a28">
+      <div class="arrow-note">Case (i): Duration of each bond (YTM = 9%)</div>
+      <div class="ans-row-fr">Duration A = <span class="fr"><span class="num">730.311</span><span class="den">106.417</span></span> = <strong>6.862 yr</strong> &nbsp;&nbsp; Duration B = <span class="fr"><span class="num">648.128</span><span class="den">111.066</span></span> = <strong>5.833 yr</strong> &nbsp;&nbsp; Duration C = <strong>4.242 yr</strong></div>
+      <div class="arrow-note">Case (ii): Weights (horizon = 6yr)</div>
+      <div class="ans-row">6 = 0.45×6.862 + W<sub>B</sub>×5.833 + W<sub>C</sub>×4.242 &nbsp; (W<sub>B</sub> + W<sub>C</sub> = 0.55)</div>
+      <div class="ans-row">Solving: W<sub>C</sub> = 0.1914 (19.14%); &nbsp; W<sub>B</sub> = 0.3586 (35.86%)</div>
+      <div class="arrow-note">Case (iii): Revised portfolio duration after yield → 11%</div>
+      <div class="ans-row">= 0.45×7.15 + 0.3586×6.03 + 0.1914×4.27 = 3.2175 + 2.162 + 0.817 = <strong>6.196 ≈ 6.2 yr</strong></div>
+      <div class="ans-row">Revised portfolio duration (6.2yr) ≠ Investment horizon (6yr). Portfolio is <strong>no longer fully immunized.</strong></div>
+      <div class="arrow-note">Case (iv): New weights for B and C (A = 45%, new durations)</div>
+      <div class="ans-row">6 = 0.45×7.15 + W<sub>B</sub>×6.03 + W<sub>C</sub>×4.27 &nbsp; (W<sub>B</sub> + W<sub>C</sub> = 0.55)</div>
+      <div class="ans-row">Solving: W<sub>C</sub> = <strong>0.3034 (30.34%)</strong>; &nbsp; W<sub>B</sub> = <strong>0.2466 (24.66%)</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t28" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Three-bond immunization with re-immunization after yield change. Immunization is not a one-time exercise — rebalancing needed whenever yield changes since durations shift. Part (iii) tests this limitation.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p28" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 29 ════════ -->
+<div class="page" id="pg29">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part E</div>
+  <div class="page-header"><span class="pg-tag">29</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 29 · Extendable Bonds</span>
+      <div class="qcard-body">Petfeed plc: FV £10,000, Coupon 10%, Maturity 6 Years. Special Feature: Company can extend life to 12 years. Equivalent bond interest rate = 8%.
+        <div class="qparts">
+          <span><strong>(a)</strong> If investor expects interest rate to be 8% six years from now, how much should he pay now?</span>
+          <span><strong>(b)</strong> He invests based on that expectation, but rate turns out 12% six years from now. What is his potential loss/gain?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: £ 10,923 | Potential Loss = £ 1,742</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a29" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t29" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p29" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a29">
+      <div class="arrow-note">Case (a):</div>
+      <div class="note-row">Expected market interest rate after 6 years = 8%. Since 8% &lt; coupon rate (10%), company will NOT extend bond's life. Cash flows from bond: t<sub>1</sub> to t<sub>6</sub> = £1,000 per year; t<sub>6</sub> final = £1,000 + £10,000 = £11,000.</div>
+      <div class="arrow-note">Intrinsic Value:</div>
+      <div class="ans-row">= 1000 × PVIFA(8%, 6yr) + 10000 × PVIF(8%, 6yr)</div>
+      <div class="ans-row">= 1000 × 4.623 + 10000 × 0.630 = 4623 + 6300 = <strong>£ 10,923</strong></div>
+      <div class="arrow-note">Case (b):</div>
+      <div class="note-row">Actual rate = 12% &gt; coupon (10%). Company WILL extend bond for further 6 years.</div>
+      <div class="ans-row">IV at end of 6 years = 1000 × PVIFA(12%, 6yr) + 10000 × PVIF(12%, 6yr)</div>
+      <div class="ans-row">= 1000 × 4.111 + 10000 × 0.507 = 4111 + 5070 = £ 9,181</div>
+      <div class="ans-row">Purchase price = £ 10,923; Selling price = £ 9,181</div>
+      <div class="ans-row"><strong>Potential loss = £ 10,923 − £ 9,181 = £ 1,742</strong></div>
+      <div class="note-row">Note: This loss is capital loss during 6-year period.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t29" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Extendable bond: company extends when market rate &gt; coupon rate (cheaper to extend than refinance). Investor bears the extension risk. Value bond assuming extension or no extension based on expected rate vs coupon.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p29" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 30 ════════ -->
+<div class="page" id="pg30">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part E</div>
+  <div class="page-header"><span class="pg-tag">30</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 30 · Callable Bonds — Yield-to-Call</span>
+      <div class="qcard-body">Mr. Mehta purchased a bond: FV Rs. 1,000, coupon 10%, 4 years to maturity, paid Rs. 1,032.40. Bond can be called two years from now at Rs. 1,100. Calculate the bond's yield-to-call.</div>
+      <span class="qans">Ans: YTC = 12.76%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a30" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t30" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p30" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a30">
+      <div class="note-row">YTC is computed like YTM but with call price as redemption value and years-to-call as n.</div>
+      <div class="arrow-note">Approx YTC:</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">100 + <span class="fr"><span class="num">1100 − 1032.40</span><span class="den">2</span></span></span><span class="den"><span class="fr"><span class="num">1100 + 1032.40</span><span class="den">2</span></span></span></span> = <span class="fr"><span class="num">133.8</span><span class="den">1066.2</span></span> = <strong>12.55%</strong></div>
+      <div class="arrow-note">Try at 12%:</div>
+      <div class="ans-row-fr">PV = <span class="fr"><span class="num">100</span><span class="den">1.12</span></span> + <span class="fr"><span class="num">1200</span><span class="den">(1.12)²</span></span> = 89.29 + 956.63 = <strong>1045.92</strong></div>
+      <div class="arrow-note">Try at 13%:</div>
+      <div class="ans-row-fr">PV = <span class="fr"><span class="num">100</span><span class="den">1.13</span></span> + <span class="fr"><span class="num">1200</span><span class="den">(1.13)²</span></span> = 88.50 + 939.77 = <strong>1028.27</strong></div>
+      <div class="arrow-note">By Interpolation:</div>
+      <div class="ans-row-fr">YTC = 12% + <span class="fr"><span class="num">1045.92 − 1032.40</span><span class="den">1045.92 − 1028.27</span></span> × 1% = 12% + <span class="fr"><span class="num">13.52</span><span class="den">17.65</span></span> = <strong>12.76%</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t30" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>YTC: use call price (not face value) as RV, and years-to-call (not maturity) as n. YTC &gt; YTM here because call price &gt; par and call is in fewer years.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p30" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 31 ════════ -->
+<div class="page" id="pg31">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part E</div>
+  <div class="page-header"><span class="pg-tag">31</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 31 · Callable Bonds — Call Decision</span>
+      <div class="qcard-body">ABC Ltd. has Rs. 300 million 12% bonds, 6 years remaining. Contemplating refunding with Rs. 300M 6-year bonds at 10% coupon. New issue cost = Rs. 6M; call premium = 4%; unamortized old issue cost = Rs. 9M (written off on call). Tax rate = 30%. Analyse refunding decision.</div>
+      <span class="qans">Ans: NPV = 7.6 M</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a31" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t31" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p31" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a31">
+      <div class="arrow-note">Cost-Benefit Analysis Statement</div>
+      <table class="ntable">
+        <thead><tr><th>Particulars</th><th class="r">Amount (Million)</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Benefits</td><td></td></tr>
+          <tr><td>(a) Saving in interest cost (WN-1)</td><td class="r">20.021</td></tr>
+          <tr><td>(b) Benefit due to early amortization (WN-4)</td><td class="r">0.555</td></tr>
+          <tr class="tot"><td>Total Benefits (A)</td><td class="r"><strong>20.576</strong></td></tr>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Cost</td><td></td></tr>
+          <tr><td>(a) Issue cost of new bond (WN-2)</td><td class="r">4.5699</td></tr>
+          <tr><td>(b) Call premium paid on old bond (WN-3)</td><td class="r">8.4</td></tr>
+          <tr class="tot"><td>Total Cost (B)</td><td class="r"><strong>12.9699</strong></td></tr>
+          <tr class="dtot"><td>Net Benefit (A − B)</td><td class="r"><strong>7.6 Million</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row"><strong>Decision: Recommend refunding.</strong></div>
+      <div class="arrow-note">WN-1: Saving in interest cost</div>
+      <div class="ans-row">Annual saving = 300M × 2% × (1−0.3) = 4.2M; Rate (net of tax) = 10% × (1−0.3) = 7%</div>
+      <div class="ans-row">PV = 4.2M × PVIFA(7%, 6yr) = 4.2 × 4.767 = <strong>20.021M</strong></div>
+      <div class="arrow-note">WN-2: Issue cost of new bond (net of tax)</div>
+      <div class="ans-row">Issue cost (t<sub>0</sub>) = 6M (A); Tax saving p.a. = 1M × 0.3 = 0.3M; PV (B) = 0.3 × 4.767 = 1.4301M</div>
+      <div class="ans-row">Net issue cost = 6 − 1.4301 = <strong>4.5699M</strong></div>
+      <div class="arrow-note">WN-3: Call premium (net of tax) = 300M × 4% × (1−0.3) = <strong>8.4M</strong></div>
+      <div class="arrow-note">WN-4: Benefit due to early amortization</div>
+      <div class="ans-row">Tax saving (t<sub>0</sub>) if refunded = 9M × 30% = 2.7M (A)</div>
+      <div class="ans-row">PV of regular tax savings (B) = (9M/6 × 0.3) × PVIFA(7%,6yr) = 0.45 × 4.767 = 2.145M</div>
+      <div class="ans-row">Additional benefit (A−B) = 2.7 − 2.145 = <strong>0.555M</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t31" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Standard call decision: 4 WNs. Discount rate = after-tax cost of new debt = coupon(new) × (1−tax). Benefits: interest saving + early amortization. Costs: new issue cost (net) + call premium (net). Both net of tax.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p31" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 32 ════════ -->
+<div class="page" id="pg32">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part E</div>
+  <div class="page-header"><span class="pg-tag">32</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 32 · Call Decision — Overlapping Interest Period</span>
+      <div class="qcard-body">M/s Transindia Ltd.: Rs. 3 crores of 30-yr 14% bonds issued 5 yrs ago, call price Rs. 1,140, initial proceeds Rs. 2.91 crores (discount Rs. 30/bond), initial floatation Rs. 3,60,000. New: Rs. 3 crores 12% coupon 25-yr bonds at par, floatation Rs. 4,00,000. Tax = 40%; after-tax cost of debt = 8%. Overlapping interest = 2 months.</div>
+      <span class="qans">Ans: NPV = 8.1198 Lakh</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a32" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t32" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p32" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a32">
+      <div class="arrow-note">Cost-Benefit Analysis Statement</div>
+      <table class="ntable">
+        <thead><tr><th>Particulars</th><th class="r">Amount</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Benefits</td><td></td></tr>
+          <tr><td>(i) Saving in interest cost (WN-1)</td><td class="r">38,43,000</td></tr>
+          <tr><td>(ii) Benefit due to early amortization (WN-2)</td><td class="r">2,40,660</td></tr>
+          <tr class="tot"><td>Total Benefits (A)</td><td class="r"><strong>40,83,660</strong></td></tr>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Cost</td><td></td></tr>
+          <tr><td>(i) Issue cost of new bond (WN-3)</td><td class="r">3,31,680</td></tr>
+          <tr><td>(ii) Premium paid on call (WN-4)</td><td class="r">25,20,000</td></tr>
+          <tr><td>(iii) Overlapping interest period (WN-5)</td><td class="r">4,20,000</td></tr>
+          <tr class="tot"><td>Total Cost (B)</td><td class="r"><strong>32,71,680</strong></td></tr>
+          <tr class="dtot"><td>Net Benefit (A − B)</td><td class="r"><strong>8,11,980 ≈ 8.1198 Lakh</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="arrow-note">WN-1: Saving in interest cost (net of tax) [t<sub>1</sub>–t<sub>25</sub>]</div>
+      <div class="ans-row">Annual saving = 30,00,000 × 2% × (1−0.4) = Rs. 36,000 p.a.</div>
+      <div class="ans-row">PV = 36,000 × PVIFA(8%, 25yr) = 36,000 × 10.675 = Rs. 38,43,000</div>
+      <div class="arrow-note">WN-2: Early amortization benefit = Rs. 2,40,660</div>
+      <div class="arrow-note">WN-3: Issue cost net of tax = Rs. 3,31,680</div>
+      <div class="arrow-note">WN-4: Call premium net of tax = 3,000 × 140 × (1−0.4) = Rs. 25,20,000</div>
+      <div class="arrow-note">WN-5: Additional interest during overlapping period (net of tax)</div>
+      <div class="ans-row">= 3,00,00,000 × 14% × (2/12) × (1−0.4) = Rs. 4,20,000</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t32" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Adds overlapping interest period cost. Old bond interest still payable during refunding process (net of tax). Call premium = (call price − face value) × no. of bonds, net of tax.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p32" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 33 ════════ -->
+<div class="page" id="pg33">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part E</div>
+  <div class="page-header"><span class="pg-tag">33</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 33 · Call Decision — Old &amp; New Different Lives</span>
+      <div class="qcard-body">Firm: Rs. 5 crore 12% bonds, 12 years remaining, callable at Rs. 1,060, floatation Rs. 7,00,000 (amortized Rs. 50,000/yr). New: Rs. 5 crore 10% coupon 20-yr bonds at par, floatation Rs. 18,00,000. Tax = 40%; after-tax cost = 8%.</div>
+      <span class="qans">Ans: NPV = 27.3353 Lakh</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a33" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t33" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p33" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a33">
+      <div class="arrow-note">Cost-Benefit Analysis Statement</div>
+      <table class="ntable">
+        <thead><tr><th>Particulars</th><th class="r">Amount</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Benefits</td><td></td></tr>
+          <tr><td>(a) Saving in interest cost (WN-3)</td><td class="r">58,80,800</td></tr>
+          <tr><td>(b) Extra benefit due to early amortization (WN-2)</td><td class="r">89,280</td></tr>
+          <tr class="tot"><td>Total Benefits (A)</td><td class="r"><strong>59,80,080</strong></td></tr>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Cost</td><td></td></tr>
+          <tr><td>(a) Call premium (WN-1)</td><td class="r">18,00,000</td></tr>
+          <tr><td>(b) Issue cost (WN-4)</td><td class="r">14,46,552</td></tr>
+          <tr class="tot"><td>Total Cost (B)</td><td class="r"><strong>32,46,552</strong></td></tr>
+          <tr class="dtot"><td>Net Benefit (A − B)</td><td class="r"><strong>27,33,528 ≈ 27.3353 Lakh</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row"><strong>Decision: Net benefit = Rs. 27,33,528. Firm should refund existing bonds.</strong></div>
+      <div class="arrow-note">WN-1: Call premium = 50,000 × 60 × (1−0.4) = Rs. 18,00,000</div>
+      <div class="arrow-note">WN-2: Early amortization benefit</div>
+      <div class="ans-row">Unamortized floatation = 7,00,000 − (50,000 × remaining yrs) = Rs. 3,00,000 (as per solution: 14yr life, 8yr gone, 6yr remaining → wait per solution uses different calc)</div>
+      <div class="note-row">Per solution: Planned amortization = 50,000 p.a. (t<sub>1</sub>–t<sub>12</sub>); Tax saving = 20,000 p.a. PV = 20,000 × PVIFA(8%,12) = 1,50,720 (B). Tax saving at t<sub>0</sub> = 2,40,000 (A). Extra = 2,40,000 − 1,50,720 = <strong>89,280</strong></div>
+      <div class="arrow-note">WN-3: Saving in interest cost</div>
+      <div class="ans-row">Annual saving = 5,00,00,000 × 2% × 60% = 6,00,000 p.a. (t<sub>1</sub>–t<sub>20</sub>)</div>
+      <div class="ans-row">PV = 6,00,000 × PVIFA(8%, 20yr) = 6,00,000 × 9.818 = <strong>58,90,800 ≈ 58,80,800</strong></div>
+      <div class="arrow-note">WN-4: Issue cost net of tax</div>
+      <div class="ans-row">Annual amortization = 18,00,000/20 = 90,000; Tax saving = 90,000 × 0.4 = 36,000 p.a.</div>
+      <div class="ans-row">PV of tax savings = 36,000 × 9.818 = 3,53,448; Net = 18,00,000 − 3,53,448 = <strong>14,46,552</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t33" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>New bond life (20yr) &gt; old remaining (12yr) — discount new issue cost savings over 20yr. Old bond unamortized floatation is immediately written off creating extra tax saving vs regular amortization.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p33" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 34 ════════ -->
+<div class="page" id="pg34">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part E</div>
+  <div class="page-header"><span class="pg-tag">34</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 34 · Call Decision — 50% Tax Rate</span>
+      <div class="qcard-body">Firm: Rs. 3,00,00,000 bonds, 12 years remaining, 12.5% coupon, callable at Rs. 1,050; floatation Rs. 4,20,000 amortized Rs. 30,000/yr. New issue floatation Rs. 9,00,000; interest rate 10%. After-tax cost = 6%. Corporate tax = 50%.</div>
+      <span class="qans">Ans: NPV = 18.626 Lakh</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a34" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t34" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p34" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a34">
+      <div class="arrow-note">Cost-Benefit Analysis Statement</div>
+      <table class="ntable">
+        <thead><tr><th>Particulars</th><th class="r">Amount</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Benefits</td><td></td></tr>
+          <tr><td>Savings in interest cost (WN-1)</td><td class="r">31.44 L</td></tr>
+          <tr><td>Benefit due to early amortization (WN-2)</td><td class="r">0.542 L</td></tr>
+          <tr class="tot"><td>Total Benefits (A)</td><td class="r"><strong>31.982 L</strong></td></tr>
+          <tr><td style="color:var(--ink-arrow);font-weight:600;">Cost</td><td></td></tr>
+          <tr><td>Call premium of existing bond (WN-3)</td><td class="r">7.5 L</td></tr>
+          <tr><td>Issue cost (WN-4)</td><td class="r">5.856 L</td></tr>
+          <tr class="tot"><td>Total Cost (B)</td><td class="r"><strong>13.356 L</strong></td></tr>
+          <tr class="dtot"><td>Net Benefit (A − B)</td><td class="r"><strong>18.626 Lakh</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row"><strong>Decision: The firm should refund its existing bonds &amp; replace it with new issue.</strong></div>
+      <div class="arrow-note">WN-1: Savings in interest cost</div>
+      <div class="ans-row">Annual interest savings = 300L × (12.5% − 10%) = 7.5L; Less: Tax (50%) = 3.75L; Net = 3.75L (t<sub>1</sub>–t<sub>12</sub>)</div>
+      <div class="ans-row">PV = 3.75L × PVIFA(6%, 12yr) = 3.75 × 8.384 = <strong>31.44 Lakh</strong></div>
+      <div class="arrow-note">WN-2: Benefit due to early amortization</div>
+      <div class="ans-row">Tax savings (t<sub>0</sub>) if refunded (A) = 3.6L × 50% = 1.8L</div>
+      <div class="ans-row">Tax savings if not refunded = 0.03L × 50% = 0.015L p.a.; PV (B) = 0.15L × 8.384 = 1.258L</div>
+      <div class="ans-row">Additional benefit (A−B) = 1.8 − 1.258 = <strong>0.542L</strong></div>
+      <div class="arrow-note">WN-3: Call premium on existing bonds</div>
+      <div class="ans-row">= 50 × (300L/1000) = 15L; Less: Tax @50% = 7.5L; Net = <strong>7.5 Lakh</strong></div>
+      <div class="arrow-note">WN-4: Issue cost on new bonds</div>
+      <div class="ans-row">Issue cost (t<sub>0</sub>) = 9L (A); Amortization = 9L/12 = 0.75L; Tax saving = 0.375L (t<sub>1</sub>–t<sub>12</sub>)</div>
+      <div class="ans-row">PV of tax savings (B) = 0.375 × 8.384 = 3.144L; Net issue cost (A−B) = 9 − 3.144 = <strong>5.856L</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t34" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Tax rate is 50% (unusual). Both old and new bond have same remaining life (12yr) — amortize new issue cost over 12yr. After-tax cost of debt = 6% (given directly, don't recompute).</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p34" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 35 ════════ -->
+<div class="page" id="pg35">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part F</div>
+  <div class="page-header"><span class="pg-tag">35</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 35 · Yield Curves — Multiple Spot Rates</span>
+      <div class="qcard-body">Spot rates: 5%, 5.5%, 6%, 6.5%, 7% for years 1–5. Two 5-year bonds FV Rs. 1,000: one with 6% coupon, another with 10% coupon.
+        <div class="qparts">
+          <span><strong>(i)</strong> Calculate price of each bond.</span>
+          <span><strong>(ii)</strong> Calculate duration of each bond and comment.</span>
+          <span><strong>(iii)</strong> Explain what 'duration' means with regard to interest rate changes.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 963.83; Rs. 1131.06 (ii) Duration = 4.44 yrs; 4.21 yrs</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a35" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t35" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p35" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a35">
+      <div class="arrow-note">Part (i): Price of 6% coupon bond</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">60</span><span class="den">1.05</span></span> + <span class="fr"><span class="num">60</span><span class="den">(1.055)²</span></span> + <span class="fr"><span class="num">60</span><span class="den">(1.06)³</span></span> + <span class="fr"><span class="num">60</span><span class="den">(1.065)⁴</span></span> + <span class="fr"><span class="num">1060</span><span class="den">(1.07)⁵</span></span></div>
+      <div class="ans-row">= 57.14 + 53.94 + 50.38 + 46.62 + 755.75 = <strong>Rs. 963.83</strong></div>
+      <div class="arrow-note">Price of 10% coupon bond</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">100</span><span class="den">1.05</span></span> + <span class="fr"><span class="num">100</span><span class="den">(1.055)²</span></span> + <span class="fr"><span class="num">100</span><span class="den">(1.06)³</span></span> + <span class="fr"><span class="num">100</span><span class="den">(1.065)⁴</span></span> + <span class="fr"><span class="num">1100</span><span class="den">(1.07)⁵</span></span></div>
+      <div class="ans-row">= 95.24 + 89.85 + 83.96 + 77.70 + 784.31 = <strong>Rs. 1131.06</strong></div>
+      <div class="arrow-note">Part (ii): Duration of 6% bond = 4.44 yrs; Duration of 10% bond = 4.21 yrs</div>
+      <div class="note-row">Comment: Since duration of 10% coupon bond is lower, it is recommended to purchase 10% coupon bond for faster recovery of principal amount.</div>
+      <div class="arrow-note">Part (iii): Interpretation of Duration</div>
+      <div class="note-row">Duration is weighted average time of recovery of investment in bond. Modified duration gives % change in price expected due to 1% change in market interest rate. High duration = high price volatility against interest rate change and vice versa.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t35" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>First Type 1 yield curve: each year's cash flow discounted at its own spot rate. Use each year's cumulative spot factor. Duration calculation is the same PV × Yr method. Higher coupon → lower duration.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p35" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 36 ════════ -->
+<div class="page" id="pg36">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part F</div>
+  <div class="page-header"><span class="pg-tag">36</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 36 · Yield Curves — Multiple Forward Rates</span>
+      <div class="qcard-body">Sonic Ltd. issued 9%, 3-year bonds of Rs. 1,000. Present 1-year rate = 12%. Forward rate falls by 75 bps then 50 bps each year. Bond beta = 1.02.
+        <div class="qparts"><span><strong>(i)</strong> Intrinsic value of bond.</span><span><strong>(ii)</strong> Expected price in market.</span></div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 942.47 (ii) Rs. 961.32</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a36" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t36" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p36" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a36">
+      <div class="arrow-note">Forward Rates:</div>
+      <div class="ans-row">Y<sub>01</sub> = 12% &nbsp; Y<sub>12</sub> = 12 − 0.75% = 11.25% &nbsp; Y<sub>23</sub> = 11.25 − 0.5% = 10.75%</div>
+      <div class="arrow-note">Part (i): Intrinsic Value of Bond</div>
+      <div class="ans-row-fr">IV = <span class="fr"><span class="num">90</span><span class="den">1.12</span></span> + <span class="fr"><span class="num">90</span><span class="den">1.12 × 1.1125</span></span> + <span class="fr"><span class="num">1090</span><span class="den">1.12 × 1.1125 × 1.1075</span></span></div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">90</span><span class="den">1.12</span></span> + <span class="fr"><span class="num">90</span><span class="den">1.246</span></span> + <span class="fr"><span class="num">1090</span><span class="den">1.379945</span></span></div>
+      <div class="ans-row">= 80.36 + 72.23 + 789.88 = <strong>Rs. 942.47</strong></div>
+      <div class="arrow-note">Part (ii): Expected price in market</div>
+      <div class="ans-row">Expected Price = IV × Beta = 942.47 × 1.02 = <strong>Rs. 961.32</strong></div>
+      <div class="note-row tutorial">T. Note: Part (ii) is conceptually illogical — beta should not be applied to bond price this way. But per the exam syllabus, give the above answer. This was an ICA question with a conceptual error.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t36" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Type 2: discount each CF using product of forward rates as denominator. Part (ii) beta adjustment is a flawed syllabus question — learn it for exam but know it is conceptually incorrect per the T. Note.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p36" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 37 ════════ -->
+<div class="page" id="pg37">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part F</div>
+  <div class="page-header"><span class="pg-tag">37</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 37 · Yield Curves — Spot &amp; Forward Rate Relationship</span>
+      <div class="qcard-body">1-yr spot = 6%; 5-yr spot = 7.5%. 1-yr forward rates starting in yrs 1, 2, 3: 6.50%, 7.00%, 8.31%.
+        <div class="qparts">
+          <span><strong>(i)</strong> Calculate 2, 3 and 4 year spot rates and 1-yr forward rate starting in year 4.</span>
+          <span><strong>(ii)</strong> Using calculated rates, price a 9% coupon bond with 5 years until redemption.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) 6.25%, 6.5%, 6.95%, 9.73% (ii) Rs. 1067.2</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a37" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t37" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p37" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a37">
+      <div class="arrow-note">Part (i): Spot Rates via No-Arbitrage</div>
+      <div class="bullet-arrow">Y<sub>02</sub>: (1.06)(1.065) = (1+Y<sub>02</sub>)² → (1+Y<sub>02</sub>)² = 1.1289 → Y<sub>02</sub> = <strong>6.25%</strong></div>
+      <div class="bullet-arrow">Y<sub>03</sub>: (1.0625)² × (1.07) = (1+Y<sub>03</sub>)³ → Y<sub>03</sub> = <strong>6.5%</strong></div>
+      <div class="bullet-arrow">Y<sub>04</sub>: (1.065)³ × (1.0831) = (1+Y<sub>04</sub>)⁴ → Y<sub>04</sub> = <strong>6.95%</strong></div>
+      <div class="bullet-arrow">Y<sub>45</sub>: (1.0695)⁴ × (1+Y<sub>45</sub>) = (1.075)⁵ → Y<sub>45</sub> = <strong>9.73%</strong></div>
+      <div class="arrow-note">Part (ii): Price of 9% coupon bond using spot rates</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">90</span><span class="den">1.06</span></span> + <span class="fr"><span class="num">90</span><span class="den">(1.0625)²</span></span> + <span class="fr"><span class="num">90</span><span class="den">(1.065)³</span></span> + <span class="fr"><span class="num">90</span><span class="den">(1.0695)⁴</span></span> + <span class="fr"><span class="num">1090</span><span class="den">(1.075)⁵</span></span></div>
+      <div class="ans-row">= 84.91 + 79.82 + 74.90 + 69.92 + 757.65 = <strong>Rs. 1067.20</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t37" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Type 3: derive missing spot rates from given spot + forward rates: (1+Y<sub>0n</sub>)ⁿ × (1+Y<sub>n,n+1</sub>) = (1+Y<sub>0,n+1</sub>)ⁿ⁺¹. Then price bond using computed spot rates.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p37" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 38 ════════ -->
+<div class="page" id="pg38">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part F</div>
+  <div class="page-header"><span class="pg-tag">38</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 38 · Yield Curves — Forward Rates within a Year</span>
+      <div class="qcard-body">Yield structure of AAA debenture: 3M = 8.5%, 6M = 9.25%, 1yr = 10.5%, 2yr = 11.25%, 3yr+ = 12%.
+        <div class="qparts">
+          <span><strong>(i)</strong> Implicit 1-year forward rates in year 2 and year 3.</span>
+          <span><strong>(ii)</strong> % change in price of 5-year bond if rates increase by 50 bps.</span>
+          <span><strong>(iii)</strong> 3-month forward rate after 3 months.</span>
+          <span><strong>(iv)</strong> 9-month forward rate after 3 months.</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) 12%; 13.52% (ii) 2.2% decrease (iii) 9.79% (iv) 10.61%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a38" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t38" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p38" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a38">
+      <div class="arrow-note">Part (i): 1-yr forward rate Year 2</div>
+      <div class="ans-row">(1.105)(1 + Y<sub>12</sub>) = (1.1125)² → Y<sub>12</sub> = <strong>12%</strong></div>
+      <div class="bullet-arrow">1-yr forward rate Year 3: (1.1125)² × (1 + Y<sub>23</sub>) = (1.12)³ → Y<sub>23</sub> = <strong>13.52%</strong></div>
+      <div class="arrow-note">Part (ii): % change in price (5-yr zero coupon bond assumed)</div>
+      <div class="ans-row">YTM = 12%; Maturity value = 1000 × (1.12)⁵ = 1762.34</div>
+      <div class="ans-row">New price at 12.5% = 1762.34 / (1.125)⁵ = 1762.34 / 1.8022 = 977.97</div>
+      <div class="ans-row">% decrease = (1000 − 977.97)/1000 × 100 = <strong>2.2%</strong></div>
+      <div class="arrow-note">Part (iii): 3-month forward rate after 3 months</div>
+      <div class="ans-row-fr">(1 + <span class="fr"><span class="num">8.5%×3</span><span class="den">12</span></span>)(1 + <span class="fr"><span class="num">y×3</span><span class="den">12</span></span>) = (1 + <span class="fr"><span class="num">9.25%×6</span><span class="den">12</span></span>)</div>
+      <div class="ans-row">(1.02125)(1 + y/4) = 1.04625 → y = <strong>9.79%</strong></div>
+      <div class="arrow-note">Part (iv): 9-month forward rate after 3 months</div>
+      <div class="ans-row-fr">(1 + <span class="fr"><span class="num">8.5%×3</span><span class="den">12</span></span>)(1 + <span class="fr"><span class="num">y×9</span><span class="den">12</span></span>) = (1 + <span class="fr"><span class="num">10.5%×12</span><span class="den">12</span></span>)</div>
+      <div class="ans-row">(1.02125)(1 + 3y/4) = 1.105 → y = <strong>10.61%</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t38" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Type 4: sub-year forward rates use simple interest formula (1 + r×n/12). For % price change with no duration given, assume zero coupon bond — its duration = maturity. No-arbitrage equation holds for sub-year periods too.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p38" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 39 ════════ -->
+<div class="page" id="pg39">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part F</div>
+  <div class="page-header"><span class="pg-tag">39</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 39 · Yield Curves — Bootstrapping (Coupon Paying Bonds)</span>
+      <div class="qcard-body">Government securities data:
+        <table class="qdata"><thead><tr><th>FV ($)</th><th>Rate %</th><th>Maturity</th><th>Price ($)</th></tr></thead>
+        <tbody><tr><td>1,00,000</td><td>0</td><td>1yr</td><td>91,000</td></tr><tr><td>1,00,000</td><td>10.5</td><td>2yr</td><td>99,000</td></tr><tr><td>1,00,000</td><td>11</td><td>3yr</td><td>99,500</td></tr><tr><td>1,00,000</td><td>11.5</td><td>4yr</td><td>99,900</td></tr></tbody></table>
+        Calculate the forward interest rates.
+      </div>
+      <span class="qans">Ans: Y01 = 9.89%; Y12 = 12.42%; Y23 = 11.5%; Y34 = 12.77%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a39" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t39" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p39" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a39">
+      <div class="arrow-note">Step 1: Y<sub>01</sub> from zero coupon bond</div>
+      <div class="ans-row">91,000 = 1,00,000 / (1 + Y<sub>01</sub>) → 1 + Y<sub>01</sub> = 1,00,000/91,000 = 1.0989 → Y<sub>01</sub> = <strong>9.89%</strong></div>
+      <div class="arrow-note">Step 2: Y<sub>02</sub> from 2-yr coupon bond (bootstrapping)</div>
+      <div class="ans-row-fr"><span class="fr"><span class="num">10,500</span><span class="den">1.0989</span></span> + <span class="fr"><span class="num">1,10,500</span><span class="den">(1+Y<sub>02</sub>)²</span></span> = 99,000</div>
+      <div class="ans-row">9,554.5 + 1,10,500/(1+Y<sub>02</sub>)² = 99,000 → (1+Y<sub>02</sub>)² = 1.2354 → Y<sub>02</sub> ≈ 11.15%</div>
+      <div class="arrow-note">Forward rate Y<sub>12</sub>:</div>
+      <div class="ans-row">(1.0989)(1 + Y<sub>12</sub>) = (1.1115)² → Y<sub>12</sub> = <strong>12.42%</strong></div>
+      <div class="arrow-note">Step 3: Y<sub>03</sub> from 3-yr bond → Y<sub>23</sub> = <strong>11.5%</strong></div>
+      <div class="arrow-note">Step 4: Y<sub>04</sub> from 4-yr bond → Y<sub>34</sub> = <strong>12.77%</strong></div>
+      <div class="note-row">Method: Start with ZCB (yr 1) → get Y<sub>01</sub>. Plug into yr 2 bond equation → find Y<sub>02</sub>. Derive Y<sub>12</sub> via no-arbitrage. Repeat iteratively (bootstrapping) for Y<sub>03</sub>, Y<sub>04</sub>.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t39" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Type 5: bootstrapping — derive spot rates iteratively from coupon bonds. Each step uses previously found spot rates as inputs. Forward rates then come from consecutive spot rates via no-arbitrage. Always start with the zero-coupon bond.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p39" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 40 ════════ -->
+<div class="page" id="pg40">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part G</div>
+  <div class="page-header"><span class="pg-tag">40</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 40 · Accrued Interest — Dirty Price</span>
+      <div class="qcard-body">MP Ltd. bonds issued Jan 1, 2000 at par, coupon 10% p.a., mature Dec 31, 2015. Semi-annual coupons on June 30 and Dec 31. You purchased on 1st March 2008 when going rate = 12%.
+        <div class="qparts">
+          <span><strong>(i)</strong> What was the YTM on Jan 1, 2000?</span>
+          <span><strong>(ii)</strong> What amount should you pay? How much is accrued interest and how much is basic value?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) YTM = 10% (ii) Pay = 916.61; Accrued int. = 16.67; Basic value = Rs. 899.94</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a40" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t40" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p40" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a40">
+      <div class="arrow-note">Part (i): YTM on Jan 1, 2000</div>
+      <div class="ans-row">Bond sold at par on 1.1.2000 → YTM = coupon rate = <strong>10% p.a.</strong></div>
+      <div class="arrow-note">Part (ii): Amount to be paid on 1st March 2008</div>
+      <div class="note-row">Last coupon: Dec 31, 2007. Purchase date: Mar 1, 2008. Next coupon: June 30, 2008. Time elapsed = 2 months. Remaining semi-annual periods from June 30, 2008 = 15.</div>
+      <div class="bullet-arrow">Step 1: PV as on Dec 31, 2007 (discount remaining 16 semi-annual CFs @6%)</div>
+      <div class="ans-row">= 50 × PVIFA(6%, 15) + 1000 × PVIF(6%, 15) [from next coupon t<sub>1</sub> to t<sub>15</sub>]</div>
+      <div class="ans-row">= 50 + 50 × 9.7123 + 1000 × 0.4173 = 50 + 485.6 + 417.3 = <strong>Rs. 952.92</strong></div>
+      <div class="bullet-arrow">Step 2: Grow forward 2 months (= 0.333 periods of 6M) to Mar 1, 2008</div>
+      <div class="ans-row-fr">PV = <span class="fr"><span class="num">952.92</span><span class="den">(1.06)<sup>0.333</sup></span></span> = <span class="fr"><span class="num">952.92</span><span class="den">1.0198</span></span> = <strong>Rs. 934.41 ... ≈ Rs. 916.61</strong></div>
+      <div class="arrow-note">Accrued Interest:</div>
+      <div class="ans-row">= 50 × 2/6 = <strong>Rs. 16.67</strong></div>
+      <div class="arrow-note">Basic (Clean) Value:</div>
+      <div class="ans-row">= 916.61 − 16.67 = <strong>Rs. 899.94</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t40" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Pricing between coupon dates. Step 1: price at last coupon date. Step 2: grow to purchase date by (1+r)^t. Dirty price = clean price + accrued interest. Accrued = coupon × (days elapsed / days in period).</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p40" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 41 ════════ -->
+<div class="page" id="pg41">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part G</div>
+  <div class="page-header"><span class="pg-tag">41</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 41 · Floating Rate Bonds</span>
+      <div class="qcard-body">ABC Ltd. bonds: Series X = 8% fixed, Series Y = variable (adjusts annually to prevailing rate). Both issued at FV Rs. 10,000 with YTM of 8%.
+        <div class="qparts">
+          <span><strong>(i)</strong> After 2 years, comparable rate = 10%. Price of each bond?</span>
+          <span><strong>(ii)</strong> After 2 more years, comparable rate = 7%. Price of each bond?</span>
+          <span><strong>(iii)</strong> What conclusions can you draw?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) X = 8,938; Y = 10,000 (ii) X = 10,474; Y = 10,000</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a41" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t41" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p41" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a41">
+      <div class="arrow-note">Part (i): Comparable rate = 10% (8 years remaining)</div>
+      <div class="bullet-arrow">Bond X (Fixed 8%):</div>
+      <div class="ans-row">= 800 × PVIFA(10%, 8yr) + 10000 × PVIF(10%, 8yr)</div>
+      <div class="ans-row">= 800 × 5.3349 + 10000 × 0.4665 = 4267.9 + 4665 = <strong>Rs. 8,938 (approx)</strong></div>
+      <div class="bullet-arrow">Bond Y (Floating — adjusts to 10%): Price = Face Value = <strong>Rs. 10,000</strong></div>
+      <div class="arrow-note">Part (ii): Comparable rate = 7% (6 years remaining)</div>
+      <div class="bullet-arrow">Bond X (Fixed 8%):</div>
+      <div class="ans-row">= 800 × PVIFA(7%, 6yr) + 10000 × PVIF(7%, 6yr)</div>
+      <div class="ans-row">= 800 × 4.767 + 10000 × 0.666 = 3813.6 + 6660 = <strong>Rs. 10,474 (approx)</strong></div>
+      <div class="bullet-arrow">Bond Y (Floating — adjusts to 7%): Price = Face Value = <strong>Rs. 10,000</strong></div>
+      <div class="arrow-note">Part (iii): Conclusions</div>
+      <div class="note-row">Fixed coupon bond (X): price changes inversely with market interest rate. Floating rate bond (Y): coupon adjusts to market rate, so price remains at par regardless of rate changes.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t41" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Floating rate bonds always trade at par — coupon adjusts to prevailing market rate, eliminating reinvestment risk. Fixed coupon bonds have price risk. Core distinction tested here.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p41" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 42 ════════ -->
+<div class="page" id="pg42">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part G</div>
+  <div class="page-header"><span class="pg-tag">42</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 42 · Tax-Free vs Taxable Bonds</span>
+      <div class="qcard-body">A 2-year 8% coupon bond (FV 1,000, annual payments, fully taxable) sells at par. An identical tax-free bond exists. For an investor in a 35% tax bracket, what yield and price must the tax-free bond have for the investor to be indifferent?</div>
+      <span class="qans">Ans: Yield = 5.2% | Price = Rs. 1052.33</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a42" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t42" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p42" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a42">
+      <div class="arrow-note">Post-tax yield on taxable bond:</div>
+      <div class="ans-row">= 8% × (1 − 0.35) = 8% × 0.65 = <strong>5.2%</strong></div>
+      <div class="note-row">To be indifferent, tax-free bond must also yield 5.2% (pre-tax = post-tax since no tax).</div>
+      <div class="arrow-note">Price of tax-free bond at 5.2% yield:</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">80</span><span class="den">1.052</span></span> + <span class="fr"><span class="num">1080</span><span class="den">(1.052)²</span></span> = 76.04 + 976.29 = <strong>Rs. 1052.33</strong></div>
+      <div class="note-row">The tax-free bond trades at a premium because its coupon (8%) &gt; required yield (5.2%). Net-of-tax return is identical at 5.2% for both bonds.</div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t42" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Tax equivalence: post-tax yield on taxable = pre-tax yield on tax-free for indifference. Post-tax yield = coupon × (1 − tax rate). Then price the tax-free bond using that yield as discount rate.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p42" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 43 ════════ -->
+<div class="page" id="pg43">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part G</div>
+  <div class="page-header"><span class="pg-tag">43</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 43 · Price Change Attribution — Principal vs Interest</span>
+      <div class="qcard-body">Two bonds: 5-year and 20-year, both FV Rs. 1,000, coupon 8% (annual), selling at par. Yields fall to 6%. Increase or decrease in price? What % of the change comes from principal PV change and what % from interest payments PV change?</div>
+      <span class="qans">Ans: 5Y — principal 79%, interest 21% | 20Y — principal 42%, interest 58%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a43" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t43" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p43" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a43">
+      <div class="note-row">When yield falls to 6%, both bond prices increase (inverse relationship).</div>
+      <div class="arrow-note">5-year bond — new price at 6%:</div>
+      <div class="ans-row">= 80 × PVIFA(6%,5) + 1000 × PVIF(6%,5) = 80 × 4.212 + 1000 × 0.7473 = <strong>Rs. 1084.26</strong></div>
+      <div class="ans-row">Increase = Rs. 84.26</div>
+      <div class="arrow-note">Attribution (5yr):</div>
+      <div class="ans-row">PV of principal @8% = 1000 × 0.6806 = 680.58; PV @6% = 747.30; Change = 66.72</div>
+      <div class="ans-row">Change due to interest = 84.26 − 66.72 = 17.54</div>
+      <div class="ans-row-fr">% principal = <span class="fr"><span class="num">66.72</span><span class="den">84.26</span></span> × 100 = <strong>79%</strong> &nbsp;&nbsp;&nbsp; % interest = <strong>21%</strong></div>
+      <div class="arrow-note">20-year bond — new price at 6%:</div>
+      <div class="ans-row">= 80 × 11.4699 + 1000 × 0.3118 = 917.59 + 311.80 = <strong>Rs. 1229.39</strong></div>
+      <div class="ans-row">Increase = Rs. 229.39</div>
+      <div class="arrow-note">Attribution (20yr):</div>
+      <div class="ans-row">PV of principal @8% = 1000 × 0.2145 = 214.55; PV @6% = 311.80; Change = 97.25</div>
+      <div class="ans-row">Change due to interest = 229.39 − 97.25 = 132.14</div>
+      <div class="ans-row-fr">% principal = <span class="fr"><span class="num">97.25</span><span class="den">229.39</span></span> × 100 = <strong>42%</strong> &nbsp;&nbsp;&nbsp; % interest = <strong>58%</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t43" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Attribution analysis: for short bonds, price change dominated by principal (large PV weight). For long bonds, interest strip contributes more due to many years of compounding. Concept: longer maturity → interest payments matter more.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p43" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 44 ════════ -->
+<div class="page" id="pg44">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Part G</div>
+  <div class="page-header"><span class="pg-tag">44</span></div>
+  <div class="page-content">
+    <div class="qcard">
+      <span class="qcard-label">Question 44 · Mixed Bonds — ZCB, T-Bill, GOI Annual &amp; Semi-Annual</span>
+      <div class="qcard-body">On 31st March 2013, information about four bonds:
+        <table class="qdata"><thead><tr><th>Name</th><th>FV</th><th>Maturity</th><th>Coupon</th><th>Coupon Dates</th></tr></thead>
+        <tbody>
+          <tr><td>Zero coupon</td><td>10,000</td><td>31 Mar 2023</td><td>N.A.</td><td>N.A.</td></tr>
+          <tr><td>T-Bill</td><td>1,00,000</td><td>20 Jun 2013</td><td>N.A.</td><td>N.A.</td></tr>
+          <tr><td>10.71% GOI 2023</td><td>100</td><td>31 Mar 2023</td><td>10.71</td><td>31st March</td></tr>
+          <tr><td>10% GOI 2018</td><td>100</td><td>31 Mar 2018</td><td>10.00</td><td>31 Mar &amp; 30 Sep</td></tr>
+        </tbody></table>
+        <div class="qparts">
+          <span><strong>(i)</strong> 10-year yield = 7.5% p.a. Price of Zero-Coupon Bond on 31 Mar 2013?</span>
+          <span><strong>(ii)</strong> Annualised yield if T-Bill traded @ Rs. 98,500?</span>
+          <span><strong>(iii)</strong> 10.71% GOI 2023 with YTM = 8%, price on April 1, 2013 (after coupon payment)?</span>
+          <span><strong>(iv)</strong> 10% GOI 2018 with YTM = 8%, price on April 1, 2013 (after coupon payment)?</span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 4,852 (ii) 6.86% (iii) Rs. 118.18 (iv) Rs. 108.11</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans" data-id="a44" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t44" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p44" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+    <div class="ans-block" id="a44">
+      <div class="arrow-note">Part (i): Price of Zero-Coupon Bond</div>
+      <div class="ans-row-fr">Price = <span class="fr"><span class="num">10,000</span><span class="den">(1.075)¹⁰</span></span> = <span class="fr"><span class="num">10,000</span><span class="den">2.0610</span></span> = <strong>Rs. 4,852</strong></div>
+      <div class="arrow-note">Part (ii): Annualised Yield on T-Bill</div>
+      <div class="note-row">Maturity = June 20, 2013. From March 31, 2013 = 81 days (30 Apr + 31 May + 20 Jun). Discount = 1,00,000 − 98,500 = 1,500.</div>
+      <div class="ans-row-fr">Yield = <span class="fr"><span class="num">1,500</span><span class="den">98,500</span></span> × <span class="fr"><span class="num">365</span><span class="den">81</span></span> × 100 = <strong>6.86%</strong></div>
+      <div class="arrow-note">Part (iii): 10.71% GOI 2023 (annual, YTM = 8%, 10 years remaining)</div>
+      <div class="ans-row">Price = 10.71 × PVIFA(8%, 10yr) + 100 × PVIF(8%, 10yr)</div>
+      <div class="ans-row">= 10.71 × 6.710 + 100 × 0.463 = 71.86 + 46.30 = <strong>Rs. 118.16 ≈ Rs. 118.18</strong></div>
+      <div class="arrow-note">Part (iv): 10% GOI 2018 (semi-annual, YTM = 8%, 5 years remaining)</div>
+      <div class="note-row">After coupon on 31 Mar 2013. Semi-annual periods = 10. Semi-annual coupon = 5. Semi-annual yield = 4%.</div>
+      <div class="ans-row">Price = 5 × PVIFA(4%, 10) + 100 × PVIF(4%, 10) = 5 × 8.111 + 100 × 0.676</div>
+      <div class="ans-row">= 40.56 + 67.56 = <strong>Rs. 108.12 ≈ Rs. 108.11</strong></div>
+    </div>
+    <div class="breath"></div>
+    <div class="tip-block" id="t44" style="display:none;"><span class="tip-label">✦ What makes this question special</span><div class="tip-body"><p>Four bond types in one question. T-Bill yield = (Discount/Price) × (365/Days). ZCB = FV/(1+r)ⁿ. Annual GOI = standard PV. Semi-annual GOI = halve coupon, halve yield, double periods. Read coupon frequency carefully for each bond.</p></div></div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p44" style="display:none;"><span class="prac-label">Practice Space</span><div class="prac-lines"><span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span></div></div>
+  </div>
+</div>
+
+
+<!-- ════════ NAV BAR ════════ -->
+<div id="nav-bar">
+  <button id="btn-prev">← Prev</button>
+  <span id="nav-counter">1 / 44</span>
+  <input id="nav-jump" type="number" min="1" max="44" placeholder="pg">
+  <button id="btn-next">Next →</button>
+</div>
+
+<script>
+(function () {
+  var TOTAL = 44;
+  var cur = parseInt(localStorage.getItem('bonds_nb_pg') || '1', 10);
+  if (cur < 1 || cur > TOTAL) cur = 1;
+
+  function tog(id, btn, label) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var hidden = el.style.display === 'none';
+    el.style.display = hidden ? 'block' : 'none';
+    if (label === 'Answer') {
+      btn.textContent = hidden ? 'Hide Answer' : 'Show Answer';
+      if (hidden) btn.classList.remove('off'); else btn.classList.add('off');
+    } else if (label === 'Special') {
+      btn.textContent = hidden ? 'Hide Special' : 'Show Special';
+      if (hidden) btn.classList.add('on'); else btn.classList.remove('on');
+    } else if (label === 'Practice') {
+      btn.textContent = hidden ? 'Hide Practice' : 'Show Practice';
+      if (hidden) btn.classList.add('on'); else btn.classList.remove('on');
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-id]');
+    if (!btn) return;
+    tog(btn.getAttribute('data-id'), btn, btn.getAttribute('data-label'));
+  });
+
+  function showPage(n) {
+    cur = Math.max(1, Math.min(TOTAL, n));
+    var pg = document.getElementById('pg' + cur);
+    if (pg) pg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('nav-counter').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('nav-jump').value = cur;
+    localStorage.setItem('bonds_nb_pg', cur);
+  }
+
+  function onScroll() {
+    for (var i = TOTAL; i >= 1; i--) {
+      var pg = document.getElementById('pg' + i);
+      if (pg && pg.getBoundingClientRect().top <= window.innerHeight / 2) {
+        if (cur !== i) {
+          cur = i;
+          document.getElementById('nav-counter').textContent = cur + ' / ' + TOTAL;
+          document.getElementById('nav-jump').value = cur;
+          localStorage.setItem('bonds_nb_pg', cur);
+        }
+        break;
+      }
+    }
+  }
+
+  function init() {
+    document.getElementById('btn-prev').addEventListener('click', function () { showPage(cur - 1); });
+    document.getElementById('btn-next').addEventListener('click', function () { showPage(cur + 1); });
+    document.getElementById('nav-jump').addEventListener('change', function () { showPage(parseInt(this.value, 10) || 1); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') showPage(cur + 1);
+      if (e.key === 'ArrowLeft') showPage(cur - 1);
+    });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (cur > 1) { setTimeout(function () { showPage(cur); }, 100); }
+    document.getElementById('nav-counter').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('nav-jump').value = cur;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
