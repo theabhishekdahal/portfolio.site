@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 10 — Derivative Options | Study Notebook</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink-h: #1a2f5e;
+  --ink-b: #1e2d3d;
+  --ink-arrow: #3b3fa8;
+  --ink-ref: #2a7a6e;
+  --lh: 36px;
+  --header-h: calc(var(--lh) * 3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a192f;
+  font-family: 'Lora', Georgia, serif;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  margin: 36px auto !important;
+  position: relative;
+  overflow: visible;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+
+.sep-line {
+  position: absolute;
+  top: 0; left: 33mm;
+  width: 1px;
+  height: 100%;
+  background: #e05555;
+  opacity: 0.55;
+  z-index: 1;
+}
+
+.chapter-tab {
+  position: absolute;
+  top: 60px;
+  right: -1px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: 'Caveat', cursive;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--ink-h);
+  padding: 10px 5px;
+  border-radius: 4px 0 0 4px;
+  letter-spacing: 1px;
+}
+
+.page-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  padding-left: calc(33mm + 1mm);
+  padding-right: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid #dde;
+  z-index: 5;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ink-h);
+  font-weight: 700;
+}
+
+.pg-tag {
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.page-content {
+  padding-top: calc(var(--header-h) + 12px);
+  padding-left: calc(33mm + 1mm);
+  padding-right: 28px;
+  padding-bottom: 32px;
+}
+
+/* Question Card */
+.qcard {
+  background: #f3f5fc;
+  border-radius: 8px;
+  padding: 14px 16px 12px;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 8px;
+}
+
+.qcard-label {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-arrow);
+  margin-bottom: 8px;
+}
+
+.qcard-body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-b);
+  line-height: 1.65;
+}
+
+.qcard-body p { margin-bottom: 5px; }
+.qcard-body ul { margin-left: 18px; margin-bottom: 5px; }
+.qcard-body ul li { margin-bottom: 2px; }
+
+.qdata {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+}
+.qdata td { padding: 2px 12px 2px 0; vertical-align: top; }
+.qdata td:first-child { font-weight: 700; white-space: nowrap; }
+
+.qparts { margin-top: 4px; }
+.qparts span {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 2px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-b);
+}
+
+.qans {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--ink-ref);
+}
+
+.toggle-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.tbtn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: opacity 0.15s;
+}
+.tbtn:hover { opacity: 0.82; }
+
+.tbtn-ans { background: #1a7a6e; color: #fff; }
+.tbtn-ans.tbtn-on { background: #1a7a6e; }
+.tbtn-tip { background: #b47a10; color: #fff; }
+.tbtn-prac { background: var(--ink-h); color: #fff; }
+
+/* Answer Block */
+.ans-block {
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.ans-row {
+  display: block;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 15px;
+  color: var(--ink-b);
+  line-height: 1.75;
+  padding: 3px 0;
+}
+
+.ans-row-fr {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 15px;
+  color: var(--ink-b);
+  line-height: 1.75;
+  padding: 3px 0;
+}
+
+.cont-row {
+  display: block;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 15px;
+  color: var(--ink-b);
+  line-height: 1.6;
+  padding: 1px 0;
+  padding-left: 2.4em;
+}
+
+.cont-row-fr {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 15px;
+  color: var(--ink-b);
+  line-height: 1.6;
+  padding: 1px 0;
+  padding-left: 2.4em;
+}
+
+.arrow-note {
+  display: block;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  color: var(--ink-arrow);
+  line-height: 1.75;
+  padding: 3px 0;
+}
+
+.bullet-arrow {
+  display: block;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  color: var(--ink-ref);
+  line-height: 1.75;
+  padding: 3px 0;
+}
+
+.section-label {
+  display: block;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink-arrow);
+  line-height: 1.75;
+  padding: 3px 0;
+  margin-top: 8px;
+}
+
+
+.note-row {
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-b);
+  line-height: 1.5;
+  padding: 2px 0;
+}
+
+.note-row.tutorial {
+  color: #1a6b7a;
+}
+
+/* Fractions */
+.fr {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 4px;
+  font-size: 13px;
+  font-family: 'Lora', Georgia, serif;
+  line-height: 1.2;
+}
+.fr .num {
+  border-bottom: 1.5px solid currentColor;
+  padding: 0 3px 1px;
+}
+.fr .den { padding: 1px 3px 0; }
+
+/* Tables */
+.ntable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 14px;
+  color: var(--ink-b);
+  margin: 4px 0;
+}
+.ntable th, .ntable td {
+  padding: 6px 10px;
+  vertical-align: middle;
+  text-align: right;
+  line-height: 1.5;
+}
+.ntable th:first-child, .ntable td:first-child { text-align: left; }
+.ntable thead tr {
+  border-top: 1.5px solid #aab;
+  border-bottom: 1.5px solid #aab;
+  background: rgba(26,47,94,.06);
+}
+.ntable tbody tr:nth-child(odd) { background: rgba(26,47,94,.025); }
+.ntable tbody tr:nth-child(even) { background: transparent; }
+.ntable tr.tot {
+  border-top: 1.5px solid #aab;
+  background: rgba(26,47,94,.06);
+  font-weight: 700;
+}
+.ntable tr.dtot {
+  border-top: 2.5px double #aab;
+  background: rgba(26,94,47,.06);
+  font-weight: 700;
+}
+.ntable tr.sub {
+  font-style: italic;
+  color: #666;
+  font-size: 13px;
+}
+
+/* Special / Tip block */
+.tip-block {
+  background: #fffbf0;
+  border: 1px dashed rgba(180,120,20,.28);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.tip-label {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #b47a10;
+  margin-bottom: 6px;
+}
+.tip-body {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 13.5px;
+  color: var(--ink-b);
+  line-height: 1.6;
+}
+.tip-body p { margin-bottom: 4px; }
+
+/* Practice block */
+.prac-block {
+  background: #f3fff7;
+  border: 1px dashed rgba(20,140,60,.25);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 4px;
+}
+.prac-label {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #1a8040;
+  margin-bottom: 6px;
+}
+.prac-lines { margin-top: 4px; }
+.prac-line {
+  display: block;
+  height: var(--lh);
+  border-bottom: 1px solid #b8e8c8;
+}
+
+.breath { height: 8px; }
+
+/* Navigation */
+#nav-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(10,25,47,0.96);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  z-index: 1000;
+}
+
+#nav-bar button {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 5px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  min-width: 36px;
+  min-height: 36px;
+  transition: background 0.15s;
+}
+#nav-bar button:hover { background: rgba(255,255,255,0.12); }
+
+#page-counter {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: #fff;
+  min-width: 60px;
+  text-align: center;
+}
+
+#jump-input {
+  width: 48px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  padding: 5px 6px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  text-align: center;
+}
+
+#all-tip-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  padding: 5px 10px;
+  background: rgba(180,120,10,0.2);
+  border: 1px solid rgba(180,120,10,0.4);
+  color: #f0c040;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .page {
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0 auto !important;
+  }
+  .sep-line { display: none; }
+  .page-header { height: calc(var(--lh)*2); }
+  .ntable th, .ntable td { height: auto; white-space: normal; padding: 5px 8px; }
+  #nav-bar button { min-width: 36px; min-height: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ PAGE 1 ═══════════════ -->
+<div class="page" id="p1">
+  <div class="sep-line"></div>
+  <div class="chapter-tab">Ch. 10</div>
+  <div class="page-header">
+    <span class="page-title">Chapter 10 — Derivative Options</span>
+    <span class="pg-tag">1 / 19</span>
+  </div>
+  <div class="page-content">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 1 · Option Basics</span>
+      <div class="qcard-body">
+        <p>A Call Option at a strike price of 280 is selling at a premium of 23. At what share price on maturity will it break even for the buyer of the option?</p>
+        <p>Will the writer of the option also break-even at the same price?</p>
+      </div>
+      <span class="qans">Ans: Rs. 303, Yes</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a1" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t1" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p1x" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a1">
+      <div class="section-label">Breakeven price for call option buyer:</div>
+      <div class="ans-row">= Exercise price + Premium paid</div>
+      <div class="ans-row">= 280 + 23</div>
+      <div class="ans-row">= Rs. 303</div>
+      <div class="section-label">Writer's breakeven:</div>
+      <div class="ans-row">Yes, writer of the option also has the same breakeven price of Rs. 303.</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t1" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>The simplest BEP question: for a call, BEP = Exercise Price + Premium. The writer's BEP is identical to the buyer's — both break even at the same spot price at maturity.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p1x" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 2 ═══════════════ -->
+<div class="page" id="p2">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 2 · Option Basics</span>
+      <div class="qcard-body">
+        <p>A call and put exist on the same stock each of which is exercisable at Rs. 60. They now trade for:</p>
+        <table class="qdata">
+          <tr><td>Market price of Stock or stock index</td><td>Rs. 55</td></tr>
+          <tr><td>Market price of call</td><td>Rs. 9</td></tr>
+          <tr><td>Market price of put</td><td>Rs. 1</td></tr>
+        </table>
+        <p>Calculate the expiration date cash flow, investment value, and net profit from:</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>Buy 1 call</span></span>
+          <span><span>(ii)</span><span>Write 1 call</span></span>
+          <span><span>(iii)</span><span>Buy 1 put</span></span>
+          <span><span>(iv)</span><span>Write 1 put</span></span>
+        </div>
+        <p style="margin-top:6px;">for expiration date stock prices of Rs. 50, 55, 60, 65 and 70.</p>
+      </div>
+      <span class="qans">Ans: N/A</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a2" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t2" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p2" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a2">
+      <div class="section-label">Case 1: Buy 1 call (EP = Rs. 60, premium = Rs. 9)</div>
+      <table class="ntable">
+        <thead><tr><th>Expiration Stock Price</th><th>Expiration Cash Flow</th><th>Investment Value</th><th>Net Profit/(Loss)</th></tr></thead>
+        <tbody>
+          <tr><td>50</td><td>Nil</td><td>(9)</td><td>(9)</td></tr>
+          <tr><td>55</td><td>Nil</td><td>(9)</td><td>(9)</td></tr>
+          <tr><td>60</td><td>Nil</td><td>(9)</td><td>(9)</td></tr>
+          <tr><td>65</td><td>+5</td><td>(9)</td><td>(4)</td></tr>
+          <tr><td>70</td><td>+10</td><td>(9)</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Case 2: Write 1 call</div>
+      <table class="ntable">
+        <thead><tr><th>Expiration Stock Price</th><th>Expiration Cash Flow</th><th>Investment Value</th><th>Net Profit/(Loss)</th></tr></thead>
+        <tbody>
+          <tr><td>50</td><td>Nil</td><td>9</td><td>9</td></tr>
+          <tr><td>55</td><td>Nil</td><td>9</td><td>9</td></tr>
+          <tr><td>60</td><td>Nil</td><td>9</td><td>9</td></tr>
+          <tr><td>65</td><td>(5)</td><td>9</td><td>4</td></tr>
+          <tr><td>70</td><td>(10)</td><td>9</td><td>(1)</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Case 3: Buy 1 put (EP = Rs. 60, premium = Rs. 1)</div>
+      <table class="ntable">
+        <thead><tr><th>Expiration Stock Price</th><th>Expiration Cash Flow</th><th>Investment Value</th><th>Net Profit/(Loss)</th></tr></thead>
+        <tbody>
+          <tr><td>50</td><td>+10</td><td>(1)</td><td>9</td></tr>
+          <tr><td>55</td><td>+5</td><td>(1)</td><td>4</td></tr>
+          <tr><td>60</td><td>Nil</td><td>(1)</td><td>(1)</td></tr>
+          <tr><td>65</td><td>Nil</td><td>(1)</td><td>(1)</td></tr>
+          <tr><td>70</td><td>Nil</td><td>(1)</td><td>(1)</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Case 4: Write 1 put</div>
+      <table class="ntable">
+        <thead><tr><th>Expiration Stock Price</th><th>Expiration Cash Flow</th><th>Investment Value</th><th>Net Profit/(Loss)</th></tr></thead>
+        <tbody>
+          <tr><td>50</td><td>(10)</td><td>1</td><td>(9)</td></tr>
+          <tr><td>55</td><td>(5)</td><td>1</td><td>(4)</td></tr>
+          <tr><td>60</td><td>Nil</td><td>1</td><td>1</td></tr>
+          <tr><td>65</td><td>Nil</td><td>1</td><td>1</td></tr>
+          <tr><td>70</td><td>Nil</td><td>1</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t2" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>This question covers all four basic option positions simultaneously. Notice the symmetry: buyer and writer positions are mirror images — what buyer gains, writer loses, and vice versa. Cash flow at expiry is the payoff (exercise value), while investment value is the premium paid/received.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p2" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 3 ═══════════════ -->
+<div class="page" id="p3">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 3 · Option Basics</span>
+      <div class="qcard-body">
+        <p>The equity share of VCC Ltd. is quoted at 210. A 3-month call option is available at a premium of 6 per share and a 3-month put option is available at a premium of 5 per share. Ascertain the net payoffs to the option holder of a call option and a holder of put option if:</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>the strike price in both cases is Rs. 220; and</span></span>
+          <span><span>(ii)</span><span>the share price on the exercise day is Rs. 200, 210, 220, 230, 240.</span></span>
+        </div>
+        <p style="margin-top:6px;">Also indicate the price range at which the call and the put options may be gainfully exercised.</p>
+      </div>
+      <span class="qans">Ans: Net Payoff - Call: -6, -6, -6, 4, 14   Put: 15, 5, -5, -5, -5;   BEP – Call Rs. 226, Put Rs. 215</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a3" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t3" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p3" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a3">
+      <div class="section-label">Part (i): Call option (EP = Rs. 220, Premium = Rs. 6)</div>
+      <table class="ntable">
+        <thead><tr><th>Price at Expiry</th><th>Pay off</th><th>Premium paid</th><th>Net gain/(loss)</th></tr></thead>
+        <tbody>
+          <tr><td>200</td><td>Nil</td><td>(6)</td><td>(6)</td></tr>
+          <tr><td>210</td><td>Nil</td><td>(6)</td><td>(6)</td></tr>
+          <tr><td>220</td><td>Nil</td><td>(6)</td><td>(6)</td></tr>
+          <tr><td>230</td><td>+10</td><td>(6)</td><td>4</td></tr>
+          <tr><td>240</td><td>+20</td><td>(6)</td><td>14</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Part (ii): Put option (EP = Rs. 220, Premium = Rs. 5)</div>
+      <table class="ntable">
+        <thead><tr><th>Price at Expiry</th><th>Pay off</th><th>Premium paid</th><th>Net gain/(loss)</th></tr></thead>
+        <tbody>
+          <tr><td>200</td><td>+20</td><td>(5)</td><td>15</td></tr>
+          <tr><td>210</td><td>+10</td><td>(5)</td><td>5</td></tr>
+          <tr><td>220</td><td>Nil</td><td>(5)</td><td>(5)</td></tr>
+          <tr><td>230</td><td>Nil</td><td>(5)</td><td>(5)</td></tr>
+          <tr><td>240</td><td>Nil</td><td>(5)</td><td>(5)</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">BEP — Call option:</div>
+      <div class="ans-row">= Exercise price + premium = 220 + 6 = Rs. 226</div>
+      <div class="section-label">BEP — Put option:</div>
+      <div class="ans-row">= Exercise price − premium = 220 − 5 = Rs. 215</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t3" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Both call and put on the same underlying but with the same strike. Note that put BEP = EP − Premium (opposite direction from call). Gainful exercise for call: spot &gt; 226; for put: spot &lt; 215.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p3" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 4 ═══════════════ -->
+<div class="page" id="p4">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 4 · Option Basics</span>
+      <div class="qcard-body">
+        <p>Mr. A purchased a 3 months' call option for 100 shares in XYZ Ltd. at a premium of Rs. 30 per share, with an exercise price of Rs. 550. He also purchased a 3 months' put option for 100 shares of the same company at a premium of Rs. 5 per share with an exercise price of Rs. 450. The market price of the share on the date of Mr. A's purchase of options, is Rs. 500. Calculate the profit or loss that Mr. A would make assuming that the market price falls to Rs. 350 at the end of 3 months.</p>
+      </div>
+      <span class="qans">Ans: Rs. 6,500</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a4" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t4" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p4" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a4">
+      <table class="ntable">
+        <thead><tr><th></th><th>Call option @ 550</th><th>Put option @ 450</th></tr></thead>
+        <tbody>
+          <tr><td>Pay off</td><td>Nil</td><td>100</td></tr>
+          <tr><td>Premium paid</td><td>(30)</td><td>(5)</td></tr>
+          <tr><td>Net gain/(loss)</td><td>(30)</td><td>95</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Hence, overall gain to Mr. A:</div>
+      <div class="ans-row-fr">= (95 − 30) × 100</div>
+      <div class="ans-row">= Rs. 6,500</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t4" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Mr. A holds both a call and a put — a straddle-like position but with different exercise prices (strangle). When price falls to 350: call lapses (below EP 550), put pays off Rs. 100 per share (EP 450 − SP 350). Net gain is after deducting both premiums.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p4" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 5 ═══════════════ -->
+<div class="page" id="p5">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 5 · Option Basics</span>
+      <div class="qcard-body">
+        <p>Dravid Investments Ltd deals in equity derivatives. Their Current Portfolio comprises of the following instruments:</p>
+        <ul>
+          <li>Infosys 5600 Call Expiry June 2004, 2,000 Units bought at 197 each (cost)</li>
+          <li>Infosys 5700 Call Expiry June 2004, 3,600 Units bought at 131 each (cost)</li>
+          <li>Infosys 5400 Put Expiry June 2004, 4,000 Units bought at 181 each (cost)</li>
+        </ul>
+        <p style="margin-top:6px;">What will the profit or loss to Dravid Investments Ltd in the following situations?</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>Infosys closes on the expiry day at 6,041</span></span>
+          <span><span>(ii)</span><span>Infosys closes on the expiry day at 5,812</span></span>
+          <span><span>(iii)</span><span>Infosys closes on the expiry day at 5,085.</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 5,20,000; (ii) (-) Rs. 7,62,400; (iii) (-) Rs. 3,29,600</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a5" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t5" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p5" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a5">
+      <div class="section-label">Part (i): Closes at 6,041</div>
+      <div class="ans-row">Infosys 5600 Call - 2,000 units bought at 197 each → Exercise (SP > EP)</div>
+      <div class="ans-row-fr">Net gain = [(6041 − 5600) − 197] × 2000 = [441 − 197] × 2000 = 244 × 2000</div>
+      <div class="ans-row">= + 4,88,000</div>
+      <div class="ans-row">Infosys 5700 Call - 3,600 units bought at 131 each → Exercise (SP > EP)</div>
+      <div class="ans-row-fr">Net gain = [(6041 − 5700) − 131] × 3600 = [341 − 131] × 3600 = 210 × 3600</div>
+      <div class="ans-row">= + 7,56,000</div>
+      <div class="ans-row">Infosys 5400 Put - 4,000 units bought at 181 each → Do not exercise (SP > EP)</div>
+      <div class="ans-row-fr">Net loss = 181 × 4000</div>
+      <div class="ans-row">= (7,24,000)</div>
+      <div class="section-label">Overall gain/loss at expiry day 6,041:</div>
+      <div class="ans-row">= 4,88,000 + 7,56,000 − 7,24,000</div>
+      <div class="ans-row">= Rs. 5,20,000</div>
+      <div class="section-label">Part (ii): Closes at 5,812</div>
+      <table class="ntable">
+        <thead><tr><th></th><th>Call option @ 5600</th><th>Call option @ 5700</th><th>Put option @ 5400</th></tr></thead>
+        <tbody>
+          <tr><td>Pay off</td><td>212</td><td>112</td><td>Nil</td></tr>
+          <tr><td>Premium paid</td><td>(197)</td><td>(131)</td><td>(181)</td></tr>
+          <tr><td>Net gain/(loss)</td><td>15</td><td>(19)</td><td>(181)</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Net gain/(loss) when closes at 5,812:</div>
+      <div class="ans-row-fr">= (15 × 2000) + (−19 × 3600) + (−181 × 4000)</div>
+      <div class="ans-row">= 30,000 − 68,400 − 7,24,000</div>
+      <div class="ans-row">= (7,62,400)</div>
+      <div class="section-label">Part (iii): Closes at 5,085</div>
+      <div class="ans-row">5600 Call → Do not exercise (SP &lt; EP). Loss = 197 × 2000</div>
+      <div class="ans-row">5700 Call → Do not exercise (SP &lt; EP). Loss = 131 × 3600</div>
+      <div class="ans-row">5400 Put → Exercise (SP &lt; EP). Payoff per unit = 5400 − 5085 = 315. Net gain = (315 − 181) × 4000</div>
+      <div class="section-label">Net gain/(loss) when closes at 5,085:</div>
+      <div class="ans-row-fr">= (−197 × 2000) + (−131 × 3600) + (134 × 4000)</div>
+      <div class="ans-row">= −3,94,000 − 4,71,600 + 5,36,000</div>
+      <div class="ans-row">= (3,29,600)</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t5" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Portfolio of 3 different options: two calls at different strikes and one put. For each scenario, check which options are exercised (SP &gt; EP for calls; SP &lt; EP for puts) and which lapse. Net gain/(loss) per option = (payoff − cost) × units.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p5" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 6 ═══════════════ -->
+<div class="page" id="p6">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 6 · Option Basics</span>
+      <div class="qcard-body">
+        <p>Mr. X established the following spread on the Delta Corporation's stock:</p>
+        <ul>
+          <li>Purchased one 3-months call option with a premium of Rs. 30 and an exercise price of Rs. 550.</li>
+          <li>Purchased one 3-months put option with a premium of Rs. 5 and an exercise price of Rs. 450.</li>
+        </ul>
+        <p style="margin-top:4px;">Delta Corporation's stock is currently selling at 500. Determine profit or loss, if the price of Delta Corporation:</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>remains at Rs. 500 after 3 months.</span></span>
+          <span><span>(ii)</span><span>falls at Rs. 350 after 3 months.</span></span>
+          <span><span>(iii)</span><span>rises to Rs. 600.</span></span>
+        </div>
+        <p style="margin-top:4px;">Assume the size option is 100 shares of Delta Corporation.</p>
+      </div>
+      <span class="qans">Ans: (i) Net loss = Rs. 3,500; (ii) Net Gain = Rs. 6,500; (iii) Net Gain = Rs. 1,500</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a6" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t6" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p6" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a6">
+      <div class="section-label">Part (i): Price remains at Rs. 500</div>
+      <div class="ans-row">Premium paid [30 × 100 + 5 × 100] = (3,500)</div>
+      <div class="ans-row">Payoff from call option: Nil</div>
+      <div class="ans-row">Receipt under put option: Nil</div>
+      <div class="ans-row">Total loss = (3,500)</div>
+      <div class="section-label">Part (ii): Price falls to Rs. 350</div>
+      <div class="ans-row">Premium paid [as calculated above] = (3,500)</div>
+      <div class="ans-row">Payoff from call option: Nil</div>
+      <div class="ans-row-fr">Receipt under put option [100 × (450 − 350)] = 10,000</div>
+      <div class="ans-row">Total Gain/(loss) = 6,500</div>
+      <div class="section-label">Part (iii): Price rises to Rs. 600</div>
+      <div class="ans-row">Premium paid [as calculated above] = (3,500)</div>
+      <div class="ans-row-fr">Payoff from call option [100 × (600 − 550)] = 5,000</div>
+      <div class="ans-row">Receipt under put option: Nil</div>
+      <div class="ans-row">Total Gain/(loss) = 1,500</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t6" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Same structure as Q4: long strangle (call + put with different strike prices). When price stays at 500: both options lapse, total loss = premium paid (Rs. 3,500). When price falls to 350: put exercises (EP 450 > SP 350), call lapses. When price rises to 600: call exercises (SP 600 > EP 550), put lapses. This is the standard solution template for strangle strategies.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p6" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 7 ═══════════════ -->
+<div class="page" id="p7">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 7 · Fair Value — General Approach</span>
+      <div class="qcard-body">
+        <p>By using the following data calculate theoretical value of 6 months call option.</p>
+        <table class="qdata">
+          <tr><td>Strike price</td><td>= Rs. 100</td></tr>
+          <tr><td>Current price of one share</td><td>= Rs. 110</td></tr>
+          <tr><td>Rate of interest</td><td>= 10% p.a.</td></tr>
+          <tr><td>Dividend receivable after 4 months</td><td>= Rs. 5</td></tr>
+        </table>
+      </div>
+      <span class="qans">Ans: Rs. 9.92</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a7" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t7" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p7" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a7">
+      <div class="section-label">Step 1: Adjusted spot price (remove PV of dividend)</div>
+      <div class="ans-row-fr">PV of dividend = <span class="fr"><span class="num">5</span><span class="den">1 + 0·1 × <sup>4</sup>/<sub>12</sub></span></span> = <span class="fr"><span class="num">5</span><span class="den">1·0333</span></span> = Rs. 4.839</div>
+      <div class="ans-row">Adjusted spot = 110 − 4.839 = Rs. 105.161</div>
+      <div class="section-label">Step 2: FV of adjusted spot price after 6 months</div>
+      <div class="ans-row-fr">= 105.161 × (1 + 0·1 × <sup>6</sup>/<sub>12</sub>) = 105.161 × 1·05 = Rs. 110.42</div>
+      <div class="section-label">Step 3: Expected payoff (call option, EP = 100):</div>
+      <div class="ans-row">= 110.42 − 100 = Rs. 10.42</div>
+      <div class="section-label">Step 4: Fair option premium (PV of payoff):</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">10.42</span><span class="den">(1 + 0·1 × <sup>6</sup>/<sub>12</sub>)</span></span> = <span class="fr"><span class="num">10.42</span><span class="den">1·050</span></span></div>
+      <div class="ans-row">= Rs. 9.92</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t7" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>General Approach question with dividend. Key step: first remove the PV of dividend from the current spot price to get the dividend-adjusted spot. Then compute FV of the adjusted spot over the full option period. Payoff = adjusted FV − strike. Fair premium = PV of payoff discounted at risk-free rate.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p7" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 8 ═══════════════ -->
+<div class="page" id="p8">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 8 · Fair Value — General Approach</span>
+      <div class="qcard-body">
+        <p>A six months' call option for a share has the exercise price of Rs. 38 along with probabilities and price at expiration date as below:</p>
+        <table class="qdata">
+          <tr><td>Prob.</td><td>0.10</td><td>0.25</td><td>0.30</td><td>0.25</td><td>0.10</td></tr>
+          <tr><td>Price of share (Rs.)</td><td>30</td><td>36</td><td>40</td><td>44</td><td>50</td></tr>
+        </table>
+        <div class="qparts">
+          <span><span>(i)</span><span>What is the expected price of the share after six months?</span></span>
+          <span><span>(ii)</span><span>What is the Expected value of option?</span></span>
+          <span><span>(iii)</span><span>What is the value of option assuming interest rate to be 12% p.a.?</span></span>
+          <span><span>(iv)</span><span>What is the value of option assuming interest rate to be 12% p.a. continuously compounding?</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (a) Expected price = Rs. 40; (b) Expected value of option = Rs. 3.30; (c) Option value = Rs. 3.113; (d) Option Value = Rs. 3.1078</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a8" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t8" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p8" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a8">
+      <div class="section-label">Part (i): Expected price of share</div>
+      <div class="ans-row">= 30×0.1 + 36×0.25 + 40×0.30 + 44×0.25 + 50×0.10 = Rs. 40</div>
+      <div class="section-label">Part (ii): Expected value of option at expiration (EP = Rs. 38)</div>
+      <table class="ntable">
+        <thead><tr><th>Price</th><th>Payoff at maturity</th><th>Prob.</th><th>Expected payoff</th></tr></thead>
+        <tbody>
+          <tr><td>30</td><td>Nil</td><td>0.10</td><td>Nil</td></tr>
+          <tr><td>36</td><td>Nil</td><td>0.25</td><td>Nil</td></tr>
+          <tr><td>40</td><td>2</td><td>0.30</td><td>0.6</td></tr>
+          <tr><td>44</td><td>6</td><td>0.25</td><td>1.5</td></tr>
+          <tr><td>50</td><td>12</td><td>0.10</td><td>1.2</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td></td><td>3.3</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row">Expected value of option = Rs. 3.30</div>
+      <div class="section-label">Part (iii): Value of option (normal compounding):</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">3.3</span><span class="den">(1 + 0.12 × <sup>6</sup>/<sub>12</sub>)</span></span> = <span class="fr"><span class="num">3.3</span><span class="den">1.06</span></span> = Rs. 3.113</div>
+      <div class="section-label">Part (iv): Value of option (continuously compounding):</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">3.3</span><span class="den">e<sup>rn</sup></span></span> = <span class="fr"><span class="num">3.3</span><span class="den">(2.718282)<sup>0.06</sup></span></span> = <span class="fr"><span class="num">3.3</span><span class="den">1.0618</span></span> = Rs. 3.1078</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t8" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Four-part question testing all facets of the General Approach. Part (iv) introduces continuous compounding discounting (divide by e<sup>rn</sup>) vs. simple discounting in part (iii).</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p8" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 9 ═══════════════ -->
+<div class="page" id="p9">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 9 · Fair Value — General Approach</span>
+      <div class="qcard-body">
+        <p>Equity share of PQR Ltd. is presently quoted at Rs. 320. The Market Price of the share after 6 months has the following probability distribution:</p>
+        <table class="qdata">
+          <tr><td>Market Price (Rs.)</td><td>180</td><td>260</td><td>280</td><td>320</td><td>400</td></tr>
+          <tr><td>Probability</td><td>0.1</td><td>0.2</td><td>0.5</td><td>0.1</td><td>0.1</td></tr>
+        </table>
+        <p>A put option with a strike price of Rs. 300 can be written. You are required to find out expected value of option at maturity (i.e. 6 months)</p>
+      </div>
+      <span class="qans">Ans: Rs. 30</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a9" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t9" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p9" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a9">
+      <div class="section-label">Calc of expected payoff at maturity — put option @ 300:</div>
+      <table class="ntable">
+        <thead><tr><th>Price</th><th>Payoff at maturity</th><th>Prob.</th><th>Prob × Payoff</th></tr></thead>
+        <tbody>
+          <tr><td>180</td><td>120</td><td>0.1</td><td>12</td></tr>
+          <tr><td>260</td><td>40</td><td>0.2</td><td>8</td></tr>
+          <tr><td>280</td><td>20</td><td>0.5</td><td>10</td></tr>
+          <tr><td>320</td><td>Nil</td><td>0.1</td><td>Nil</td></tr>
+          <tr><td>400</td><td>Nil</td><td>0.1</td><td>Nil</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td></td><td>30</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row">So, expected value of option at maturity = Rs. 30.</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t9" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Put option payoff = max(EP − SP, 0). Only prices below 300 give payoff; prices at or above 300 the option lapses. The question asks for expected value at maturity only — no discounting required here.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p9" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 10 ═══════════════ -->
+<div class="page" id="p10">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 10 · Fair Value — General Approach</span>
+      <div class="qcard-body">
+        <p>ABC Ltd common stock has a present market price per share of Rs. 28. A 6-month call option has been written on the stock with an exercise price of Rs. 30. Presently the option has a market value of Rs. 3. At the end of 6 months, you estimate the market price of the stock to be Rs. 24 per share with a probability of 0.1, Rs. 28 with a probability of 0.2, Rs. 32 with a probability of 0.4, Rs. 37 with a probability of 0.2, and Rs. 43 with a probability of 0.1.</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>What is the expected value of share price 6 months hence? What is the expiration value of the option if that expected value of share price should prevail?</span></span>
+          <span><span>(ii)</span><span>What is the expected value of option price at expiration, assuming that the option is held to this time? Why does it differ from the option value determined in part (i)?</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Expected share price = Rs. 32.5, expiration value of option = Rs. 2.5; (ii) Expected Value of option = 3.5</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a10" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t10" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p10" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a10">
+      <div class="section-label">Part (i): Expected share price after 6 months:</div>
+      <div class="ans-row">= 24×0.1 + 28×0.2 + 32×0.4 + 37×0.2 + 43×0.1</div>
+      <div class="ans-row">= Rs. 32.5</div>
+      <div class="ans-row">Expiration value of option if expected price (32.5) prevails:</div>
+      <div class="ans-row">= 32.5 − 30 = Rs. 2.5</div>
+      <div class="section-label">Part (ii): Expected value of call option at expiration:</div>
+      <table class="ntable">
+        <thead><tr><th>Price</th><th>Expected payoff</th><th>Prob.</th><th>a × b</th></tr></thead>
+        <tbody>
+          <tr><td>24</td><td>Nil</td><td>0.1</td><td>Nil</td></tr>
+          <tr><td>28</td><td>Nil</td><td>0.2</td><td>Nil</td></tr>
+          <tr><td>32</td><td>2</td><td>0.4</td><td>0.8</td></tr>
+          <tr><td>37</td><td>7</td><td>0.2</td><td>1.4</td></tr>
+          <tr><td>43</td><td>13</td><td>0.1</td><td>1.3</td></tr>
+          <tr class="tot"><td>Total</td><td></td><td></td><td>3.5</td></tr>
+        </tbody>
+      </table>
+      <div class="note-row tutorial">T. Note: The value computed in part (i) differs from part (ii) because when an option is held till maturity, the holder will exercise it only if the spot price is favourable. Unfavourable scenarios yield zero payoff (option lapses), not a negative payoff. Using a single expected price ignores this asymmetry.</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t10" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>The key insight: flat expected price (32.5) gives option value 2.5, but scenario-by-scenario expected payoff gives 3.5. The difference arises because with options, negative payoffs in unfavourable scenarios are always zero (option lapses), so you can't use a flat expected price.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p10" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 11 ═══════════════ -->
+<div class="page" id="p11">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 11 · Fair Value — General Approach</span>
+      <div class="qcard-body">
+        <p>You as an investor had purchased a 4 months' call option on the equity shares of X Ltd. of Rs.10 of which the current market Price is Rs. 132 and the exercise Price Rs. 150. You expect the Price to range between Rs. 120 to Rs. 190. The expected share price of X Ltd. and related probability is given below:</p>
+        <table class="qdata">
+          <tr><td>Expected Price (Rs.)</td><td>120</td><td>140</td><td>160</td><td>180</td><td>190</td></tr>
+          <tr><td>Probability</td><td>.05</td><td>.20</td><td>.50</td><td>.10</td><td>.15</td></tr>
+        </table>
+        <p style="margin-top:4px;">Compute the following:</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>Expected Share Price at the end of 4 months.</span></span>
+          <span><span>(ii)</span><span>Value of Call option at the end of 4 months if the exercise price prevails.</span></span>
+          <span><span>(iii)</span><span>In case the Option is held to its maturity, what will be the expected value of the call option?</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (1) Rs. 160.50; (2) Nil; (3) Rs. 14</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a11" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t11" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p11" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a11">
+      <div class="section-label">Part (i): Expected Value of share</div>
+      <table class="ntable">
+        <thead><tr><th>Expected M.P.</th><th>Probability</th><th>M.P. × Probability</th></tr></thead>
+        <tbody>
+          <tr><td>120</td><td>0.05</td><td>6</td></tr>
+          <tr><td>140</td><td>0.2</td><td>28</td></tr>
+          <tr><td>160</td><td>0.5</td><td>80</td></tr>
+          <tr><td>180</td><td>0.1</td><td>18</td></tr>
+          <tr><td>190</td><td>0.15</td><td>28.5</td></tr>
+          <tr class="tot"><td>Expected share price</td><td></td><td>160.5</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-label">Part (ii): Value of option, if the expected price prevails.</div>
+      <div class="ans-row">If the expected price prevail, then payoff from option = Nil. [Option will lapse]</div>
+      <div class="ans-row">So, the value of option in such case is Nil.</div>
+      <div class="section-label">Part (iii): Expected value of option if option is held to its maturity</div>
+      <table class="ntable">
+        <thead><tr><th>Expected price</th><th>Pay off</th><th>Probability</th><th>Expected payoff</th></tr></thead>
+        <tbody>
+          <tr><td>120</td><td>0</td><td>0.05</td><td>0</td></tr>
+          <tr><td>140</td><td>0</td><td>0.2</td><td>0</td></tr>
+          <tr><td>160</td><td>10</td><td>0.5</td><td>5</td></tr>
+          <tr><td>180</td><td>30</td><td>0.1</td><td>3</td></tr>
+          <tr><td>190</td><td>40</td><td>0.15</td><td>6</td></tr>
+          <tr class="tot"><td>Expected Payoff</td><td></td><td></td><td>14</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row">Fair premium = Rs. 14</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t11" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Same concept as Q10. Part (ii): the question asks for value of option if the <em>expected</em> share price (Rs. 160.50) prevails as a single certain outcome. Since 160.50 &gt; 150 (EP), the payoff would be Rs. 10.50 — but the answer given in the source is Nil, treating it as if option lapses. Accept the textbook answer of Nil for exam purposes. Part (iii) correctly computes the expected payoff scenario-by-scenario.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p11" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 12 ═══════════════ -->
+<div class="page" id="p12">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 12 · Binomial — Risk Neutral Approach</span>
+      <div class="qcard-body">
+        <p>The current market price of an equity shares of penchant Ltd is Rs. 420. Within a period of 3 months, the maximum and minimum price of it is expected to be Rs. 500 and Rs. 400 respectively. If the risk-free rate of interest is 8% p.a., what should be the value of a 3 months Call option under the risk neutral method at the strike rate of Rs. 450? Given e<sup>0.02</sup> = 1.0202.</p>
+      </div>
+      <span class="qans">Ans: Value of 3 months Call option = Rs. 13.968</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a12" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t12" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p12" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a12">
+      <div class="section-label">According to Risk Neutral Approach.</div>
+      <div class="ans-row">LP = lower price = 400</div>
+      <div class="ans-row">HP = High price = 500</div>
+      <div class="ans-row-fr">p(HP) = <span class="fr"><span class="num">FV − LP</span><span class="den">HP − LP</span></span> = <span class="fr"><span class="num">428.48 − 400</span><span class="den">500 − 400</span></span> = 0.2848</div>
+      <div class="ans-row">p(LP) = 1 − p(HP) = 0.7152</div>
+      <div class="ans-row">Where, FV = FV of spot price after 3 month = 420 × e<sup>0.02</sup> = 420 × 1.0202 = 428.48</div>
+      <div class="section-label">Calc of expected pay off for call option @ 450:</div>
+      <table class="ntable">
+        <thead><tr><th>Price</th><th>Payoff</th><th>Probability</th><th>a × b</th></tr></thead>
+        <tbody>
+          <tr><td>500</td><td>50</td><td>0.2848</td><td>14.24</td></tr>
+          <tr><td>400</td><td>Nil</td><td>0.7152</td><td>Nil</td></tr>
+          <tr class="tot"><td></td><td></td><td></td><td>14.24</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-label">Fair value of option:</div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">14.24</span><span class="den">e<sup>rn</sup></span></span> = <span class="fr"><span class="num">14.24</span><span class="den">e<sup>0.02</sup></span></span> = <span class="fr"><span class="num">14.24</span><span class="den">1.0202</span></span> = Rs. 13.968</div>
+
+      <div class="ans-row">Assumption: Risk free rate given in question assumed to be 8% p.a. continuously compounded.</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t12" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First Risk Neutral Binomial question. The FV of spot price uses continuous compounding (e<sup>rn</sup>) since e<sup>0.02</sup> is given. p(HP) = (FV − LP)/(HP − LP). Then discount expected payoff by e<sup>rn</sup>.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p12" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 13 ═══════════════ -->
+<div class="page" id="p13">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 17 · Riskless Hedge Portfolio Approach</span>
+      <div class="qcard-body">
+        <p>Mr. Dayal is interested in purchasing equity shares of ABC Ltd. which are currently selling at Rs. 600 each. He expects that price of share may go up to Rs. 780 or may go down to Rs. 480 in three months. The chances of occurring such variations are 60% and 40% respectively. A call option on the shares of ABC Ltd. can be exercised at the end of three months with a strike price of Rs.630.</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>What combination of share and option should Mr. Dayal select if he wants a perfect hedge?</span></span>
+          <span><span>(ii)</span><span>What should be the value of option today (the risk-free rate is 10% p.a.)?</span></span>
+          <span><span>(iii)</span><span>What is the expected rate of return on the option?</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) 0.5 shares for every call option (ii) Rs. 65.85 (iii) 36.67%</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a17" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t17" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p17" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a17">
+      <div class="section-label">Part (i): Combination of share and option for perfect hedge</div>
+      <div class="ans-row-fr">Hedge ratio (Δ) = <span class="fr"><span class="num">V(H.P.) − V(L.P.)</span><span class="den">H.P. − L.P.</span></span> = <span class="fr"><span class="num">(780 − 630) − 0</span><span class="den">780 − 480</span></span> = 0.5 shares</div>
+      <div class="ans-row">So, Mr. Dayal should buy 0.5 shares for each call option sold.</div>
+      <div class="section-label">Part (ii): Value of option today</div>
+      <div class="ans-row">Value of option is the excess of Investment in shares over the P.V. of net position after 3 months</div>
+      <div class="ans-row">Calculation of net position:</div>
+      <table class="ntable">
+        <thead><tr><th>Price after 3m</th><th>Value of 0.5 shares</th><th>Obligation on call sold</th><th>Net position</th></tr></thead>
+        <tbody>
+          <tr><td>780</td><td>390</td><td>(150)</td><td>240</td></tr>
+          <tr><td>480</td><td>240</td><td>0</td><td>240</td></tr>
+        </tbody>
+      </table>
+      <div class="section-label">Value of option premium:</div>
+      <div class="ans-row">= Investment in share − P.V. of Net position</div>
+      <div class="ans-row-fr">= 0.5 × 600 − <span class="fr"><span class="num">240</span><span class="den">1 + 0.10 × <sup>3m</sup>/<sub>12m</sub></span></span></div>
+      <div class="ans-row">= 65.85</div>
+      <div class="section-label">Part (iii): Expected return on option</div>
+      <div class="ans-row">Option payoff to buyer at 780 = 780 − 630 = Rs. 150. At 480 = Nil.</div>
+      <table class="ntable">
+        <thead><tr><th>Option payoff</th><th>Probability</th><th>Probable payoff</th></tr></thead>
+        <tbody>
+          <tr><td>150</td><td>0.6</td><td>90</td></tr>
+          <tr><td>0</td><td>0.4</td><td>0</td></tr>
+          <tr class="tot"><td>Expected payoff</td><td></td><td>90</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Return (%) = <span class="fr"><span class="num">90 − 65.85</span><span class="den">65.85</span></span> × 100 = 36.67%</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t17" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Riskless Hedge Portfolio approach. Δ = (payoff HP − payoff LP)/(HP − LP). After finding Δ, net position at both prices must be equal (riskless). Option value = Δ·S − PV(NPP). Part (iii) uses actual probabilities (not risk-neutral) for expected return.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p17" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 14 ═══════════════ -->
+<div class="page" id="p14">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 18 · Call Put Parity Model</span>
+      <div class="qcard-body">
+        <p>Following information is available for the call and put option on the stock of M/s Pharma Ltd.</p>
+        <table class="qdata">
+          <tr><td></td><td><strong>Call</strong></td><td><strong>Put</strong></td></tr>
+          <tr><td>Expiration time</td><td>3 months</td><td>3 months</td></tr>
+          <tr><td>Risk free rate</td><td>10%</td><td>10%</td></tr>
+          <tr><td>Exercise price</td><td>Rs. 50</td><td>Rs. 50</td></tr>
+          <tr><td>Stock price</td><td>Rs. 60</td><td>Rs. 60</td></tr>
+          <tr><td>Price</td><td>Rs. 16</td><td>Rs. 2</td></tr>
+        </table>
+        <p>Determine the put-call parity working.</p>
+      </div>
+      <span class="qans">Ans: Not working</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a18" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t18" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p18" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a18">
+      <div class="section-label">As per call put parity theory</div>
+      <div class="ans-row">S + P<sub>0</sub> = C<sub>0</sub> + PV of K</div>
+      <div class="ans-row">LHS = S + P<sub>0</sub></div>
+      <div class="ans-row">= 60 + 2</div>
+      <div class="ans-row">= Rs. 62</div>
+      <div class="ans-row">RHS = C<sub>0</sub> + PV of K</div>
+      <div class="ans-row-fr">= 16 + <span class="fr"><span class="num">50</span><span class="den">(1 + 0.10 × <sup>3</sup>/<sub>12</sub>)</span></span></div>
+      <div class="ans-row">= Rs. 64.78</div>
+      <div class="ans-row">As LHS ≠ RHS, call put parity theory isn't working.</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t18" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Call-put parity equation: S + P<sub>0</sub> = C<sub>0</sub> + PV of K. Simply compute LHS and RHS and compare. If they differ, parity is violated — indicating mispricing arbitrage opportunity.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p18" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 15 ═══════════════ -->
+<div class="page" id="p15">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 19 · Call Put Parity Model</span>
+      <div class="qcard-body">
+        <p>The following information is available for a call option:</p>
+        <table class="qdata">
+          <tr><td>Time to expiration (months)</td><td>3</td></tr>
+          <tr><td>Risk free rate</td><td>8% (Compounded continuously)</td></tr>
+          <tr><td>Exercise price</td><td>€60</td></tr>
+          <tr><td>Stock price</td><td>€70</td></tr>
+          <tr><td>Call price</td><td>€14</td></tr>
+        </table>
+        <p>What is the value of a put option if the time to expiration is 3 months, risk free rate is 8%, exercise price is €60 and the stock price is €70?</p>
+      </div>
+      <span class="qans">Ans: Put value = € 2.812</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a19" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t19" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p19" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a19">
+      <div class="section-label">As per call put parity approach</div>
+      <div class="ans-row">S + P<sub>0</sub> = C<sub>0</sub> + PV of K</div>
+      <div class="ans-row-fr">Or, 70 + P<sub>0</sub> = 14 + <span class="fr"><span class="num">60</span><span class="den">e<sup>0.08 × 3/12</sup></span></span></div>
+      <div class="ans-row-fr">Or, 70 + P<sub>0</sub> − 14 = <span class="fr"><span class="num">60</span><span class="den">e<sup>0.02</sup></span></span></div>
+      <div class="ans-row-fr">Or, 56 + P<sub>0</sub> = <span class="fr"><span class="num">60</span><span class="den">(2.718282)<sup>0.02</sup></span></span></div>
+      <div class="ans-row-fr">Or, 56 + P<sub>0</sub> = <span class="fr"><span class="num">60</span><span class="den">1.02020</span></span></div>
+      <div class="ans-row">Or, 56 + P<sub>0</sub> = 58.81</div>
+      <div class="ans-row">∴ P<sub>0</sub> = € 2.81</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t19" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Compared to Q18 (simple compounding), this uses continuous compounding for PV of K: PV = K/e<sup>rn</sup>. Rearranging the parity equation gives the put value directly.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p19" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 16 ═══════════════ -->
+<div class="page" id="p16">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 21 · Black Scholes Option Pricing Model</span>
+      <div class="qcard-body">
+        <p>Following information is available for X Company's shares and Call option:</p>
+        <table class="qdata">
+          <tr><td>Current share price</td><td>Rs. 185</td></tr>
+          <tr><td>Option exercise price</td><td>Rs. 170</td></tr>
+          <tr><td>Risk free interest rate</td><td>7%</td></tr>
+          <tr><td>Time of the expiry of option</td><td>3 years</td></tr>
+          <tr><td>Standard deviation</td><td>0.18</td></tr>
+        </table>
+        <div class="qparts">
+          <span><span>(i)</span><span>Calculate the value of call option using Black-Scholes formula.</span></span>
+          <span><span>(ii)</span><span>If option is currently trading in market at Rs. 45, state whether the option is overvalued or undervalued.</span></span>
+          <span><span>(iii)</span><span>What should be the action of a rational investor in the above case?</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 51.70 (ii) Undervalued (iii) Buy</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a21" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t21" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p21" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a21">
+      <div class="section-label">As per Black Scholes model</div>
+      <div class="ans-row">Value of call option = S × N(d<sub>1</sub>) − K·e<sup>−rn</sup> × N(d<sub>2</sub>)</div>
+      <div class="ans-row-fr">= 185 × N(d<sub>1</sub>) − 170 × e<sup>−0.07×3</sup> × N(d<sub>2</sub>) &nbsp; [W.N. 1]</div>
+      <div class="ans-row-fr">= 185 × 0.8643 − 170 × e<sup>−0.21</sup> × 0.7852</div>
+      <div class="ans-row-fr">= 159.8955 − 170 × <span class="fr"><span class="num">0.7852</span><span class="den">(2.718282)<sup>0.21</sup></span></span></div>
+      <div class="ans-row-fr">= 159.8955 − 170 × <span class="fr"><span class="num">0.7852</span><span class="den">1.2337</span></span></div>
+      <div class="ans-row-fr">= 159.8955 − 170 × 0.6364</div>
+      <div class="ans-row-fr">= 159.8955 − 108.20</div>
+      <div class="ans-row">= Rs. 51.70</div>
+      <div class="section-label">W.N. 1: Calc of d<sub>1</sub> and d<sub>2</sub></div>
+      <div class="ans-row-fr">d<sub>1</sub> = <span class="fr"><span class="num">ln(<sup>S</sup>/<sub>K</sub>) + (r + <sup>σ²</sup>/<sub>2</sub>) × n</span><span class="den">σ · √n</span></span></div>
+      <div class="ans-row-fr">= <span class="fr"><span class="num">ln(<sup>185</sup>/<sub>170</sub>) + (0.07 + (0.18)<sup>2</sup>/2) × 3</span><span class="den">0.18 × √3</span></span></div>
+      <div class="ans-row">= [0.0848 + (0.07 + 0.0162) × 3] ÷ (0.18 × 1.7321)</div>
+      <div class="ans-row">= [0.0848 + 0.2586] ÷ 0.3118</div>
+      <div class="ans-row">= 0.3434 ÷ 0.3118 = 1.10</div>
+      <div class="ans-row">d<sub>2</sub> = d<sub>1</sub> − σ · √n = 1.10 − 0.18 × 1.7321 = 1.10 − 0.3118 = 0.79</div>
+      <div class="ans-row">N(d<sub>1</sub>) = N(1.10) = 0.5 + 0.3643 = 0.8643</div>
+      <div class="ans-row">N(d<sub>2</sub>) = N(0.79) = 0.5 + 0.2852 = 0.7852</div>
+      <div class="ans-row">Since quoted price (45) &lt; fair price (51.70), option is undervalued → Buy</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t21" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>First BSOPM question. Key formula: call = S·N(d<sub>1</sub>) − K·e<sup>−rn</sup>·N(d<sub>2</sub>). If quoted &lt; fair → undervalued → Buy. If quoted &gt; fair → overvalued → Sell.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p21" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 17 ═══════════════ -->
+<div class="page" id="p17">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 31 · Option Strategies</span>
+      <div class="qcard-body">
+        <p>The market received rumour about ABC corporation's tie-up with a multinational company. This has induced the market price to move up. If the rumour is false, the ABC corporation stock price will probably fall dramatically. To protect from this an investor has bought the call and put options.</p>
+        <p style="margin-top:4px;">He purchased one 3 months call with a striking price of Rs. 42 for Rs. 2 premium, and paid Re.1 per share premium for a 3 months' put with a striking price of Rs. 40.</p>
+        <div class="qparts">
+          <span><span>(i)</span><span>Determine the Investor's position if the tie up offer bids the price of ABC Corporation's stock up to Rs. 43 in 3 months.</span></span>
+          <span><span>(ii)</span><span>Determine the Investor's ending position, if the tie up programme fails and the price of the stocks falls to Rs. 36 in 3 months.</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: Rs. (200); Rs. 100 (Lot size = 100: assumed)</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a31" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t31" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p31" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a31">
+      <div class="section-label">Part (i): MP (3 month) = 43</div>
+      <table class="ntable">
+        <thead><tr><th></th><th>Call</th><th>Put</th></tr></thead>
+        <tbody>
+          <tr><td>EP</td><td>42</td><td>40</td></tr>
+          <tr><td>MP</td><td>43</td><td>43</td></tr>
+          <tr><td>Payoff</td><td>1</td><td>Nil</td></tr>
+          <tr><td>Premium</td><td>(2)</td><td>(1)</td></tr>
+          <tr><td>Loss</td><td>(1)</td><td>(1)</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Hence, total loss = 2 × 100 &nbsp; [Assume lot size 100]</div>
+      <div class="ans-row">= (200)</div>
+      <div class="section-label">Part (ii): MP (3 month) = 36</div>
+      <table class="ntable">
+        <thead><tr><th></th><th>Call</th><th>Put</th></tr></thead>
+        <tbody>
+          <tr><td>EP</td><td>42</td><td>40</td></tr>
+          <tr><td>MP</td><td>36</td><td>36</td></tr>
+          <tr><td>Payoff</td><td>Nil</td><td>4</td></tr>
+          <tr><td>Premium</td><td>(2)</td><td>(1)</td></tr>
+          <tr><td>(Loss)/Gain</td><td>(2)</td><td>3</td></tr>
+        </tbody>
+      </table>
+      <div class="ans-row-fr">Total gain = (3 − 2) × 100</div>
+      <div class="ans-row">= Rs. 100</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t31" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Long straddle-like strategy (different strike prices = strangle). When price rises to 43: call pays Rs.1 but both premiums = Rs.3 total cost → net loss Rs.200. When price falls to 36: put pays Rs.4, net gain Rs.100.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p31" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 18 ═══════════════ -->
+<div class="page" id="p18">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 30 · Residuals — Intrinsic Value & Time Value</span>
+      <div class="qcard-body">
+        <p>The stock of ABC Ltd. is currently selling for Rs. 830. Consider the option quote information of ABC Ltd.'s stock shown below:</p>
+        <table class="qdata" style="font-size:13px;">
+          <tr>
+            <td><strong>Expiration</strong></td>
+            <td><strong>Strike Price (Rs.)</strong></td>
+            <td colspan="2"><strong>Calls</strong></td>
+            <td colspan="2"><strong>Puts</strong></td>
+          </tr>
+          <tr>
+            <td></td><td></td>
+            <td>Volume</td><td>Last</td>
+            <td>Volume</td><td>Last</td>
+          </tr>
+          <tr><td>Ashadh</td><td>800</td><td>230</td><td>28</td><td>160</td><td>8</td></tr>
+          <tr><td>Shrawan</td><td>800</td><td>170</td><td>60</td><td>127</td><td>14</td></tr>
+          <tr><td>Kartik</td><td>800</td><td>139</td><td>80.50</td><td>43</td><td>39</td></tr>
+          <tr><td>Magh</td><td>800</td><td>60</td><td>102</td><td>33</td><td>36.5</td></tr>
+        </table>
+        <div class="qparts">
+          <span><span>(i)</span><span>Are the call options in the money? What is the intrinsic value of a call option?</span></span>
+          <span><span>(ii)</span><span>Are the put options in the money? What is the intrinsic value of a put option?</span></span>
+          <span><span>(iii)</span><span>Which Options are mispriced and why? Explain how you could profit from mispricing in each case?</span></span>
+        </div>
+      </div>
+      <span class="qans">Ans: (i) Rs. 30 (ii) Nil (iii) Ashadh Call and Magh Put</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a30" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t30" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p30" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a30">
+      <div class="section-label">Part (i): Call option</div>
+      <div class="ans-row">Intrinsic value = pay off = SP − EP = 830 − 800 = Rs. 30</div>
+      <div class="ans-row">All call options are "in the money" as SP &gt; EP.</div>
+      <div class="section-label">Part (ii): Put option</div>
+      <div class="ans-row">IV = pay off = 0 (800 − 830 = −30 → negative, so lapsed)</div>
+      <div class="ans-row">All put options are "out of money" as SP &gt; EP. IV = Nil.</div>
+      <div class="section-label">Part (iii): Mispriced options</div>
+      <div class="ans-row">Ashadh call option trading below its intrinsic value:</div>
+      <div class="ans-row">In this case IV = Rs. 30, but option premium = Rs. 28</div>
+      <div class="ans-row">So, time value = 30 − 28 = −2</div>
+      <div class="ans-row">This is an indication that Ashadh call option is undervalued. So, one should buy Ashadh call to make some profit.</div>
+
+      <div class="ans-row">Magh's put option trading below Kartik's put option:</div>
+      <div class="ans-row">All put options have IV = 0 (SP > EP, so puts are out of the money).</div>
+      <div class="ans-row">So the price quoted (premium quoted) is a result of time value only. Time value should have been higher for Magh put as there exist additional risk of three months compared to Kartik's put. Therefore, Kartik put may have been overvalued &amp; Magh put may have been undervalued. So, one should buy Magh's put &amp; sell Kartik put option to earn profit.</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t30" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Tests intrinsic value (IV) and time value concepts. For calls: IV = max(SP − EP, 0). For puts: IV = max(EP − SP, 0). Mispricing: if option trades below IV, it's undervalued (buy it). Magh put anomaly: further expiry should have higher time value than shorter expiry.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p30" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 19 ═══════════════ -->
+<div class="page" id="p19">
+  <div class="sep-line"></div>
+  <div class="page-content" style="padding-top:24px;">
+
+    <div class="qcard">
+      <span class="qcard-label">Question 20 · Call Put Parity Model</span>
+      <div class="qcard-body">
+        <p>Aptex Ltd. has both call and put options traded on NSE. Both options have an expiration date 6 months and exercise price of 30. The call and put are currently selling for Rs. 4 respectively. If the risk free rate of interest is 6% p.a., what would be the stock price of Aptex. Ltd.? [Given PVIF (6%, 0.5 yrs) = 0.9709].</p>
+      </div>
+      <span class="qans">Ans: Price = Rs. 29.13</span>
+      <div class="toggle-row">
+        <button class="tbtn tbtn-ans tbtn-on" data-id="a20" data-label="Answer">Hide Answer</button>
+        <button class="tbtn tbtn-tip" data-id="t20" data-label="Special">Show Special</button>
+        <button class="tbtn tbtn-prac" data-id="p20" data-label="Practice">Show Practice</button>
+      </div>
+    </div>
+
+    <div class="ans-block" id="a20">
+      <div class="section-label">As per call put parity approach</div>
+      <div class="ans-row">S + P<sub>0</sub> = C<sub>0</sub> + PV of K</div>
+      <div class="ans-row-fr">Or, S + 4 = 4 + 30 × PVIF (6%, 0.5yr)</div>
+      <div class="ans-row">Or, S = 30 × 0.9709</div>
+      <div class="ans-row">∴ S = Rs. 29.13</div>
+      <div class="ans-row">Hence, stock price = Rs. 29.13</div>
+    </div>
+
+    <div class="breath"></div>
+    <div class="tip-block" id="t20" style="display:none;">
+      <span class="tip-label">✦ What makes this question special</span>
+      <div class="tip-body"><p>Call and put prices are equal (both Rs. 4), so they cancel from both sides of the parity equation, leaving S = PV of K directly. Uses PVIF table value rather than computing discount factor.</p></div>
+    </div>
+    <div class="breath"></div>
+    <div class="prac-block" id="p20" style="display:none;">
+      <span class="prac-label">Practice Space</span>
+      <div class="prac-lines">
+        <span class="prac-line"></span><span class="prac-line"></span><span class="prac-line"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Navigation -->
+<div id="nav-bar">
+  <button id="prev-btn">← Prev</button>
+  <span id="page-counter">1 / 19</span>
+  <button id="next-btn">Next →</button>
+  <input type="number" id="jump-input" min="1" max="19" placeholder="Go">
+  <button id="all-tip-btn">✦ All Specials</button>
+</div>
+
+<script>
+(function() {
+  var TOTAL = 19;
+  var PAGE_IDS = ['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19'];
+  var currentPage = 1;
+  var allSpecialsOn = false;
+
+  function getPageEl(n) { return document.getElementById(PAGE_IDS[n-1]); }
+
+  function updateCounter() {
+    document.getElementById('page-counter').textContent = currentPage + ' / ' + TOTAL;
+  }
+
+  function goToPage(n) {
+    if (n < 1 || n > TOTAL) return;
+    currentPage = n;
+    updateCounter();
+    var el = getPageEl(n);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    try { localStorage.setItem('deriv_opt_page', n); } catch(e) {}
+  }
+
+  // Scroll observer for counter
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var idx = PAGE_IDS.indexOf(entry.target.id);
+        if (idx !== -1) {
+          currentPage = idx + 1;
+          updateCounter();
+          try { localStorage.setItem('deriv_opt_page', currentPage); } catch(e) {}
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  function tog(id, btn, label) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var visible = el.style.display !== 'none';
+    el.style.display = visible ? 'none' : 'block';
+    if (btn) {
+      if (label === 'Answer') {
+        btn.textContent = visible ? 'Show Answer' : 'Hide Answer';
+        btn.classList.toggle('tbtn-on', !visible);
+      } else if (label === 'Special') {
+        btn.textContent = visible ? 'Show Special' : 'Hide Special';
+      } else if (label === 'Practice') {
+        btn.textContent = visible ? 'Show Practice' : 'Hide Practice';
+      }
+    }
+  }
+
+  function init() {
+    PAGE_IDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-id]');
+      if (!btn) return;
+      tog(btn.getAttribute('data-id'), btn, btn.getAttribute('data-label'));
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', function() { goToPage(currentPage - 1); });
+    document.getElementById('next-btn').addEventListener('click', function() { goToPage(currentPage + 1); });
+
+    document.getElementById('jump-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { goToPage(parseInt(this.value) || 1); this.value = ''; }
+    });
+
+    document.getElementById('all-tip-btn').addEventListener('click', function() {
+      allSpecialsOn = !allSpecialsOn;
+      var tipBlocks = document.querySelectorAll('.tip-block');
+      tipBlocks.forEach(function(tb) { tb.style.display = allSpecialsOn ? 'block' : 'none'; });
+      document.getElementById('all-tip-btn').textContent = allSpecialsOn ? '✦ Hide All' : '✦ All Specials';
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key === 'ArrowRight') goToPage(currentPage + 1);
+      if (e.key === 'ArrowLeft') goToPage(currentPage - 1);
+      if (e.altKey && e.key === 's') { document.getElementById('all-tip-btn').click(); }
+    });
+
+    // Restore page
+    try {
+      var saved = parseInt(localStorage.getItem('deriv_opt_page'));
+      if (saved && saved >= 1 && saved <= TOTAL) {
+        setTimeout(function() { goToPage(saved); }, 200);
+      }
+    } catch(e) {}
+
+    updateCounter();
+
+    // Grid snap
+    document.fonts.ready.then(function() {
+      var lh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--lh')) || 36;
+      document.querySelectorAll('.ans-block').forEach(function(block) {
+        var page = block.closest('.page');
+        if (!page) return;
+        var content = page.querySelector('.page-content');
+        if (!content) return;
+        var contentTop = content.getBoundingClientRect().top + window.scrollY;
+        var blockTop = block.getBoundingClientRect().top + window.scrollY;
+        var offset = blockTop - contentTop;
+        var remainder = offset % lh;
+        if (remainder > 1) {
+          block.style.paddingTop = (lh - remainder) + 'px';
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
